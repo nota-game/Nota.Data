@@ -36,5 +36,10 @@ namespace Nota.Data
 
         public IReadOnlyList<TalentReference> Talents { get; }
 
+        public CharacterData CreateCharacter()
+        {
+            return new CharacterData(this);
+        }
+
     }
 }

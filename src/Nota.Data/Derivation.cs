@@ -5,7 +5,7 @@ namespace Nota.Data
 {
     public abstract class DerivationCollection : AbstractDerivation
     {
-        public IList<AbstractDerivation> Derivations { get; }
+        public IList<AbstractDerivation> Derivations { get; } = new List<AbstractDerivation>();
 
     }
     public class DerivationAll : DerivationCollection
@@ -33,6 +33,6 @@ namespace Nota.Data
 
         public TalentReference Talent { get; }
         public int Count { get; }
-        
+
     }
 }

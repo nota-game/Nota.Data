@@ -5,7 +5,7 @@ using Nota.Data.Generated.Talent;
 
 namespace Nota.Data
 {
-    public class TalentReference
+    public class TalentReference : IEquatable<TalentReference>
     {
         private readonly TalenteTalent item;
 
@@ -146,6 +146,44 @@ namespace Nota.Data
 
                 TalentReference SearchTalent(string name) => talentLookup[name];
             }
+        }
+
+        public override bool Equals(object obj)
+        {
+            return this.Equals(obj as TalentReference);
+        }
+
+        public bool Equals(TalentReference other)
+        {
+            return other != null &&
+                   EqualityComparer<TalenteTalent>.Default.Equals(this.item, other.item) &&
+                   EqualityComparer<Check>.Default.Equals(this.Check, other.Check) &&
+                   this.Description == other.Description &&
+                   this.Category == other.Category &&
+                   this.Compexety == other.Compexety &&
+                   this.Name == other.Name;
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = 1214502178;
+            hashCode = hashCode * -1521134295 + EqualityComparer<TalenteTalent>.Default.GetHashCode(this.item);
+            hashCode = hashCode * -1521134295 + EqualityComparer<Check>.Default.GetHashCode(this.Check);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(this.Description);
+            hashCode = hashCode * -1521134295 + this.Category.GetHashCode();
+            hashCode = hashCode * -1521134295 + this.Compexety.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(this.Name);
+            return hashCode;
+        }
+
+        public static bool operator ==(TalentReference left, TalentReference right)
+        {
+            return EqualityComparer<TalentReference>.Default.Equals(left, right);
+        }
+
+        public static bool operator !=(TalentReference left, TalentReference right)
+        {
+            return !(left == right);
         }
     }
 }

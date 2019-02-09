@@ -13,7 +13,7 @@ namespace Nota.Data
 
         public static int CalculateTotalCostForLevel(Compexety compexety, int level)
         {
-            if (level < 1)
+            if (level < 0)
                 throw new ArgumentOutOfRangeException(nameof(level), level, $"Level must be poseitive");
             var complexetyModifier = (int)compexety;
 
@@ -22,13 +22,14 @@ namespace Nota.Data
 
         public static int CalculateIncreaseCostForLevel(Compexety compexety, int level)
         {
-            if (level < 1)
+            if (level < 0)
                 throw new ArgumentOutOfRangeException(nameof(level), level, $"Level must be poseitive");
+            
 
             return CalculateTotalCostForLevel(compexety, level) - (level > 1 ? CalculateTotalCostForLevel(compexety, level - 1) : 0);
         }
 
-        public static double CalculateLevelFromSpentExpirience(Compexety compexety, int exp)
+        public static int CalculateLevelFromSpentExpirience(Compexety compexety, int exp)
         {
             if (exp == 0)
                 return 0;
@@ -36,7 +37,7 @@ namespace Nota.Data
             var z = (int)compexety;
             var x = (Expression.Sqrt(z * (4 * a * (exp - c * z) + b * b * z)) - b * z) / (2 * a * z);
 
-            return Math.Floor(Evaluate.Evaluate(null, x).RealValue);
+            return (int)Math.Floor(Evaluate.Evaluate(null, x).RealValue);
         }
 
     }

@@ -5,7 +5,7 @@ using Nota.Data.Generated.Talent;
 
 namespace Nota.Data
 {
-    public struct Check
+    public struct Check : IEquatable<Check>
     {
         private readonly Attribute first;
         private readonly Attribute seccond;
@@ -87,6 +87,37 @@ namespace Nota.Data
                         throw new IndexOutOfRangeException($"Index must between 0 and 2. Was {index}");
                 }
             }
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Check check && this.Equals(check);
+        }
+
+        public bool Equals(Check other)
+        {
+            return this.first == other.first &&
+                   this.seccond == other.seccond &&
+                   this.thired == other.thired;
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = 1385920190;
+            hashCode = hashCode * -1521134295 + this.first.GetHashCode();
+            hashCode = hashCode * -1521134295 + this.seccond.GetHashCode();
+            hashCode = hashCode * -1521134295 + this.thired.GetHashCode();
+            return hashCode;
+        }
+
+        public static bool operator ==(Check left, Check right)
+        {
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(Check left, Check right)
+        {
+            return !(left == right);
         }
     }
 }
