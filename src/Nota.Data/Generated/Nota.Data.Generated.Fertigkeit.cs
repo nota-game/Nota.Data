@@ -25,7 +25,7 @@ namespace Nota.Data.Generated.Fertigkeit
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlRootAttribute("Fertigkeiten", Namespace="http://nota-game.azurewebsites.net/schema/fertigkeit")]
-    internal partial class Fertigkeiten
+    public partial class Fertigkeiten
     {
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
@@ -76,7 +76,7 @@ namespace Nota.Data.Generated.Fertigkeit
     [System.Xml.Serialization.XmlTypeAttribute("FertigkeitenFertigkeit", Namespace="http://nota-game.azurewebsites.net/schema/fertigkeit", AnonymousType=true)]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class FertigkeitenFertigkeit
+    public partial class FertigkeitenFertigkeit
     {
         
         /// <summary>
@@ -102,7 +102,7 @@ namespace Nota.Data.Generated.Fertigkeit
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlRootAttribute("Fertigkeit", Namespace="http://nota-game.azurewebsites.net/schema/fertigkeit")]
-    internal partial class Fertigkeit : Nota.Data.Generated.Misc.NamedType
+    public partial class Fertigkeit : Nota.Data.Generated.Misc.NamedType
     {
     }
 }

@@ -84,7 +84,7 @@ namespace Nota.Data.Generated.Kampf.Aktionen
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlRootAttribute("Taktiken", Namespace="http://nota-game.azurewebsites.net/schema/kampf/aktionen")]
-    internal partial class Taktiken
+    public partial class Taktiken
     {
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
@@ -167,7 +167,7 @@ namespace Nota.Data.Generated.Kampf.Aktionen
     [System.Xml.Serialization.XmlTypeAttribute("TaktikenTaktik", Namespace="http://nota-game.azurewebsites.net/schema/kampf/aktionen", AnonymousType=true)]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class TaktikenTaktik : Nota.Data.Generated.Misc.INamedElement
+    public partial class TaktikenTaktik : Nota.Data.Generated.Misc.INamedElement
     {
         
         /// <summary>
@@ -274,7 +274,7 @@ namespace Nota.Data.Generated.Kampf.Aktionen
     [System.Xml.Serialization.XmlTypeAttribute("TaktikenTaktikMod", Namespace="http://nota-game.azurewebsites.net/schema/kampf/aktionen", AnonymousType=true)]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class TaktikenTaktikMod
+    public partial class TaktikenTaktikMod
     {
         
         /// <summary>
@@ -316,7 +316,7 @@ namespace Nota.Data.Generated.Kampf.Aktionen
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlRootAttribute("ConcreteModValueType", Namespace="http://nota-game.azurewebsites.net/schema/kampf/aktionen")]
-    internal partial class ConcreteModValueType
+    public partial class ConcreteModValueType
     {
         
         /// <summary>
@@ -338,7 +338,7 @@ namespace Nota.Data.Generated.Kampf.Aktionen
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlRootAttribute("VariableModValueType", Namespace="http://nota-game.azurewebsites.net/schema/kampf/aktionen")]
-    internal partial class VariableModValueType
+    public partial class VariableModValueType
     {
         
         /// <summary>
@@ -355,7 +355,7 @@ namespace Nota.Data.Generated.Kampf.Aktionen
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlRootAttribute("SubstractModValueType", Namespace="http://nota-game.azurewebsites.net/schema/kampf/aktionen")]
-    internal partial class SubstractModValueType
+    public partial class SubstractModValueType
     {
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
@@ -535,7 +535,7 @@ namespace Nota.Data.Generated.Kampf.Aktionen
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlRootAttribute("AddModValueType", Namespace="http://nota-game.azurewebsites.net/schema/kampf/aktionen")]
-    internal partial class AddModValueType
+    public partial class AddModValueType
     {
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
@@ -715,7 +715,7 @@ namespace Nota.Data.Generated.Kampf.Aktionen
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlRootAttribute("MultiplyModValueType", Namespace="http://nota-game.azurewebsites.net/schema/kampf/aktionen")]
-    internal partial class MultiplyModValueType
+    public partial class MultiplyModValueType
     {
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
@@ -894,7 +894,7 @@ namespace Nota.Data.Generated.Kampf.Aktionen
     [System.Xml.Serialization.XmlTypeAttribute("TaktikenTaktikEigenschaften", Namespace="http://nota-game.azurewebsites.net/schema/kampf/aktionen", AnonymousType=true)]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class TaktikenTaktikEigenschaften
+    public partial class TaktikenTaktikEigenschaften
     {
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
@@ -933,7 +933,7 @@ namespace Nota.Data.Generated.Kampf.Aktionen
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlRootAttribute("Eigenschaft", Namespace="http://nota-game.azurewebsites.net/schema/kampf/aktionen")]
-    internal partial class Eigenschaft : Nota.Data.Generated.Misc.INamedElement
+    public partial class Eigenschaft : Nota.Data.Generated.Misc.INamedElement
     {
         
         /// <summary>
@@ -983,7 +983,7 @@ namespace Nota.Data.Generated.Kampf.Aktionen
     [System.Xml.Serialization.XmlTypeAttribute("TaktikenEigenschaften", Namespace="http://nota-game.azurewebsites.net/schema/kampf/aktionen", AnonymousType=true)]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class TaktikenEigenschaften
+    public partial class TaktikenEigenschaften
     {
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
@@ -1034,7 +1034,7 @@ namespace Nota.Data.Generated.Kampf.Aktionen
     [System.Xml.Serialization.XmlTypeAttribute("TaktikenEigenschaftenEigenschaft", Namespace="http://nota-game.azurewebsites.net/schema/kampf/aktionen", AnonymousType=true)]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class TaktikenEigenschaftenEigenschaft
+    public partial class TaktikenEigenschaftenEigenschaft
     {
         
         /// <summary>

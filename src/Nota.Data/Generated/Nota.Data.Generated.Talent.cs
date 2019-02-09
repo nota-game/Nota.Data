@@ -25,7 +25,7 @@ namespace Nota.Data.Generated.Talent
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlRootAttribute("Talent", Namespace="http://nota-game.azurewebsites.net/schema/talent")]
-    internal partial class Talent : Nota.Data.Generated.Misc.INamedElement
+    public partial class Talent : Nota.Data.Generated.Misc.INamedElement
     {
         
         /// <summary>
@@ -111,7 +111,7 @@ namespace Nota.Data.Generated.Talent
     [System.Xml.Serialization.XmlTypeAttribute("AbleitungsAuswahl", Namespace="http://nota-game.azurewebsites.net/schema/talent")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class AbleitungsAuswahl
+    public partial class AbleitungsAuswahl
     {
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
@@ -195,7 +195,7 @@ namespace Nota.Data.Generated.Talent
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlRootAttribute("Ableitung", Namespace="http://nota-game.azurewebsites.net/schema/talent")]
-    internal partial class Ableitung : Nota.Data.Generated.Misc.INamedElement
+    public partial class Ableitung : Nota.Data.Generated.Misc.INamedElement
     {
         
         /// <summary>
@@ -217,7 +217,7 @@ namespace Nota.Data.Generated.Talent
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlRootAttribute("Max", Namespace="http://nota-game.azurewebsites.net/schema/talent")]
-    internal partial class Max
+    public partial class Max
     {
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
@@ -320,7 +320,7 @@ namespace Nota.Data.Generated.Talent
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlRootAttribute("Talente", Namespace="http://nota-game.azurewebsites.net/schema/talent")]
-    internal partial class Talente
+    public partial class Talente
     {
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
@@ -371,7 +371,7 @@ namespace Nota.Data.Generated.Talent
     [System.Xml.Serialization.XmlTypeAttribute("TalenteTalent", Namespace="http://nota-game.azurewebsites.net/schema/talent", AnonymousType=true)]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class TalenteTalent
+    public partial class TalenteTalent
     {
         
         /// <summary>
@@ -455,7 +455,7 @@ namespace Nota.Data.Generated.Talent
     [System.Xml.Serialization.XmlTypeAttribute("TalenteTalentProbe", Namespace="http://nota-game.azurewebsites.net/schema/talent", AnonymousType=true)]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class TalenteTalentProbe
+    public partial class TalenteTalentProbe
     {
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
@@ -858,7 +858,7 @@ namespace Nota.Data.Generated.Talent
     [System.Xml.Serialization.XmlTypeAttribute("TalenteTalentBedingugen", Namespace="http://nota-game.azurewebsites.net/schema/talent", AnonymousType=true)]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class TalenteTalentBedingugen
+    public partial class TalenteTalentBedingugen
     {
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
@@ -896,7 +896,7 @@ namespace Nota.Data.Generated.Talent
     [System.Xml.Serialization.XmlTypeAttribute("TalenteTalentBedingugenBedingung", Namespace="http://nota-game.azurewebsites.net/schema/talent")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class TalenteTalentBedingugenBedingung : Nota.Data.Generated.Misc.BedingungsAuswahl
+    public partial class TalenteTalentBedingugenBedingung : Nota.Data.Generated.Misc.BedingungsAuswahl
     {
         
         /// <summary>

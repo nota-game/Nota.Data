@@ -32,7 +32,7 @@ namespace Nota.Data.Generated.Misc
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(NamedTypeOptionalValue))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(NamedTypeReqiredeValue))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Nota.Data.Generated.Profession.Profession))]
-    internal partial class NamedType : INamedElement
+    public partial class NamedType : INamedElement
     {
         
         /// <summary>
@@ -63,7 +63,7 @@ namespace Nota.Data.Generated.Misc
     [System.Xml.Serialization.XmlTypeAttribute("NamedTypeReqiredeValue", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class NamedTypeReqiredeValue : NamedType
+    public partial class NamedTypeReqiredeValue : NamedType
     {
         
         /// <summary>
@@ -79,7 +79,7 @@ namespace Nota.Data.Generated.Misc
     [System.Xml.Serialization.XmlTypeAttribute("NamedTypeOptionalValue", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class NamedTypeOptionalValue : NamedType
+    public partial class NamedTypeOptionalValue : NamedType
     {
         
         /// <summary>
@@ -127,7 +127,7 @@ namespace Nota.Data.Generated.Misc
     [System.Xml.Serialization.XmlTypeAttribute("LevelAuswahl", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class LevelAuswahl
+    public partial class LevelAuswahl
     {
         
         /// <summary>
@@ -158,7 +158,7 @@ namespace Nota.Data.Generated.Misc
     [System.Xml.Serialization.XmlTypeAttribute("LevelAuswahlen", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class LevelAuswahlen
+    public partial class LevelAuswahlen
     {
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
@@ -306,7 +306,7 @@ namespace Nota.Data.Generated.Misc
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Nota.Data.Generated.Talent.TalenteTalentBedingugenBedingung))]
-    internal partial class BedingungsAuswahl
+    public partial class BedingungsAuswahl
     {
         
         /// <summary>
@@ -347,7 +347,7 @@ namespace Nota.Data.Generated.Misc
     [System.Xml.Serialization.XmlTypeAttribute("BedingungsAuswahlen", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class BedingungsAuswahlen
+    public partial class BedingungsAuswahlen
     {
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
@@ -578,7 +578,7 @@ namespace Nota.Data.Generated.Misc
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlRootAttribute("Levels", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
-    internal partial class Levels
+    public partial class Levels
     {
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
@@ -619,7 +619,7 @@ namespace Nota.Data.Generated.Misc
     [System.Xml.Serialization.XmlTypeAttribute("LevelsLevel", Namespace="http://nota-game.azurewebsites.net/schema/misc", AnonymousType=true)]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class LevelsLevel : Nota.Data.Generated.Misc.IKostenElement
+    public partial class LevelsLevel : Nota.Data.Generated.Misc.IKostenElement
     {
         
         /// <summary>
@@ -768,7 +768,7 @@ namespace Nota.Data.Generated.Misc
     [System.Xml.Serialization.XmlTypeAttribute("LevelsLevelBedingungen", Namespace="http://nota-game.azurewebsites.net/schema/misc", AnonymousType=true)]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class LevelsLevelBedingungen
+    public partial class LevelsLevelBedingungen
     {
         
         /// <summary>

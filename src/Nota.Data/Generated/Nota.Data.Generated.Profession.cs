@@ -25,7 +25,7 @@ namespace Nota.Data.Generated.Profession
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlRootAttribute("Not", Namespace="http://nota-game.azurewebsites.net/schema/profession")]
-    internal partial class ProfessionAuswahl
+    public partial class ProfessionAuswahl
     {
         
         /// <summary>
@@ -58,7 +58,7 @@ namespace Nota.Data.Generated.Profession
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlRootAttribute("Or", Namespace="http://nota-game.azurewebsites.net/schema/profession")]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(And))]
-    internal partial class ProfessionAuswahlen
+    public partial class ProfessionAuswahlen
     {
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
@@ -205,7 +205,7 @@ namespace Nota.Data.Generated.Profession
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlRootAttribute("Profession", Namespace="http://nota-game.azurewebsites.net/schema/profession")]
-    internal partial class Profession : Nota.Data.Generated.Misc.NamedType
+    public partial class Profession : Nota.Data.Generated.Misc.NamedType
     {
     }
     
@@ -216,7 +216,7 @@ namespace Nota.Data.Generated.Profession
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlRootAttribute("And", Namespace="http://nota-game.azurewebsites.net/schema/profession")]
-    internal partial class And : ProfessionAuswahlen
+    public partial class And : ProfessionAuswahlen
     {
     }
     
@@ -228,7 +228,7 @@ namespace Nota.Data.Generated.Profession
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlRootAttribute("Professionen", Namespace="http://nota-game.azurewebsites.net/schema/profession")]
-    internal partial class Professionen
+    public partial class Professionen
     {
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
@@ -279,7 +279,7 @@ namespace Nota.Data.Generated.Profession
     [System.Xml.Serialization.XmlTypeAttribute("ProfessionenProfession", Namespace="http://nota-game.azurewebsites.net/schema/profession", AnonymousType=true)]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class ProfessionenProfession : Nota.Data.Generated.Misc.INamedElement
+    public partial class ProfessionenProfession : Nota.Data.Generated.Misc.INamedElement
     {
         
         /// <summary>

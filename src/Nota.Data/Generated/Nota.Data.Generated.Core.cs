@@ -25,7 +25,7 @@ namespace Nota.Data.Generated.Core
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlRootAttribute("Daten", Namespace="http://nota-game.azurewebsites.net/schema/nota")]
-    internal partial class Daten
+    public partial class Daten
     {
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
@@ -216,7 +216,7 @@ namespace Nota.Data.Generated.Core
     [System.Xml.Serialization.XmlTypeAttribute("DatenPfade", Namespace="http://nota-game.azurewebsites.net/schema/nota", AnonymousType=true)]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class DatenPfade
+    public partial class DatenPfade
     {
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
@@ -254,7 +254,7 @@ namespace Nota.Data.Generated.Core
     [System.Xml.Serialization.XmlTypeAttribute("DatenPfadePfadAuswahl", Namespace="http://nota-game.azurewebsites.net/schema/nota", AnonymousType=true)]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class DatenPfadePfadAuswahl : Nota.Data.Generated.Misc.INamedElement
+    public partial class DatenPfadePfadAuswahl : Nota.Data.Generated.Misc.INamedElement
     {
         
         /// <summary>
@@ -346,7 +346,7 @@ namespace Nota.Data.Generated.Core
     [System.Xml.Serialization.XmlTypeAttribute("DatenPfadePfadAuswahlPfad", Namespace="http://nota-game.azurewebsites.net/schema/nota", AnonymousType=true)]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class DatenPfadePfadAuswahlPfad : Nota.Data.Generated.Misc.INamedElement
+    public partial class DatenPfadePfadAuswahlPfad : Nota.Data.Generated.Misc.INamedElement
     {
         
         /// <summary>
@@ -480,7 +480,7 @@ namespace Nota.Data.Generated.Core
     [System.Xml.Serialization.XmlTypeAttribute("DatenPfadePfadAuswahlPfadBedingung", Namespace="http://nota-game.azurewebsites.net/schema/nota", AnonymousType=true)]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class DatenPfadePfadAuswahlPfadBedingung
+    public partial class DatenPfadePfadAuswahlPfadBedingung
     {
         
         /// <summary>

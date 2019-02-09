@@ -24,7 +24,7 @@ namespace Nota.Data.Generated.Kampf.Ausstattung
     [System.Xml.Serialization.XmlTypeAttribute("Schaden", Namespace="http://nota-game.azurewebsites.net/schema/kampf/ausstattung")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class Schaden
+    public partial class Schaden
     {
         
         /// <summary>
@@ -81,7 +81,7 @@ namespace Nota.Data.Generated.Kampf.Ausstattung
     [System.Xml.Serialization.XmlTypeAttribute("Schutzwert", Namespace="http://nota-game.azurewebsites.net/schema/kampf/ausstattung")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class Schutzwert
+    public partial class Schutzwert
     {
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
@@ -119,7 +119,7 @@ namespace Nota.Data.Generated.Kampf.Ausstattung
     [System.Xml.Serialization.XmlTypeAttribute("SchutzwertSchutz", Namespace="http://nota-game.azurewebsites.net/schema/kampf/ausstattung", AnonymousType=true)]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class SchutzwertSchutz
+    public partial class SchutzwertSchutz
     {
         
         /// <summary>
@@ -214,7 +214,7 @@ namespace Nota.Data.Generated.Kampf.Ausstattung
     [System.Xml.Serialization.XmlTypeAttribute("Rüstwert", Namespace="http://nota-game.azurewebsites.net/schema/kampf/ausstattung")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class Rüstwert
+    public partial class Rüstwert
     {
         
         /// <summary>
@@ -231,7 +231,7 @@ namespace Nota.Data.Generated.Kampf.Ausstattung
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlRootAttribute("Ausstattung", Namespace="http://nota-game.azurewebsites.net/schema/kampf/ausstattung")]
-    internal partial class Ausstattung
+    public partial class Ausstattung
     {
         
         /// <summary>
@@ -295,7 +295,7 @@ namespace Nota.Data.Generated.Kampf.Ausstattung
     [System.Xml.Serialization.XmlTypeAttribute("AusstattungWaffen", Namespace="http://nota-game.azurewebsites.net/schema/kampf/ausstattung", AnonymousType=true)]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class AusstattungWaffen
+    public partial class AusstattungWaffen
     {
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
@@ -378,7 +378,7 @@ namespace Nota.Data.Generated.Kampf.Ausstattung
     [System.Xml.Serialization.XmlTypeAttribute("AusstattungWaffenNahkampfwaffe", Namespace="http://nota-game.azurewebsites.net/schema/kampf/ausstattung", AnonymousType=true)]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class AusstattungWaffenNahkampfwaffe : Nota.Data.Generated.Misc.INamedElement
+    public partial class AusstattungWaffenNahkampfwaffe : Nota.Data.Generated.Misc.INamedElement
     {
         
         /// <summary>
@@ -535,7 +535,7 @@ namespace Nota.Data.Generated.Kampf.Ausstattung
     [System.Xml.Serialization.XmlTypeAttribute("AusstattungWaffenNahkampfwaffeSchaden", Namespace="http://nota-game.azurewebsites.net/schema/kampf/ausstattung", AnonymousType=true)]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class AusstattungWaffenNahkampfwaffeSchaden
+    public partial class AusstattungWaffenNahkampfwaffeSchaden
     {
         
         /// <summary>
@@ -556,7 +556,7 @@ namespace Nota.Data.Generated.Kampf.Ausstattung
     [System.Xml.Serialization.XmlTypeAttribute("AusstattungWaffenNahkampfwaffeEigenschaften", Namespace="http://nota-game.azurewebsites.net/schema/kampf/ausstattung", AnonymousType=true)]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class AusstattungWaffenNahkampfwaffeEigenschaften
+    public partial class AusstattungWaffenNahkampfwaffeEigenschaften
     {
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
@@ -595,7 +595,7 @@ namespace Nota.Data.Generated.Kampf.Ausstattung
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlRootAttribute("Eigenschaft", Namespace="http://nota-game.azurewebsites.net/schema/kampf/ausstattung")]
-    internal partial class Eigenschaft : Nota.Data.Generated.Misc.INamedElement
+    public partial class Eigenschaft : Nota.Data.Generated.Misc.INamedElement
     {
         
         /// <summary>
@@ -611,7 +611,7 @@ namespace Nota.Data.Generated.Kampf.Ausstattung
     [System.Xml.Serialization.XmlTypeAttribute("AusstattungWaffenNahkampfwaffeTalente", Namespace="http://nota-game.azurewebsites.net/schema/kampf/ausstattung", AnonymousType=true)]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class AusstattungWaffenNahkampfwaffeTalente
+    public partial class AusstattungWaffenNahkampfwaffeTalente
     {
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
@@ -649,7 +649,7 @@ namespace Nota.Data.Generated.Kampf.Ausstattung
     [System.Xml.Serialization.XmlTypeAttribute("AusstattungWaffenFernkampfwaffe", Namespace="http://nota-game.azurewebsites.net/schema/kampf/ausstattung", AnonymousType=true)]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class AusstattungWaffenFernkampfwaffe : Nota.Data.Generated.Misc.INamedElement
+    public partial class AusstattungWaffenFernkampfwaffe : Nota.Data.Generated.Misc.INamedElement
     {
         
         /// <summary>
@@ -831,7 +831,7 @@ namespace Nota.Data.Generated.Kampf.Ausstattung
     [System.Xml.Serialization.XmlTypeAttribute("AusstattungWaffenFernkampfwaffeSchaden", Namespace="http://nota-game.azurewebsites.net/schema/kampf/ausstattung", AnonymousType=true)]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class AusstattungWaffenFernkampfwaffeSchaden
+    public partial class AusstattungWaffenFernkampfwaffeSchaden
     {
         
         /// <summary>
@@ -852,7 +852,7 @@ namespace Nota.Data.Generated.Kampf.Ausstattung
     [System.Xml.Serialization.XmlTypeAttribute("AusstattungWaffenFernkampfwaffeSchusseigenschaften", Namespace="http://nota-game.azurewebsites.net/schema/kampf/ausstattung", AnonymousType=true)]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class AusstattungWaffenFernkampfwaffeSchusseigenschaften
+    public partial class AusstattungWaffenFernkampfwaffeSchusseigenschaften
     {
         
         /// <summary>
@@ -873,7 +873,7 @@ namespace Nota.Data.Generated.Kampf.Ausstattung
     [System.Xml.Serialization.XmlTypeAttribute("AusstattungWaffenFernkampfwaffeReichweiten", Namespace="http://nota-game.azurewebsites.net/schema/kampf/ausstattung", AnonymousType=true)]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class AusstattungWaffenFernkampfwaffeReichweiten
+    public partial class AusstattungWaffenFernkampfwaffeReichweiten
     {
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
@@ -911,7 +911,7 @@ namespace Nota.Data.Generated.Kampf.Ausstattung
     [System.Xml.Serialization.XmlTypeAttribute("AusstattungWaffenFernkampfwaffeReichweitenReichweite", Namespace="http://nota-game.azurewebsites.net/schema/kampf/ausstattung", AnonymousType=true)]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class AusstattungWaffenFernkampfwaffeReichweitenReichweite
+    public partial class AusstattungWaffenFernkampfwaffeReichweitenReichweite
     {
         
         /// <summary>
@@ -937,7 +937,7 @@ namespace Nota.Data.Generated.Kampf.Ausstattung
     [System.Xml.Serialization.XmlTypeAttribute("AusstattungWaffenFernkampfwaffeNachladezeit", Namespace="http://nota-game.azurewebsites.net/schema/kampf/ausstattung", AnonymousType=true)]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class AusstattungWaffenFernkampfwaffeNachladezeit
+    public partial class AusstattungWaffenFernkampfwaffeNachladezeit
     {
         
         /// <summary>
@@ -958,7 +958,7 @@ namespace Nota.Data.Generated.Kampf.Ausstattung
     [System.Xml.Serialization.XmlTypeAttribute("AusstattungWaffenFernkampfwaffeEigenschaften", Namespace="http://nota-game.azurewebsites.net/schema/kampf/ausstattung", AnonymousType=true)]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class AusstattungWaffenFernkampfwaffeEigenschaften
+    public partial class AusstattungWaffenFernkampfwaffeEigenschaften
     {
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
@@ -996,7 +996,7 @@ namespace Nota.Data.Generated.Kampf.Ausstattung
     [System.Xml.Serialization.XmlTypeAttribute("AusstattungWaffenFernkampfwaffeTalente", Namespace="http://nota-game.azurewebsites.net/schema/kampf/ausstattung", AnonymousType=true)]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class AusstattungWaffenFernkampfwaffeTalente
+    public partial class AusstattungWaffenFernkampfwaffeTalente
     {
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
@@ -1034,7 +1034,7 @@ namespace Nota.Data.Generated.Kampf.Ausstattung
     [System.Xml.Serialization.XmlTypeAttribute("AusstattungRüstungen", Namespace="http://nota-game.azurewebsites.net/schema/kampf/ausstattung", AnonymousType=true)]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class AusstattungRüstungen
+    public partial class AusstattungRüstungen
     {
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
@@ -1085,7 +1085,7 @@ namespace Nota.Data.Generated.Kampf.Ausstattung
     [System.Xml.Serialization.XmlTypeAttribute("AusstattungRüstungenRüstung", Namespace="http://nota-game.azurewebsites.net/schema/kampf/ausstattung", AnonymousType=true)]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class AusstattungRüstungenRüstung : Nota.Data.Generated.Misc.INamedElement
+    public partial class AusstattungRüstungenRüstung : Nota.Data.Generated.Misc.INamedElement
     {
         
         /// <summary>
@@ -1157,7 +1157,7 @@ namespace Nota.Data.Generated.Kampf.Ausstattung
     [System.Xml.Serialization.XmlTypeAttribute("AusstattungRüstungenRüstungSchutz", Namespace="http://nota-game.azurewebsites.net/schema/kampf/ausstattung", AnonymousType=true)]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class AusstattungRüstungenRüstungSchutz
+    public partial class AusstattungRüstungenRüstungSchutz
     {
         
         /// <summary>
@@ -1183,7 +1183,7 @@ namespace Nota.Data.Generated.Kampf.Ausstattung
     [System.Xml.Serialization.XmlTypeAttribute("AusstattungRüstungenRüstungTrefferzonen", Namespace="http://nota-game.azurewebsites.net/schema/kampf/ausstattung", AnonymousType=true)]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class AusstattungRüstungenRüstungTrefferzonen
+    public partial class AusstattungRüstungenRüstungTrefferzonen
     {
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
@@ -1466,7 +1466,7 @@ namespace Nota.Data.Generated.Kampf.Ausstattung
     [System.Xml.Serialization.XmlTypeAttribute("AusstattungRüstungenRüstungEigenschaften", Namespace="http://nota-game.azurewebsites.net/schema/kampf/ausstattung", AnonymousType=true)]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class AusstattungRüstungenRüstungEigenschaften
+    public partial class AusstattungRüstungenRüstungEigenschaften
     {
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
@@ -1504,7 +1504,7 @@ namespace Nota.Data.Generated.Kampf.Ausstattung
     [System.Xml.Serialization.XmlTypeAttribute("AusstattungEigenschaften", Namespace="http://nota-game.azurewebsites.net/schema/kampf/ausstattung", AnonymousType=true)]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class AusstattungEigenschaften
+    public partial class AusstattungEigenschaften
     {
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
@@ -1555,7 +1555,7 @@ namespace Nota.Data.Generated.Kampf.Ausstattung
     [System.Xml.Serialization.XmlTypeAttribute("AusstattungEigenschaftenEigenschaft", Namespace="http://nota-game.azurewebsites.net/schema/kampf/ausstattung", AnonymousType=true)]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class AusstattungEigenschaftenEigenschaft
+    public partial class AusstattungEigenschaftenEigenschaft
     {
         
         /// <summary>

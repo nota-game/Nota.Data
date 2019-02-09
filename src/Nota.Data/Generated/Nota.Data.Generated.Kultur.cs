@@ -25,7 +25,7 @@ namespace Nota.Data.Generated.Kultur
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlRootAttribute("Not", Namespace="http://nota-game.azurewebsites.net/schema/kultur")]
-    internal partial class KulturAuswahl
+    public partial class KulturAuswahl
     {
         
         /// <summary>
@@ -58,7 +58,7 @@ namespace Nota.Data.Generated.Kultur
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlRootAttribute("Or", Namespace="http://nota-game.azurewebsites.net/schema/kultur")]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(And))]
-    internal partial class KulturAuswahlen
+    public partial class KulturAuswahlen
     {
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
@@ -205,7 +205,7 @@ namespace Nota.Data.Generated.Kultur
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlRootAttribute("Kultur", Namespace="http://nota-game.azurewebsites.net/schema/kultur")]
-    internal partial class Kultur : Nota.Data.Generated.Misc.NamedType
+    public partial class Kultur : Nota.Data.Generated.Misc.NamedType
     {
     }
     
@@ -216,7 +216,7 @@ namespace Nota.Data.Generated.Kultur
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlRootAttribute("And", Namespace="http://nota-game.azurewebsites.net/schema/kultur")]
-    internal partial class And : KulturAuswahlen
+    public partial class And : KulturAuswahlen
     {
     }
     
@@ -228,7 +228,7 @@ namespace Nota.Data.Generated.Kultur
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlRootAttribute("Kulturen", Namespace="http://nota-game.azurewebsites.net/schema/kultur")]
-    internal partial class Kulturen
+    public partial class Kulturen
     {
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
@@ -279,7 +279,7 @@ namespace Nota.Data.Generated.Kultur
     [System.Xml.Serialization.XmlTypeAttribute("KulturenKultur", Namespace="http://nota-game.azurewebsites.net/schema/kultur", AnonymousType=true)]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class KulturenKultur : Nota.Data.Generated.Misc.INamedElement
+    public partial class KulturenKultur : Nota.Data.Generated.Misc.INamedElement
     {
         
         /// <summary>
@@ -333,7 +333,7 @@ namespace Nota.Data.Generated.Kultur
     [System.Xml.Serialization.XmlTypeAttribute("KulturenKulturProfessionen", Namespace="http://nota-game.azurewebsites.net/schema/kultur", AnonymousType=true)]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class KulturenKulturProfessionen
+    public partial class KulturenKulturProfessionen
     {
         
         /// <summary>

@@ -25,7 +25,7 @@ namespace Nota.Data.Generated.Lebewesen
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlRootAttribute("Not", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
-    internal partial class LebewesenAuswahl
+    public partial class LebewesenAuswahl
     {
         
         /// <summary>
@@ -58,7 +58,7 @@ namespace Nota.Data.Generated.Lebewesen
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlRootAttribute("Or", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(And))]
-    internal partial class LebewesenAuswahlen
+    public partial class LebewesenAuswahlen
     {
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
@@ -205,7 +205,7 @@ namespace Nota.Data.Generated.Lebewesen
     [System.Xml.Serialization.XmlTypeAttribute("Morph", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class Morph : Nota.Data.Generated.Misc.INamedElement
+    public partial class Morph : Nota.Data.Generated.Misc.INamedElement
     {
         
         /// <summary>
@@ -299,7 +299,7 @@ namespace Nota.Data.Generated.Lebewesen
     [System.Xml.Serialization.XmlTypeAttribute("MorphStandardKulturen", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen", AnonymousType=true)]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class MorphStandardKulturen
+    public partial class MorphStandardKulturen
     {
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
@@ -337,7 +337,7 @@ namespace Nota.Data.Generated.Lebewesen
     [System.Xml.Serialization.XmlTypeAttribute("EigenschaftsMods", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class EigenschaftsMods
+    public partial class EigenschaftsMods
     {
         
         /// <summary>
@@ -398,7 +398,7 @@ namespace Nota.Data.Generated.Lebewesen
     [System.Xml.Serialization.XmlTypeAttribute("ModWert", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class ModWert
+    public partial class ModWert
     {
         
         /// <summary>
@@ -414,7 +414,7 @@ namespace Nota.Data.Generated.Lebewesen
     [System.Xml.Serialization.XmlTypeAttribute("Mods", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class Mods
+    public partial class Mods
     {
         
         /// <summary>
@@ -471,7 +471,7 @@ namespace Nota.Data.Generated.Lebewesen
     [System.Xml.Serialization.XmlTypeAttribute("ModsBesonderheiten", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen", AnonymousType=true)]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class ModsBesonderheiten
+    public partial class ModsBesonderheiten
     {
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
@@ -509,7 +509,7 @@ namespace Nota.Data.Generated.Lebewesen
     [System.Xml.Serialization.XmlTypeAttribute("MorphLebensabschnitte", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen", AnonymousType=true)]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class MorphLebensabschnitte
+    public partial class MorphLebensabschnitte
     {
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
@@ -547,7 +547,7 @@ namespace Nota.Data.Generated.Lebewesen
     [System.Xml.Serialization.XmlTypeAttribute("Lebensabschnitt", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class Lebensabschnitt : Nota.Data.Generated.Misc.INamedElement
+    public partial class Lebensabschnitt : Nota.Data.Generated.Misc.INamedElement
     {
         
         /// <summary>
@@ -612,7 +612,7 @@ namespace Nota.Data.Generated.Lebewesen
     [System.Xml.Serialization.XmlTypeAttribute("LebensabschnittSpielbar", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen", AnonymousType=true)]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class LebensabschnittSpielbar : Nota.Data.Generated.Misc.IKostenElement
+    public partial class LebensabschnittSpielbar : Nota.Data.Generated.Misc.IKostenElement
     {
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
@@ -652,7 +652,7 @@ namespace Nota.Data.Generated.Lebewesen
     [System.Xml.Serialization.XmlTypeAttribute("EigenschaftsWert", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class EigenschaftsWert
+    public partial class EigenschaftsWert
     {
         
         /// <summary>
@@ -678,7 +678,7 @@ namespace Nota.Data.Generated.Lebewesen
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlRootAttribute("Lebewesen", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
-    internal partial class Lebewesen : Nota.Data.Generated.Misc.NamedType
+    public partial class Lebewesen : Nota.Data.Generated.Misc.NamedType
     {
     }
     
@@ -689,7 +689,7 @@ namespace Nota.Data.Generated.Lebewesen
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlRootAttribute("And", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
-    internal partial class And : LebewesenAuswahlen
+    public partial class And : LebewesenAuswahlen
     {
     }
     
@@ -701,7 +701,7 @@ namespace Nota.Data.Generated.Lebewesen
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlRootAttribute("Lebewesene", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
-    internal partial class Lebewesene
+    public partial class Lebewesene
     {
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
@@ -752,7 +752,7 @@ namespace Nota.Data.Generated.Lebewesen
     [System.Xml.Serialization.XmlTypeAttribute("LebeweseneLebewesen", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen", AnonymousType=true)]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class LebeweseneLebewesen
+    public partial class LebeweseneLebewesen
     {
         
         /// <summary>
@@ -884,7 +884,7 @@ namespace Nota.Data.Generated.Lebewesen
     [System.Xml.Serialization.XmlTypeAttribute("LebeweseneLebewesenEigenschaften", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen", AnonymousType=true)]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class LebeweseneLebewesenEigenschaften
+    public partial class LebeweseneLebewesenEigenschaften
     {
         
         /// <summary>
@@ -945,7 +945,7 @@ namespace Nota.Data.Generated.Lebewesen
     [System.Xml.Serialization.XmlTypeAttribute("LebeweseneLebewesenStandardKulturen", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen", AnonymousType=true)]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class LebeweseneLebewesenStandardKulturen
+    public partial class LebeweseneLebewesenStandardKulturen
     {
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
@@ -983,7 +983,7 @@ namespace Nota.Data.Generated.Lebewesen
     [System.Xml.Serialization.XmlTypeAttribute("LebeweseneLebewesenMorphe", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen", AnonymousType=true)]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class LebeweseneLebewesenMorphe
+    public partial class LebeweseneLebewesenMorphe
     {
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
@@ -1034,7 +1034,7 @@ namespace Nota.Data.Generated.Lebewesen
     [System.Xml.Serialization.XmlTypeAttribute("LebeweseneLebewesenBesonderheiten", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen", AnonymousType=true)]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class LebeweseneLebewesenBesonderheiten
+    public partial class LebeweseneLebewesenBesonderheiten
     {
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]

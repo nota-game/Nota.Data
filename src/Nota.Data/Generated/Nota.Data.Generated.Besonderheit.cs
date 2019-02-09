@@ -25,7 +25,7 @@ namespace Nota.Data.Generated.Besonderheit
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlRootAttribute("Not", Namespace="http://nota-game.azurewebsites.net/schema/besonderheit")]
-    internal partial class BedingugsAuswahl
+    public partial class BedingugsAuswahl
     {
         
         /// <summary>
@@ -58,7 +58,7 @@ namespace Nota.Data.Generated.Besonderheit
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlRootAttribute("Or", Namespace="http://nota-game.azurewebsites.net/schema/besonderheit")]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(And))]
-    internal partial class BedingugsAuswahlen
+    public partial class BedingugsAuswahlen
     {
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
@@ -205,7 +205,7 @@ namespace Nota.Data.Generated.Besonderheit
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlRootAttribute("Besonderheit", Namespace="http://nota-game.azurewebsites.net/schema/besonderheit")]
-    internal partial class Besonderheit : Nota.Data.Generated.Misc.NamedType
+    public partial class Besonderheit : Nota.Data.Generated.Misc.NamedType
     {
     }
     
@@ -216,7 +216,7 @@ namespace Nota.Data.Generated.Besonderheit
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlRootAttribute("And", Namespace="http://nota-game.azurewebsites.net/schema/besonderheit")]
-    internal partial class And : BedingugsAuswahlen
+    public partial class And : BedingugsAuswahlen
     {
     }
     
@@ -228,7 +228,7 @@ namespace Nota.Data.Generated.Besonderheit
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlRootAttribute("Besonderheiten", Namespace="http://nota-game.azurewebsites.net/schema/besonderheit")]
-    internal partial class Besonderheiten
+    public partial class Besonderheiten
     {
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
@@ -279,7 +279,7 @@ namespace Nota.Data.Generated.Besonderheit
     [System.Xml.Serialization.XmlTypeAttribute("BesonderheitenBesonderheit", Namespace="http://nota-game.azurewebsites.net/schema/besonderheit", AnonymousType=true)]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class BesonderheitenBesonderheit : Nota.Data.Generated.Misc.INamedElement, Nota.Data.Generated.Misc.IKostenElement
+    public partial class BesonderheitenBesonderheit : Nota.Data.Generated.Misc.INamedElement, Nota.Data.Generated.Misc.IKostenElement
     {
         
         /// <summary>
@@ -352,7 +352,7 @@ namespace Nota.Data.Generated.Besonderheit
     [System.Xml.Serialization.XmlTypeAttribute("BesonderheitenBesonderheitVerbessert", Namespace="http://nota-game.azurewebsites.net/schema/besonderheit", AnonymousType=true)]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    internal partial class BesonderheitenBesonderheitVerbessert
+    public partial class BesonderheitenBesonderheitVerbessert
     {
         
         /// <summary>
