@@ -125,28 +125,26 @@ namespace Nota.Data
             public int Cost { get; }
         }
 
-        private (TalentReference talent, int level, int cost)? bestNextLevel;
+        private IEnumerable<NextLevelCost> bestNextLevel;
 
-        public NextLevelCost BestNextLevel
+        public IEnumerable<NextLevelCost> BestNextLevel
         {
             get
             {
                 if (this.bestNextLevel == null)
                 {
-                    this.bestNextLevel = CostForBestNextLevel();
+                    this.bestNextLevel = CostForBestNextLevel().ToArray();
                 }
-                return new NextLevelCost(this.bestNextLevel.Value);
+                return this.bestNextLevel;
 
-                (TalentReference talent, int level, int cost) CostForBestNextLevel()
+                IEnumerable<NextLevelCost> CostForBestNextLevel()
                 {
                     var target = GetCurrentIncrease(this.Reference.Derivation) + 1;
                     var nextSupportLevel = GetLavel(this.Reference.Derivation, target);
-                    var nextBaseLevelCost = this.ExpirienceToNextLevel;
-                    if (nextBaseLevelCost <= nextSupportLevel.cost)
-                        return (this.Reference, this.BaseLevel + 1, nextBaseLevelCost);
-                    return nextSupportLevel;
 
-                    (TalentReference talent, int level, int cost) GetLavel(AbstractDerivation derivations, int targetPoints)
+                    return nextSupportLevel.Concat(Enumerable.Repeat(new NextLevelCost(this.Reference, this.BaseLevel + 1, this.ExpirienceToNextLevel), 1)).OrderBy(x => x.Cost);
+
+                    IEnumerable<NextLevelCost> GetLavel(AbstractDerivation derivations, int targetPoints)
                     {
                         var currentPoints = GetCurrentIncrease(derivations);
                         var pointsToAdd = targetPoints - currentPoints;
@@ -160,11 +158,11 @@ namespace Nota.Data
                         {
                             case DerivationAll all:
 
-                                return all.Derivations.Select(x =>
+                                return all.Derivations.SelectMany(x =>
                                 {
                                     var thisIncrease = GetCurrentIncrease(x);
                                     return GetLavel(x, thisIncrease + pointsToAdd);
-                                }).Aggregate((first, seccond) => first.cost <= seccond.cost ? first : seccond);
+                                });
                             case DerivationMax max:
 
 
@@ -175,27 +173,25 @@ namespace Nota.Data
                                 var minimumOfTop = topValues.Min(GetCurrentIncrease);
 
                                 // increase for top
-                                var topIncrease = topValues.Select(x =>
+                                var topIncrease = topValues.SelectMany(x =>
                                 {
                                     var thisIncrease = GetCurrentIncrease(x);
                                     return GetLavel(x, thisIncrease + pointsToAdd);
-                                }).Aggregate((first, seccond) => first.cost <= seccond.cost ? first : seccond);
+                                });
 
-                                var bottomeIncrease = bottomValues.Select(x =>
+                                var bottomeIncrease = bottomValues.SelectMany(x =>
                                 {
                                     return GetLavel(x, minimumOfTop + pointsToAdd);
-                                }).Aggregate((first, seccond) => first.cost <= seccond.cost ? first : seccond);
+                                });
 
-                                if (bottomeIncrease.cost <= topIncrease.cost)
-                                    return bottomeIncrease;
-                                return topIncrease;
+                                return topIncrease.Concat(bottomeIncrease);
                             case Derivation derivation:
 
                                 var currentBaseLevel = this.Character.Talent[derivation.Talent]?.BaseLevel ?? 0;
                                 var currentInvestment = this.Character.Talent[derivation.Talent]?.ExpirienceSpent ?? 0;
                                 var neededInvestment = TalentExperienceCost.CalculateTotalCostForLevel(derivation.Talent.Compexety, (targetPoints * derivation.Count));
 
-                                return (derivation.Talent, targetPoints * derivation.Count, neededInvestment - currentBaseLevel);
+                                return Enumerable.Repeat(new NextLevelCost(derivation.Talent, targetPoints * derivation.Count, neededInvestment - currentBaseLevel), 1);
                             default:
                                 throw new NotImplementedException($"The type {derivations?.GetType().FullName ?? "<null>"} is not implemented. :/");
                         }
@@ -254,7 +250,10 @@ namespace Nota.Data
             if (obj == this)
                 return;
             if (this.allDerivationsTalents.Contains(obj.Reference))
+            {
                 this.FirePropertyChanged(nameof(this.SupportLevel));
+                this.FirePropertyChanged(nameof(this.BestNextLevel));
+            }
 
         }
 
