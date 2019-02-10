@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Serialization;
 using Nota.Data.Generated.Talent;
 
@@ -20,11 +21,10 @@ namespace Nota.Data
 
             var output = new Data(talentList.AsReadOnly());
             var directory = new Dictionary<string, TalentReference>();
-            foreach (var item in data.Talente)
+            foreach (var item in data.Talente.Select(x => new TalentReference(x)).OrderBy(x => x.Category).ThenBy(x => x.Name))
             {
-                var item1 = new TalentReference(item);
-                talentList.Add(item1);
-                directory.Add(item1.Name, item1);
+                talentList.Add(item);
+                directory.Add(item.Name, item);
             }
             foreach (var item in output.Talents)
                 item.InitilizeDerivation(directory);

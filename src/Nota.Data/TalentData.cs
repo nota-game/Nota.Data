@@ -28,6 +28,7 @@ namespace Nota.Data
                         this.FirePropertyChanged(nameof(this.TotalCostForThisLevel));
                     }
                     this.FirePropertyChanged(nameof(this.ExpirienceToNextLevel));
+                    this.FirePropertyChanged(nameof(this.BestNextLevel));
                 }
             }
         }
@@ -85,6 +86,7 @@ namespace Nota.Data
                 {
                     this.supportLevel = GetLavel(this.Reference.Derivation);
                     this.FirePropertyChanged(nameof(this.Level));
+                    this.FirePropertyChanged(nameof(this.BestNextLevel));
                 }
                 return this.supportLevel.Value;
 
@@ -97,8 +99,6 @@ namespace Nota.Data
                         case DerivationMax max:
                             return max.Derivations.Select(GetLavel).OrderByDescending(x => x).Take(max.Count).Sum();
                         case Derivation derivation:
-                            if (!this.Character.Talent.ContainsKey(derivation.Talent))
-                                return 0;
                             var talentValue = this.Character.Talent[derivation.Talent]?.BaseLevel ?? 0;
                             return talentValue / derivation.Count;
                         default:
@@ -108,7 +108,121 @@ namespace Nota.Data
             }
         }
 
+        public struct NextLevelCost
+        {
 
+            public NextLevelCost((TalentReference talent, int level, int cost) value) : this(value.talent, value.level, value.cost) { }
+
+            public NextLevelCost(TalentReference talent, int level, int cost)
+            {
+                this.Talent = talent ?? throw new ArgumentNullException(nameof(talent));
+                this.Level = level;
+                this.Cost = cost;
+            }
+
+            public TalentReference Talent { get; }
+            public int Level { get; }
+            public int Cost { get; }
+        }
+
+        private (TalentReference talent, int level, int cost)? bestNextLevel;
+
+        public NextLevelCost BestNextLevel
+        {
+            get
+            {
+                if (this.bestNextLevel == null)
+                {
+                    this.bestNextLevel = CostForBestNextLevel();
+                }
+                return new NextLevelCost(this.bestNextLevel.Value);
+
+                (TalentReference talent, int level, int cost) CostForBestNextLevel()
+                {
+                    var target = GetCurrentIncrease(this.Reference.Derivation) + 1;
+                    var nextSupportLevel = GetLavel(this.Reference.Derivation, target);
+                    var nextBaseLevelCost = this.ExpirienceToNextLevel;
+                    if (nextBaseLevelCost <= nextSupportLevel.cost)
+                        return (this.Reference, this.BaseLevel + 1, nextBaseLevelCost);
+                    return nextSupportLevel;
+
+                    (TalentReference talent, int level, int cost) GetLavel(AbstractDerivation derivations, int targetPoints)
+                    {
+                        var currentPoints = GetCurrentIncrease(derivations);
+                        var pointsToAdd = targetPoints - currentPoints;
+                        if (pointsToAdd > 1)
+                        {
+                            //TODO: we can increase different talents instead of one to get cheaper.
+                            // But I need to think how we do that. Maybe multiple callse with an increase of 1?
+                            // We should do that recursive?
+                        }
+                        switch (derivations)
+                        {
+                            case DerivationAll all:
+
+                                return all.Derivations.Select(x =>
+                                {
+                                    var thisIncrease = GetCurrentIncrease(x);
+                                    return GetLavel(x, thisIncrease + pointsToAdd);
+                                }).Aggregate((first, seccond) => first.cost <= seccond.cost ? first : seccond);
+                            case DerivationMax max:
+
+
+
+                                var topValues = max.Derivations.OrderByDescending(GetCurrentIncrease).Take(max.Count).ToArray();
+                                var bottomValues = max.Derivations.OrderByDescending(GetCurrentIncrease).Skip(max.Count).ToArray();
+
+                                var minimumOfTop = topValues.Min(GetCurrentIncrease);
+
+                                // increase for top
+                                var topIncrease = topValues.Select(x =>
+                                {
+                                    var thisIncrease = GetCurrentIncrease(x);
+                                    return GetLavel(x, thisIncrease + pointsToAdd);
+                                }).Aggregate((first, seccond) => first.cost <= seccond.cost ? first : seccond);
+
+                                var bottomeIncrease = bottomValues.Select(x =>
+                                {
+                                    return GetLavel(x, minimumOfTop + pointsToAdd);
+                                }).Aggregate((first, seccond) => first.cost <= seccond.cost ? first : seccond);
+
+                                if (bottomeIncrease.cost <= topIncrease.cost)
+                                    return bottomeIncrease;
+                                return topIncrease;
+                            case Derivation derivation:
+
+                                var currentBaseLevel = this.Character.Talent[derivation.Talent]?.BaseLevel ?? 0;
+                                var currentInvestment = this.Character.Talent[derivation.Talent]?.ExpirienceSpent ?? 0;
+                                var neededInvestment = TalentExperienceCost.CalculateTotalCostForLevel(derivation.Talent.Compexety, (targetPoints * derivation.Count));
+
+                                return (derivation.Talent, targetPoints * derivation.Count, neededInvestment - currentBaseLevel);
+                            default:
+                                throw new NotImplementedException($"The type {derivations?.GetType().FullName ?? "<null>"} is not implemented. :/");
+                        }
+                    }
+
+                    int GetCurrentIncrease(AbstractDerivation derivations)
+                    {
+                        switch (derivations)
+                        {
+                            case DerivationAll all:
+                                return all.Derivations.Select(GetCurrentIncrease).Sum();
+
+                            case DerivationMax max:
+                                return max.Derivations.Select(GetCurrentIncrease).OrderByDescending(x => x).Take(max.Count).Sum();
+
+                            case Derivation derivation:
+                                var currentBaseLevel = this.Character.Talent[derivation.Talent]?.BaseLevel ?? 0;
+                                var currentBonus = (currentBaseLevel / derivation.Count);
+                                return currentBonus;
+
+                            default:
+                                throw new NotImplementedException($"The type {derivations?.GetType().FullName ?? "<null>"} is not implemented. :/");
+                        }
+                    }
+                }
+            }
+        }
 
         public TalentData(TalentReference reference, CharacterData character)
         {
@@ -157,6 +271,10 @@ namespace Nota.Data
                 case nameof(this.TotalCostForNextLevel):
                     this.totalCostForNextLevel = null;
                     _ = this.TotalCostForNextLevel;
+                    break;
+                case nameof(this.BestNextLevel):
+                    this.bestNextLevel = null;
+                    _ = this.BestNextLevel;
                     break;
                 case nameof(this.TotalCostForThisLevel):
                     this.totalCostForThisLevel = null;
