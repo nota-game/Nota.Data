@@ -14,9 +14,9 @@ namespace Nota.Data
         private Data data;
         private readonly Dictionary<TalentReference, TalentData> talent;
 
-        private Queue<DataActionReturn> undoQueue = new Queue<DataActionReturn>();
+        private readonly Stack<DataActionReturn> undoQueue = new Stack<DataActionReturn>();
 
-        internal void AddToUndo(DataActionReturn data) => this.undoQueue.Enqueue(data);
+        internal void AddToUndo(DataActionReturn data) => this.undoQueue.Push(data);
 
         public void Undo(DataActionReturn dataAction)
         {
@@ -26,7 +26,7 @@ namespace Nota.Data
                 return;
             DataActionReturn data;
 
-            while ((data = this.undoQueue.Dequeue()) != dataAction)
+            while ((data = this.undoQueue.Pop()) != dataAction)
                 data.Undo();
 
         }
@@ -39,7 +39,6 @@ namespace Nota.Data
                 if (this.totalExpirienceSpent == null)
                 {
                     this.totalExpirienceSpent = this.Talent.Select(x => x.ExpirienceSpent).Sum();
-                    FirePropertyChanged();
                     FirePropertyChanged(nameof(ExpirienceAvailable));
                 }
                 return this.totalExpirienceSpent.Value;
@@ -66,33 +65,37 @@ namespace Nota.Data
 
         public int ExpirienceAvailable => TotalExpirience - TotalExpirienceSpent;
 
+
         internal CharacterData(Data data)
         {
             this.data = data;
             this.talent = new Dictionary<TalentReference, TalentData>();
             this.Talent = new IndexAccessor<TalentReference, TalentData>(this.talent);
+            foreach (var reference in data.Talents)
+            {
+                var value = new TalentData(reference, this);
+
+                value.PropertyChanged += OnTalentChanging;
+                this.talent.Add(reference, value);
+            }
+            //TalentChanging?.Invoke(value);
+            //this.TalentChanged?.Invoke(this, (value, CollectionChangedKind.Add));
+
         }
 
-        public TalentData AddTallent(TalentReference reference)
-        {
-            var value = new TalentData(reference, this);
-
-            value.PropertyChanged += OnTalentChanging;
-            this.talent.Add(reference, value);
-            TalentChanging?.Invoke(value);
-            this.TalentChanged?.Invoke(this, (value, CollectionChangedKind.Add));
-            return value;
-        }
+        //public TalentData AddTallent(TalentReference reference)
+        //{
+        //}
 
         internal event Action<TalentData> TalentChanging;
         public event PropertyChangedEventHandler PropertyChanged;
-        public event EventHandler<(TalentData talent, CollectionChangedKind kind)> TalentChanged;
+        //public event EventHandler<(TalentData talent, CollectionChangedKind kind)> TalentChanged;
 
-        public enum CollectionChangedKind
-        {
-            Add,
-            Remove
-        }
+        //public enum CollectionChangedKind
+        //{
+        //    Add,
+        //    Remove
+        //}
 
         private void OnTalentChanging(object sender, PropertyChangedEventArgs e)
         {

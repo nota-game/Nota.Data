@@ -110,21 +110,52 @@ namespace Nota.Data
             }
         }
 
-        public struct NextLevelCost
+        public struct NextLevelCost : IEquatable<NextLevelCost>
         {
 
-            public NextLevelCost((TalentReference talent, int level, int cost) value) : this(value.talent, value.level, value.cost) { }
+            public NextLevelCost((TalentData talent, int level, int cost) value) : this(value.talent, value.level, value.cost) { }
 
-            public NextLevelCost(TalentReference talent, int level, int cost)
+            public NextLevelCost(TalentData talent, int level, int cost)
             {
                 this.Talent = talent ?? throw new ArgumentNullException(nameof(talent));
                 this.Level = level;
                 this.Cost = cost;
             }
 
-            public TalentReference Talent { get; }
+            public TalentData Talent { get; }
             public int Level { get; }
             public int Cost { get; }
+
+            public override bool Equals(object obj)
+            {
+                return obj is NextLevelCost cost && this.Equals(cost);
+            }
+
+            public bool Equals(NextLevelCost other)
+            {
+                return EqualityComparer<TalentData>.Default.Equals(this.Talent, other.Talent) &&
+                       this.Level == other.Level &&
+                       this.Cost == other.Cost;
+            }
+
+            public override int GetHashCode()
+            {
+                var hashCode = 1751525848;
+                hashCode = hashCode * -1521134295 + EqualityComparer<TalentData>.Default.GetHashCode(this.Talent);
+                hashCode = hashCode * -1521134295 + this.Level.GetHashCode();
+                hashCode = hashCode * -1521134295 + this.Cost.GetHashCode();
+                return hashCode;
+            }
+
+            public static bool operator ==(NextLevelCost left, NextLevelCost right)
+            {
+                return left.Equals(right);
+            }
+
+            public static bool operator !=(NextLevelCost left, NextLevelCost right)
+            {
+                return !(left == right);
+            }
         }
 
         private IEnumerable<NextLevelCost> bestNextLevel;
@@ -144,7 +175,7 @@ namespace Nota.Data
                     var target = GetCurrentIncrease(this.Reference.Derivation) + 1;
                     var nextSupportLevel = GetLavel(this.Reference.Derivation, target);
 
-                    return nextSupportLevel.Concat(Enumerable.Repeat(new NextLevelCost(this.Reference, this.BaseLevel + 1, this.ExpirienceToNextLevel), 1)).OrderBy(x => x.Cost);
+                    return nextSupportLevel.Concat(Enumerable.Repeat(new NextLevelCost(this.Character.Talent[this.Reference], this.BaseLevel + 1, this.ExpirienceToNextLevel), 1)).OrderBy(x => x.Cost);
 
                     IEnumerable<NextLevelCost> GetLavel(AbstractDerivation derivations, int targetPoints)
                     {
@@ -193,7 +224,7 @@ namespace Nota.Data
                                 var currentInvestment = this.Character.Talent[derivation.Talent]?.ExpirienceSpent ?? 0;
                                 var neededInvestment = TalentExperienceCost.CalculateTotalCostForLevel(derivation.Talent.Compexety, (targetPoints * derivation.Count));
 
-                                return Enumerable.Repeat(new NextLevelCost(derivation.Talent, targetPoints * derivation.Count, neededInvestment - currentBaseLevel), 1);
+                                return Enumerable.Repeat(new NextLevelCost(this.Character.Talent[derivation.Talent], targetPoints * derivation.Count, neededInvestment - currentBaseLevel), 1);
                             default:
                                 throw new NotImplementedException($"The type {derivations?.GetType().FullName ?? "<null>"} is not implemented. :/");
                         }
@@ -246,7 +277,7 @@ namespace Nota.Data
                 }
             }
 
-            Increase = new DataAction<TalentData, int>(this,
+            Increase = new DataAction<TalentData, int>(this.Character, this,
                 (p, increase) =>
                 {
                     p.ExpirienceSpent += increase;

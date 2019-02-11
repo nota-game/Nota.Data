@@ -1,7 +1,15 @@
 ﻿using System;
 namespace Nota.Data
 {
-    public struct DataAction<TParent, TInput>
+    public interface IDataAction<TParent, TInput>
+    {
+        event EventHandler CanExecuteChanged;
+
+        bool CanExecute(TInput input);
+        void Execute(TInput input);
+    }
+
+    public class DataAction<TParent, TInput> : IDataAction<TParent, TInput>
     {
         private readonly CharacterData character;
         internal readonly TParent parent;
@@ -21,6 +29,8 @@ namespace Nota.Data
             CanExecuteChanged = null;
         }
 
+
+
         public bool CanExecute(TInput input)
         {
             return this.canExecute?.Invoke(this.parent, input) ?? true;
@@ -37,8 +47,11 @@ namespace Nota.Data
 
         internal void FireCanExecuteChanged() => CanExecuteChanged?.Invoke(this, EventArgs.Empty);
 
+
+
+        void IDataAction<TParent, TInput>.Execute(TInput input) => this.Execute(input);
     }
-    internal struct DataAction<TParent, TInput, TReturn>
+    public class DataAction<TParent, TInput, TReturn> : IDataAction<TParent, TInput>
     {
         private readonly CharacterData character;
         internal readonly TParent parent;
@@ -46,13 +59,13 @@ namespace Nota.Data
         private readonly Action<TParent, TInput, TReturn> undoExecute;
         private readonly Func<TParent, TInput, bool> canExecute;
 
-        internal DataAction(CharacterData character, TParent parent, Func<TParent, TInput, TReturn> execute, Action<TParent, TInput, TReturn> undoExecute, Func<TParent, TInput, bool> canExecute)
+        internal DataAction(CharacterData character, TParent parent, Func<TParent, TInput, TReturn> execute, Action<TParent, TInput, TReturn> undoExecute, Func<TParent, TInput, bool> canExecute = null)
         {
             this.character = character;
             this.parent = parent;
             this.execute = execute ?? throw new ArgumentNullException(nameof(execute));
             this.undoExecute = undoExecute ?? throw new ArgumentNullException(nameof(undoExecute));
-            this.canExecute = canExecute ?? throw new ArgumentNullException(nameof(canExecute));
+            this.canExecute = canExecute;
             CanExecuteChanged = null;
         }
 
@@ -72,6 +85,8 @@ namespace Nota.Data
 
         public event EventHandler CanExecuteChanged;
         internal void FireCanExecuteChanged() => CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+
+        void IDataAction<TParent, TInput>.Execute(TInput input) => this.Execute(input);
 
     }
 
@@ -107,7 +122,7 @@ namespace Nota.Data
         }
 
     }
-    internal class DataActionReturn<TParent, TInput, TReturn> : DataActionReturn
+    public class DataActionReturn<TParent, TInput, TReturn> : DataActionReturn
     {
         private DataAction<TParent, TInput, TReturn> dataAction;
         private readonly CharacterData character;
