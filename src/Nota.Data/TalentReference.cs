@@ -130,7 +130,7 @@ namespace Nota.Data
 
                 DerivationMax GenerateDerivationMax(Max max)
                 {
-                    var collection2 = new DerivationMax();
+                    var collection2 = new DerivationMax() { Count = max.Anzahl };
 
                     if (max.AbleitungSpecified)
                         foreach (var item in max.Ableitung)
