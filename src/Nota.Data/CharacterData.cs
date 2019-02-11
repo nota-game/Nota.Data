@@ -14,6 +14,22 @@ namespace Nota.Data
         private Data data;
         private readonly Dictionary<TalentReference, TalentData> talent;
 
+        private Queue<DataActionReturn> undoQueue = new Queue<DataActionReturn>();
+
+        internal void AddToUndo(DataActionReturn data) => this.undoQueue.Enqueue(data);
+
+        public void Undo(DataActionReturn dataAction)
+        {
+            if (dataAction.Origin != this)
+                throw new ArgumentException("Undo was from wrong CharacterData");
+            if (dataAction.hasUndone)
+                return;
+            DataActionReturn data;
+
+            while ((data = this.undoQueue.Dequeue()) != dataAction)
+                data.Undo();
+
+        }
 
         private int? totalExpirienceSpent;
         public int TotalExpirienceSpent

@@ -14,7 +14,7 @@ namespace Nota.Data
         public int ExpirienceSpent
         {
             get => this.expirienceSpent;
-            set
+            private set
             {
                 if (this.expirienceSpent != value)
                 {
@@ -32,6 +32,8 @@ namespace Nota.Data
                 }
             }
         }
+
+        public DataAction<TalentData, int> Increase { get; }
 
         public int ExpirienceToNextLevel => this.TotalCostForNextLevel - this.ExpirienceSpent;
 
@@ -225,7 +227,7 @@ namespace Nota.Data
             this.Reference = reference;
             this.Character = character;
             this.Character.TalentChanging += this.CharacterTalentChangin;
-
+            this.Character.PropertyChanged += this.Character_PropertyChanged;
             this.allDerivationsTalents = new HashSet<TalentReference>(GetDerivations(reference.Derivation));
 
             IEnumerable<TalentReference> GetDerivations(AbstractDerivation derivations)
@@ -243,6 +245,26 @@ namespace Nota.Data
                         throw new NotImplementedException($"The type {derivations?.GetType().FullName ?? "<null>"} is not implemented. :/");
                 }
             }
+
+            Increase = new DataAction<TalentData, int>(this,
+                (p, increase) =>
+                {
+                    p.ExpirienceSpent += increase;
+                },
+                (p, decrease) =>
+                {
+                    p.ExpirienceSpent -= decrease;
+                },
+                (p, toIncrease) =>
+                {
+                    return toIncrease <= p.Character.ExpirienceAvailable;
+                });
+        }
+
+        private void Character_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(this.Character.ExpirienceAvailable))
+                Increase.FireCanExecuteChanged();
         }
 
         private void CharacterTalentChangin(TalentData obj)
