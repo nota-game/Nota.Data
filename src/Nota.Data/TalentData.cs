@@ -33,7 +33,7 @@ namespace Nota.Data
             }
         }
 
-        public DataAction<TalentData, int> Increase { get; }
+        public DataAction<TalentData, int, IncreaseResult> Increase { get; }
 
         public int ExpirienceToNextLevel => this.TotalCostForNextLevel - this.ExpirienceSpent;
 
@@ -277,19 +277,42 @@ namespace Nota.Data
                 }
             }
 
-            Increase = new DataAction<TalentData, int>(this.Character, this,
+            Increase = new DataAction<TalentData, int, IncreaseResult>(this.Character, this,
                 (p, increase) =>
                 {
+                    var oldLevel = p.Level;
                     p.ExpirienceSpent += increase;
+                    var newLevel = p.Level;
+                    return new IncreaseResult(oldLevel, newLevel);
                 },
-                (p, decrease) =>
+                (p, decrease, r) =>
                 {
                     p.ExpirienceSpent -= decrease;
+                },
+                (p, toIncrease, r) =>
+                {
+                    string levelInformation;
+                    if (r.OldLevel == r.NewLevel)
+                        levelInformation = "kein Levelanstieg";
+                    else
+                        levelInformation = $"von {r.OldLevel} auf {r.NewLevel}";
+                    return $"{toIncrease} AP in Talent {p.Reference.Name} investiert ({levelInformation})";
                 },
                 (p, toIncrease) =>
                 {
                     return toIncrease <= p.Character.ExpirienceAvailable;
                 });
+        }
+        public class IncreaseResult
+        {
+            public IncreaseResult(int oldLevel, int newLevel)
+            {
+                this.OldLevel = oldLevel;
+                this.NewLevel = newLevel;
+            }
+
+            public int OldLevel { get; }
+            public int NewLevel { get; }
         }
 
         private void Character_PropertyChanged(object sender, PropertyChangedEventArgs e)

@@ -15,16 +15,18 @@ namespace Nota.Data
         internal readonly TParent parent;
         private readonly Action<TParent, TInput> execute;
         private readonly Action<TParent, TInput> undoExecute;
+        private readonly Func<TParent, TInput, string> description;
         private readonly Func<TParent, TInput, bool> canExecute;
 
         public event EventHandler CanExecuteChanged;
 
-        public DataAction(CharacterData character, TParent parent, Action<TParent, TInput> execute, Action<TParent, TInput> undoExecute, Func<TParent, TInput, bool> canExecute = null)
+        public DataAction(CharacterData character, TParent parent, Action<TParent, TInput> execute, Action<TParent, TInput> undoExecute, Func<TParent, TInput, string> description, Func<TParent, TInput, bool> canExecute = null)
         {
-            this.character = character;
+            this.character = character ?? throw new ArgumentNullException(nameof(character));
             this.parent = parent;
-            this.execute = execute;
-            this.undoExecute = undoExecute;
+            this.execute = execute ?? throw new ArgumentNullException(nameof(execute));
+            this.undoExecute = undoExecute ?? throw new ArgumentNullException(nameof(undoExecute));
+            this.description = description ?? throw new ArgumentNullException(nameof(description));
             this.canExecute = canExecute;
             CanExecuteChanged = null;
         }
@@ -41,8 +43,9 @@ namespace Nota.Data
             if (!this.CanExecute(input))
                 return default;
             this.execute(this.parent, input);
-
-            return new DataActionReturn<TParent, TInput>(this, this.character, input, this.undoExecute);
+            var dataActionReturn = new DataActionReturn<TParent, TInput>(this.description(this.parent, input), this, this.character, input, this.undoExecute);
+            this.character.AddToUndo(dataActionReturn);
+            return dataActionReturn;
         }
 
         internal void FireCanExecuteChanged() => CanExecuteChanged?.Invoke(this, EventArgs.Empty);
@@ -58,13 +61,14 @@ namespace Nota.Data
         private readonly Func<TParent, TInput, TReturn> execute;
         private readonly Action<TParent, TInput, TReturn> undoExecute;
         private readonly Func<TParent, TInput, bool> canExecute;
-
-        internal DataAction(CharacterData character, TParent parent, Func<TParent, TInput, TReturn> execute, Action<TParent, TInput, TReturn> undoExecute, Func<TParent, TInput, bool> canExecute = null)
+        private readonly Func<TParent, TInput, TReturn, string> description;
+        internal DataAction(CharacterData character, TParent parent, Func<TParent, TInput, TReturn> execute, Action<TParent, TInput, TReturn> undoExecute, Func<TParent, TInput, TReturn, string> description, Func<TParent, TInput, bool> canExecute = null)
         {
             this.character = character;
             this.parent = parent;
             this.execute = execute ?? throw new ArgumentNullException(nameof(execute));
             this.undoExecute = undoExecute ?? throw new ArgumentNullException(nameof(undoExecute));
+            this.description = description ?? throw new ArgumentNullException(nameof(description)); ;
             this.canExecute = canExecute;
             CanExecuteChanged = null;
         }
@@ -80,7 +84,9 @@ namespace Nota.Data
                 return default;
             var result = this.execute(this.parent, input);
 
-            return new DataActionReturn<TParent, TInput, TReturn>(this, this.character, input, result, this.undoExecute);
+            var dataActionReturn = new DataActionReturn<TParent, TInput, TReturn>(this.description(this.parent, input, result), this, this.character, input, result, this.undoExecute);
+            this.character.AddToUndo(dataActionReturn);
+            return dataActionReturn;
         }
 
         public event EventHandler CanExecuteChanged;
@@ -92,9 +98,16 @@ namespace Nota.Data
 
     public abstract class DataActionReturn
     {
+        public string Description { get; }
         internal abstract CharacterData Origin { get; }
-        internal bool hasUndone { get; set; }
+        internal bool hasUndone { get; private protected set; }
         internal abstract void Undo();
+        public DataActionReturn(string description)
+        {
+            if (string.IsNullOrWhiteSpace(description))
+                throw new ArgumentException("message", nameof(description));
+            this.Description = description;
+        }
     }
     public class DataActionReturn<TParent, TInput> : DataActionReturn
     {
@@ -103,7 +116,8 @@ namespace Nota.Data
         private readonly TInput input;
         private readonly Action<TParent, TInput> undoExecute;
 
-        public DataActionReturn(DataAction<TParent, TInput> dataAction, CharacterData character, TInput input, Action<TParent, TInput> undoExecute)
+        public DataActionReturn(string description, DataAction<TParent, TInput> dataAction, CharacterData character, TInput input, Action<TParent, TInput> undoExecute)
+            : base(description)
         {
             this.dataAction = dataAction;
             this.character = character;
@@ -131,7 +145,8 @@ namespace Nota.Data
         private Action<TParent, TInput, TReturn> undoExecute;
         internal override CharacterData Origin => this.character;
 
-        public DataActionReturn(DataAction<TParent, TInput, TReturn> dataAction, CharacterData character, TInput input, TReturn result, Action<TParent, TInput, TReturn> undoExecute)
+        public DataActionReturn(string description, DataAction<TParent, TInput, TReturn> dataAction, CharacterData character, TInput input, TReturn result, Action<TParent, TInput, TReturn> undoExecute)
+            : base(description)
         {
             this.dataAction = dataAction;
             this.character = character;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Xml.Serialization;
 using Nota.Data.Generated.Talent;
 
@@ -13,24 +14,25 @@ namespace Nota.Data
             this.Talents = talents;
         }
 
-        public static Data Load(System.IO.Stream stream)
+        public static Task<Data> LoadAsync(System.IO.Stream stream)
         {
-            var serializer = new XmlSerializer(typeof(Generated.Core.Daten));
-            var data = serializer.Deserialize(stream) as Generated.Core.Daten;
-            var talentList = new List<TalentReference>();
-
-            var output = new Data(talentList.AsReadOnly());
-            var directory = new Dictionary<string, TalentReference>();
-            foreach (var item in data.Talente.Select(x => new TalentReference(x)).OrderBy(x => x.Category).ThenBy(x => x.Name))
+            return Task.Run(() =>
             {
-                talentList.Add(item);
-                directory.Add(item.Name, item);
-            }
-            foreach (var item in output.Talents)
-                item.InitilizeDerivation(directory);
+                var serializer = new XmlSerializer(typeof(Generated.Core.Daten));
+                var data = serializer.Deserialize(stream) as Generated.Core.Daten;
+                var talentList = new List<TalentReference>();
 
-
-            return output;
+                var output = new Data(talentList.AsReadOnly());
+                var directory = new Dictionary<string, TalentReference>();
+                foreach (var item in data.Talente.Select(x => new TalentReference(x)).OrderBy(x => x.Category).ThenBy(x => x.Name))
+                {
+                    talentList.Add(item);
+                    directory.Add(item.Name, item);
+                }
+                foreach (var item in output.Talents)
+                    item.InitilizeDerivation(directory);
+                return output;
+            });
 
         }
 
