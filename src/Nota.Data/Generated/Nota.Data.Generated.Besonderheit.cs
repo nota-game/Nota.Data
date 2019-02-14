@@ -282,6 +282,47 @@ namespace Nota.Data.Generated.Besonderheit
     public partial class BesonderheitenBesonderheit : Nota.Data.Generated.Misc.INamedElement, Nota.Data.Generated.Misc.IKostenElement
     {
         
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        private System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType> _tags;
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlArrayAttribute("Tags", Namespace="http://nota-game.azurewebsites.net/schema/besonderheit")]
+        [System.Xml.Serialization.XmlArrayItemAttribute("Tag", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
+        public System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType> Tags
+        {
+            get
+            {
+                return this._tags;
+            }
+            private set
+            {
+                this._tags = value;
+            }
+        }
+        
+        /// <summary>
+        /// <para xml:lang="de">Ruft einen Wert ab, der angibt, ob die Tags-Collection leer ist.</para>
+        /// <para xml:lang="en">Gets a value indicating whether the Tags collection is empty.</para>
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool TagsSpecified
+        {
+            get
+            {
+                return (this.Tags.Count != 0);
+            }
+        }
+        
+        /// <summary>
+        /// <para xml:lang="de">Initialisiert eine neue Instanz der <see cref="BesonderheitenBesonderheit" /> Klasse.</para>
+        /// <para xml:lang="en">Initializes a new instance of the <see cref="BesonderheitenBesonderheit" /> class.</para>
+        /// </summary>
+        public BesonderheitenBesonderheit()
+        {
+            this._tags = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType>();
+        }
+        
         /// <summary>
         /// </summary>
         [System.Xml.Serialization.XmlElementAttribute("Beschreibung", Namespace="http://nota-game.azurewebsites.net/schema/besonderheit")]
@@ -342,6 +383,44 @@ namespace Nota.Data.Generated.Besonderheit
             {
                 this._gebunden = value;
             }
+        }
+    }
+    
+    /// <summary>
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.0.206.0")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute("BesonderheitenBesonderheitTags", Namespace="http://nota-game.azurewebsites.net/schema/besonderheit", AnonymousType=true)]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class BesonderheitenBesonderheitTags
+    {
+        
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        private System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType> _tag;
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlElementAttribute("Tag", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
+        public System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType> Tag
+        {
+            get
+            {
+                return this._tag;
+            }
+            private set
+            {
+                this._tag = value;
+            }
+        }
+        
+        /// <summary>
+        /// <para xml:lang="de">Initialisiert eine neue Instanz der <see cref="BesonderheitenBesonderheitTags" /> Klasse.</para>
+        /// <para xml:lang="en">Initializes a new instance of the <see cref="BesonderheitenBesonderheitTags" /> class.</para>
+        /// </summary>
+        public BesonderheitenBesonderheitTags()
+        {
+            this._tag = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType>();
         }
     }
     

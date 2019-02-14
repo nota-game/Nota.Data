@@ -77,6 +77,7 @@ namespace Nota.Data.Generated.Core
             this._talente = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Talent.TalenteTalent>();
             this._fertigkeiten = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Fertigkeit.FertigkeitenFertigkeit>();
             this._besonderheiten = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Besonderheit.BesonderheitenBesonderheit>();
+            this._tags = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.Tag>();
         }
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
@@ -202,6 +203,25 @@ namespace Nota.Data.Generated.Core
         /// </summary>
         [System.Xml.Serialization.XmlElementAttribute("Ausstattung", Namespace="http://nota-game.azurewebsites.net/schema/kampf/ausstattung")]
         public Nota.Data.Generated.Kampf.Ausstattung.Ausstattung Ausstattung { get; set; }
+        
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        private System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.Tag> _tags;
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlArrayAttribute("Tags", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
+        [System.Xml.Serialization.XmlArrayItemAttribute("Tag", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
+        public System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.Tag> Tags
+        {
+            get
+            {
+                return this._tags;
+            }
+            private set
+            {
+                this._tags = value;
+            }
+        }
         
         /// <summary>
         /// </summary>

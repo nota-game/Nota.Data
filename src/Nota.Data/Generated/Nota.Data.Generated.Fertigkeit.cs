@@ -79,6 +79,47 @@ namespace Nota.Data.Generated.Fertigkeit
     public partial class FertigkeitenFertigkeit
     {
         
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        private System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType> _tags;
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlArrayAttribute("Tags", Namespace="http://nota-game.azurewebsites.net/schema/fertigkeit")]
+        [System.Xml.Serialization.XmlArrayItemAttribute("Tag", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
+        public System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType> Tags
+        {
+            get
+            {
+                return this._tags;
+            }
+            private set
+            {
+                this._tags = value;
+            }
+        }
+        
+        /// <summary>
+        /// <para xml:lang="de">Ruft einen Wert ab, der angibt, ob die Tags-Collection leer ist.</para>
+        /// <para xml:lang="en">Gets a value indicating whether the Tags collection is empty.</para>
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool TagsSpecified
+        {
+            get
+            {
+                return (this.Tags.Count != 0);
+            }
+        }
+        
+        /// <summary>
+        /// <para xml:lang="de">Initialisiert eine neue Instanz der <see cref="FertigkeitenFertigkeit" /> Klasse.</para>
+        /// <para xml:lang="en">Initializes a new instance of the <see cref="FertigkeitenFertigkeit" /> class.</para>
+        /// </summary>
+        public FertigkeitenFertigkeit()
+        {
+            this._tags = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType>();
+        }
+        
         /// <summary>
         /// </summary>
         [System.Xml.Serialization.XmlElementAttribute("Voraussetzung", Namespace="http://nota-game.azurewebsites.net/schema/fertigkeit")]
@@ -93,6 +134,44 @@ namespace Nota.Data.Generated.Fertigkeit
         /// </summary>
         [System.Xml.Serialization.XmlAttributeAttribute("Name", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public string Name { get; set; }
+    }
+    
+    /// <summary>
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.0.206.0")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute("FertigkeitenFertigkeitTags", Namespace="http://nota-game.azurewebsites.net/schema/fertigkeit", AnonymousType=true)]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class FertigkeitenFertigkeitTags
+    {
+        
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        private System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType> _tag;
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlElementAttribute("Tag", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
+        public System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType> Tag
+        {
+            get
+            {
+                return this._tag;
+            }
+            private set
+            {
+                this._tag = value;
+            }
+        }
+        
+        /// <summary>
+        /// <para xml:lang="de">Initialisiert eine neue Instanz der <see cref="FertigkeitenFertigkeitTags" /> Klasse.</para>
+        /// <para xml:lang="en">Initializes a new instance of the <see cref="FertigkeitenFertigkeitTags" /> class.</para>
+        /// </summary>
+        public FertigkeitenFertigkeitTags()
+        {
+            this._tag = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType>();
+        }
     }
     
     /// <summary>

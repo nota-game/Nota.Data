@@ -24,14 +24,16 @@ namespace Nota.Data.Generated.Misc
     [System.Xml.Serialization.XmlTypeAttribute("NamedType", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlRootAttribute("Level", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
+    [System.Xml.Serialization.XmlRootAttribute("Tag", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Nota.Data.Generated.Besonderheit.Besonderheit))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Nota.Data.Generated.Fertigkeit.Fertigkeit))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Nota.Data.Generated.Kultur.Kultur))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Nota.Data.Generated.Lebewesen.Lebewesen))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Level))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(NamedTypeOptionalValue))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(NamedTypeReqiredeValue))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Nota.Data.Generated.Profession.Profession))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Tag))]
     public partial class NamedType : INamedElement
     {
         
@@ -118,6 +120,22 @@ namespace Nota.Data.Generated.Misc
                 this.WertValueSpecified = value.HasValue;
             }
         }
+    }
+    
+    /// <summary>
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.0.206.0")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute("Tag", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class Tag : NamedType
+    {
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlElementAttribute("Beschreibung", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
+        public string Beschreibung { get; set; }
     }
     
     /// <summary>
@@ -338,6 +356,11 @@ namespace Nota.Data.Generated.Misc
         /// </summary>
         [System.Xml.Serialization.XmlElementAttribute("Besonderheit", Namespace="http://nota-game.azurewebsites.net/schema/besonderheit")]
         public NamedType Besonderheit { get; set; }
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlElementAttribute("Tag", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
+        public NamedType Tag { get; set; }
     }
     
     /// <summary>
@@ -393,6 +416,7 @@ namespace Nota.Data.Generated.Misc
             this._fertigkeit = new System.Collections.ObjectModel.Collection<NamedType>();
             this._talent = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Talent.Talent>();
             this._besonderheit = new System.Collections.ObjectModel.Collection<NamedType>();
+            this._tag = new System.Collections.ObjectModel.Collection<NamedType>();
         }
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
@@ -549,6 +573,48 @@ namespace Nota.Data.Generated.Misc
                 return (this.Besonderheit.Count != 0);
             }
         }
+        
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        private System.Collections.ObjectModel.Collection<NamedType> _tag;
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlElementAttribute("Tag", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
+        public System.Collections.ObjectModel.Collection<NamedType> Tag
+        {
+            get
+            {
+                return this._tag;
+            }
+            private set
+            {
+                this._tag = value;
+            }
+        }
+        
+        /// <summary>
+        /// <para xml:lang="de">Ruft einen Wert ab, der angibt, ob die Tag-Collection leer ist.</para>
+        /// <para xml:lang="en">Gets a value indicating whether the Tag collection is empty.</para>
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool TagSpecified
+        {
+            get
+            {
+                return (this.Tag.Count != 0);
+            }
+        }
+    }
+    
+    /// <summary>
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.0.206.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlRootAttribute("Level", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
+    public partial class Level : NamedType
+    {
     }
     
     /// <summary>
@@ -785,5 +851,44 @@ namespace Nota.Data.Generated.Misc
             "")]
         [System.Xml.Serialization.XmlElementAttribute("LevelVoraussetzung", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
         public Nota.Data.Generated.Misc.LevelAuswahl LevelVoraussetzung { get; set; }
+    }
+    
+    /// <summary>
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.0.206.0")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute("Tags", Namespace="http://nota-game.azurewebsites.net/schema/misc", AnonymousType=true)]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlRootAttribute("Tags", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
+    public partial class Tags
+    {
+        
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        private System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.Tag> _tag;
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlElementAttribute("Tag", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
+        public System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.Tag> Tag
+        {
+            get
+            {
+                return this._tag;
+            }
+            private set
+            {
+                this._tag = value;
+            }
+        }
+        
+        /// <summary>
+        /// <para xml:lang="de">Initialisiert eine neue Instanz der <see cref="Tags" /> Klasse.</para>
+        /// <para xml:lang="en">Initializes a new instance of the <see cref="Tags" /> class.</para>
+        /// </summary>
+        public Tags()
+        {
+            this._tag = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.Tag>();
+        }
     }
 }
