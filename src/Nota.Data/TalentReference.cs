@@ -11,22 +11,21 @@ namespace Nota.Data
 
         public Check Check { get; }
 
-        public string Description { get; }
+        public LocalizedString Description { get; }
 
         public Category Category { get; }
 
         public Compexety Compexety { get; }
 
         public DerivationCollection Derivation { get; private set; }
-        public string Name { get; set; }
-
-
+        public LocalizedString Name { get; }
+        public string Id { get; }
 
         internal TalentReference(TalenteTalent item)
         {
             this.item = item;
             this.Name = item.Name;
-
+            this.Id = item.Id;
             if (item.BedingugenSpecified)
             {
                 // Todo 
@@ -34,22 +33,22 @@ namespace Nota.Data
             switch (item.Kategorie)
             {
                 case Kategorie.Geist:
-                    Category = Nota.Data.Category.Spirit;
+                    this.Category = Nota.Data.Category.Spirit;
                     break;
                 case Kategorie.Körper:
-                    Category = Nota.Data.Category.Body;
+                    this.Category = Nota.Data.Category.Body;
                     break;
                 case Kategorie.Gesellschaft:
-                    Category = Nota.Data.Category.Social;
+                    this.Category = Nota.Data.Category.Social;
                     break;
                 case Kategorie.Kampf:
-                    Category = Nota.Data.Category.Combat;
+                    this.Category = Nota.Data.Category.Combat;
                     break;
                 case Kategorie.Wissen:
-                    Category = Nota.Data.Category.Knowlege;
+                    this.Category = Nota.Data.Category.Knowlege;
                     break;
                 case Kategorie.Handwerk:
-                    Category = Nota.Data.Category.Craftsmanship;
+                    this.Category = Nota.Data.Category.Craftsmanship;
                     break;
                 default:
                     throw new NotImplementedException($"The Category {item.Kategorie} is not implemented");
@@ -124,7 +123,7 @@ namespace Nota.Data
 
                 if (ableitungen.AbleitungSpecified)
                     foreach (var item in ableitungen.Ableitung)
-                        collection.Derivations.Add(new Derivation(SearchTalent(item.Name), item.Anzahl));
+                        collection.Derivations.Add(new Derivation(SearchTalent(item.Id), item.Anzahl));
 
                 return collection;
 
@@ -134,7 +133,7 @@ namespace Nota.Data
 
                     if (max.AbleitungSpecified)
                         foreach (var item in max.Ableitung)
-                            collection2.Derivations.Add(new Derivation(SearchTalent(item.Name), item.Anzahl));
+                            collection2.Derivations.Add(new Derivation(SearchTalent(item.Id), item.Anzahl));
 
                     if (max.MaxPropertySpecified)
                         foreach (var item in max.MaxProperty)
@@ -167,12 +166,12 @@ namespace Nota.Data
         public override int GetHashCode()
         {
             var hashCode = 1214502178;
-            hashCode = hashCode * -1521134295 + EqualityComparer<TalenteTalent>.Default.GetHashCode(this.item);
+            //hashCode = hashCode * -1521134295 + EqualityComparer<TalenteTalent>.Default.GetHashCode(this.item);
             hashCode = hashCode * -1521134295 + EqualityComparer<Check>.Default.GetHashCode(this.Check);
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(this.Description);
+            //hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(this.Description);
             hashCode = hashCode * -1521134295 + this.Category.GetHashCode();
             hashCode = hashCode * -1521134295 + this.Compexety.GetHashCode();
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(this.Name);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(this.Id);
             return hashCode;
         }
 
@@ -210,16 +209,16 @@ namespace Nota.Data
 {
     public enum Compexety
     {
-        A=1,
-        B=2,
-        C=3,
-        D=4,
-        E=5,
-        F=6,
-        G=7,
-        H=8,
-        I=9,
-        J=10,
-        K=11
+        A = 1,
+        B = 2,
+        C = 3,
+        D = 4,
+        E = 5,
+        F = 6,
+        G = 7,
+        H = 8,
+        I = 9,
+        J = 10,
+        K = 11
     }
 }

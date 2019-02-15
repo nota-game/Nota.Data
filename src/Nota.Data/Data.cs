@@ -24,10 +24,10 @@ namespace Nota.Data
 
                 var output = new Data(talentList.AsReadOnly());
                 var directory = new Dictionary<string, TalentReference>();
-                foreach (var item in data.Talente.Select(x => new TalentReference(x)).OrderBy(x => x.Category).ThenBy(x => x.Name))
+                foreach (var item in data.Talente.Select(x => new TalentReference(x)).OrderBy(x => x.Category).ThenBy(x => x.Id).Reverse())
                 {
                     talentList.Add(item);
-                    directory.Add(item.Name, item);
+                    directory.Add(item.Id, item);
                 }
                 foreach (var item in output.Talents)
                     item.InitilizeDerivation(directory);
