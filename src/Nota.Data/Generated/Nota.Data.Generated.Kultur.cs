@@ -282,10 +282,54 @@ namespace Nota.Data.Generated.Kultur
     public partial class KulturenKultur : Nota.Data.Generated.Misc.INamedElement
     {
         
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        private System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung> _name;
+        
         /// <summary>
         /// </summary>
-        [System.Xml.Serialization.XmlElementAttribute("Beschreibung", Namespace="http://nota-game.azurewebsites.net/schema/kultur")]
-        public string Beschreibung { get; set; }
+        [System.Xml.Serialization.XmlArrayAttribute("Name", Namespace="http://nota-game.azurewebsites.net/schema/kultur")]
+        [System.Xml.Serialization.XmlArrayItemAttribute("Lokalisirung", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
+        public System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung> Name
+        {
+            get
+            {
+                return this._name;
+            }
+            private set
+            {
+                this._name = value;
+            }
+        }
+        
+        /// <summary>
+        /// <para xml:lang="de">Initialisiert eine neue Instanz der <see cref="KulturenKultur" /> Klasse.</para>
+        /// <para xml:lang="en">Initializes a new instance of the <see cref="KulturenKultur" /> class.</para>
+        /// </summary>
+        public KulturenKultur()
+        {
+            this._name = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung>();
+            this._beschreibung = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung>();
+            this._levels = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LevelsLevel>();
+        }
+        
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        private System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung> _beschreibung;
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlArrayAttribute("Beschreibung", Namespace="http://nota-game.azurewebsites.net/schema/kultur")]
+        [System.Xml.Serialization.XmlArrayItemAttribute("Lokalisirung", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
+        public System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung> Beschreibung
+        {
+            get
+            {
+                return this._beschreibung;
+            }
+            private set
+            {
+                this._beschreibung = value;
+            }
+        }
         
         /// <summary>
         /// </summary>
@@ -312,18 +356,9 @@ namespace Nota.Data.Generated.Kultur
         }
         
         /// <summary>
-        /// <para xml:lang="de">Initialisiert eine neue Instanz der <see cref="KulturenKultur" /> Klasse.</para>
-        /// <para xml:lang="en">Initializes a new instance of the <see cref="KulturenKultur" /> class.</para>
         /// </summary>
-        public KulturenKultur()
-        {
-            this._levels = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LevelsLevel>();
-        }
-        
-        /// <summary>
-        /// </summary>
-        [System.Xml.Serialization.XmlAttributeAttribute("Name", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string Name { get; set; }
+        [System.Xml.Serialization.XmlAttributeAttribute("Id", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string Id { get; set; }
     }
     
     /// <summary>

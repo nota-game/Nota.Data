@@ -39,8 +39,8 @@ namespace Nota.Data.Generated.Misc
         
         /// <summary>
         /// </summary>
-        [System.Xml.Serialization.XmlAttributeAttribute("Name", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string Name { get; set; }
+        [System.Xml.Serialization.XmlAttributeAttribute("Id", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string Id { get; set; }
     }
     
     /// <summary>
@@ -51,7 +51,7 @@ namespace Nota.Data.Generated.Misc
         
         /// <summary>
         /// </summary>
-        string Name
+        string Id
         {
             get;
             set;
@@ -132,10 +132,114 @@ namespace Nota.Data.Generated.Misc
     public partial class Tag : NamedType
     {
         
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        private System.Collections.ObjectModel.Collection<LokalisierungenLokalisirung> _name;
+        
         /// <summary>
         /// </summary>
-        [System.Xml.Serialization.XmlElementAttribute("Beschreibung", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
-        public string Beschreibung { get; set; }
+        [System.Xml.Serialization.XmlArrayAttribute("Name", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
+        [System.Xml.Serialization.XmlArrayItemAttribute("Lokalisirung", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
+        public System.Collections.ObjectModel.Collection<LokalisierungenLokalisirung> Name
+        {
+            get
+            {
+                return this._name;
+            }
+            private set
+            {
+                this._name = value;
+            }
+        }
+        
+        /// <summary>
+        /// <para xml:lang="de">Initialisiert eine neue Instanz der <see cref="Tag" /> Klasse.</para>
+        /// <para xml:lang="en">Initializes a new instance of the <see cref="Tag" /> class.</para>
+        /// </summary>
+        public Tag()
+        {
+            this._name = new System.Collections.ObjectModel.Collection<LokalisierungenLokalisirung>();
+            this._beschreibung = new System.Collections.ObjectModel.Collection<LokalisierungenLokalisirung>();
+        }
+        
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        private System.Collections.ObjectModel.Collection<LokalisierungenLokalisirung> _beschreibung;
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlArrayAttribute("Beschreibung", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
+        [System.Xml.Serialization.XmlArrayItemAttribute("Lokalisirung", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
+        public System.Collections.ObjectModel.Collection<LokalisierungenLokalisirung> Beschreibung
+        {
+            get
+            {
+                return this._beschreibung;
+            }
+            private set
+            {
+                this._beschreibung = value;
+            }
+        }
+    }
+    
+    /// <summary>
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.0.206.0")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute("Lokalisierungen", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class Lokalisierungen
+    {
+        
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        private System.Collections.ObjectModel.Collection<LokalisierungenLokalisirung> _lokalisirung;
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlElementAttribute("Lokalisirung", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
+        public System.Collections.ObjectModel.Collection<LokalisierungenLokalisirung> Lokalisirung
+        {
+            get
+            {
+                return this._lokalisirung;
+            }
+            private set
+            {
+                this._lokalisirung = value;
+            }
+        }
+        
+        /// <summary>
+        /// <para xml:lang="de">Initialisiert eine neue Instanz der <see cref="Lokalisierungen" /> Klasse.</para>
+        /// <para xml:lang="en">Initializes a new instance of the <see cref="Lokalisierungen" /> class.</para>
+        /// </summary>
+        public Lokalisierungen()
+        {
+            this._lokalisirung = new System.Collections.ObjectModel.Collection<LokalisierungenLokalisirung>();
+        }
+    }
+    
+    /// <summary>
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.0.206.0")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute("LokalisierungenLokalisirung", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class LokalisierungenLokalisirung
+    {
+        
+        /// <summary>
+        /// <para xml:lang="de">Ruft den Text ab oder legt diesen fest.</para>
+        /// <para xml:lang="en">Gets or sets the text value.</para>
+        /// </summary>
+        [System.Xml.Serialization.XmlTextAttribute()]
+        public string Value { get; set; }
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlAttributeAttribute("sparche", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string Sparche { get; set; }
     }
     
     /// <summary>
@@ -819,12 +923,12 @@ namespace Nota.Data.Generated.Misc
         }
         
         /// <summary>
-        /// <para xml:lang="de">Der Name des Levels, dies wird verwendet damit andere Level auf dieses verweisen können. (Nicht übergreifend)</para>
+        /// <para xml:lang="de">Die Id des Levels, dies wird verwendet damit andere Level auf dieses verweisen können. (Nicht übergreifend)</para>
         /// </summary>
-        [System.ComponentModel.DescriptionAttribute("Der Name des Levels, dies wird verwendet damit andere Level auf dieses verweisen " +
-            "können. (Nicht übergreifend)")]
-        [System.Xml.Serialization.XmlAttributeAttribute("Name", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string Name { get; set; }
+        [System.ComponentModel.DescriptionAttribute("Die Id des Levels, dies wird verwendet damit andere Level auf dieses verweisen kö" +
+            "nnen. (Nicht übergreifend)")]
+        [System.Xml.Serialization.XmlAttributeAttribute("Id", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string Id { get; set; }
     }
     
     /// <summary>

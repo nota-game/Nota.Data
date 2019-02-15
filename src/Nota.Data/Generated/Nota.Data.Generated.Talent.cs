@@ -30,8 +30,8 @@ namespace Nota.Data.Generated.Talent
         
         /// <summary>
         /// </summary>
-        [System.Xml.Serialization.XmlAttributeAttribute("Name", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string Name { get; set; }
+        [System.Xml.Serialization.XmlAttributeAttribute("Id", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string Id { get; set; }
         
         /// <summary>
         /// </summary>
@@ -200,8 +200,8 @@ namespace Nota.Data.Generated.Talent
         
         /// <summary>
         /// </summary>
-        [System.Xml.Serialization.XmlAttributeAttribute("Name", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string Name { get; set; }
+        [System.Xml.Serialization.XmlAttributeAttribute("Id", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string Id { get; set; }
         
         /// <summary>
         /// </summary>
@@ -379,10 +379,54 @@ namespace Nota.Data.Generated.Talent
         [System.Xml.Serialization.XmlElementAttribute("Probe", Namespace="http://nota-game.azurewebsites.net/schema/talent")]
         public TalenteTalentProbe Probe { get; set; }
         
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        private System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung> _name;
+        
         /// <summary>
         /// </summary>
-        [System.Xml.Serialization.XmlElementAttribute("Beschreibung", Namespace="http://nota-game.azurewebsites.net/schema/talent")]
-        public string Beschreibung { get; set; }
+        [System.Xml.Serialization.XmlArrayAttribute("Name", Namespace="http://nota-game.azurewebsites.net/schema/talent")]
+        [System.Xml.Serialization.XmlArrayItemAttribute("Lokalisirung", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
+        public System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung> Name
+        {
+            get
+            {
+                return this._name;
+            }
+            private set
+            {
+                this._name = value;
+            }
+        }
+        
+        /// <summary>
+        /// <para xml:lang="de">Initialisiert eine neue Instanz der <see cref="TalenteTalent" /> Klasse.</para>
+        /// <para xml:lang="en">Initializes a new instance of the <see cref="TalenteTalent" /> class.</para>
+        /// </summary>
+        public TalenteTalent()
+        {
+            this._name = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung>();
+            this._beschreibung = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung>();
+            this._bedingugen = new System.Collections.ObjectModel.Collection<TalenteTalentBedingugenBedingung>();
+        }
+        
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        private System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung> _beschreibung;
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlArrayAttribute("Beschreibung", Namespace="http://nota-game.azurewebsites.net/schema/talent")]
+        [System.Xml.Serialization.XmlArrayItemAttribute("Lokalisirung", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
+        public System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung> Beschreibung
+        {
+            get
+            {
+                return this._beschreibung;
+            }
+            private set
+            {
+                this._beschreibung = value;
+            }
+        }
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
         private System.Collections.ObjectModel.Collection<TalenteTalentBedingugenBedingung> _bedingugen;
@@ -417,23 +461,14 @@ namespace Nota.Data.Generated.Talent
         }
         
         /// <summary>
-        /// <para xml:lang="de">Initialisiert eine neue Instanz der <see cref="TalenteTalent" /> Klasse.</para>
-        /// <para xml:lang="en">Initializes a new instance of the <see cref="TalenteTalent" /> class.</para>
-        /// </summary>
-        public TalenteTalent()
-        {
-            this._bedingugen = new System.Collections.ObjectModel.Collection<TalenteTalentBedingugenBedingung>();
-        }
-        
-        /// <summary>
         /// </summary>
         [System.Xml.Serialization.XmlElementAttribute("Ableitungen", Namespace="http://nota-game.azurewebsites.net/schema/talent")]
         public Nota.Data.Generated.Talent.AbleitungsAuswahl Ableitungen { get; set; }
         
         /// <summary>
         /// </summary>
-        [System.Xml.Serialization.XmlAttributeAttribute("Name", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string Name { get; set; }
+        [System.Xml.Serialization.XmlAttributeAttribute("Id", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string Id { get; set; }
         
         /// <summary>
         /// </summary>

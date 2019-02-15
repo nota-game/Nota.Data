@@ -208,10 +208,55 @@ namespace Nota.Data.Generated.Lebewesen
     public partial class Morph : Nota.Data.Generated.Misc.INamedElement
     {
         
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        private System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung> _name;
+        
         /// <summary>
         /// </summary>
-        [System.Xml.Serialization.XmlElementAttribute("Beschreibung", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
-        public string Beschreibung { get; set; }
+        [System.Xml.Serialization.XmlArrayAttribute("Name", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
+        [System.Xml.Serialization.XmlArrayItemAttribute("Lokalisirung", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
+        public System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung> Name
+        {
+            get
+            {
+                return this._name;
+            }
+            private set
+            {
+                this._name = value;
+            }
+        }
+        
+        /// <summary>
+        /// <para xml:lang="de">Initialisiert eine neue Instanz der <see cref="Morph" /> Klasse.</para>
+        /// <para xml:lang="en">Initializes a new instance of the <see cref="Morph" /> class.</para>
+        /// </summary>
+        public Morph()
+        {
+            this._name = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung>();
+            this._beschreibung = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung>();
+            this._standardKulturen = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType>();
+            this._lebensabschnitte = new System.Collections.ObjectModel.Collection<Lebensabschnitt>();
+        }
+        
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        private System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung> _beschreibung;
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlArrayAttribute("Beschreibung", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
+        [System.Xml.Serialization.XmlArrayItemAttribute("Lokalisirung", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
+        public System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung> Beschreibung
+        {
+            get
+            {
+                return this._beschreibung;
+            }
+            private set
+            {
+                this._beschreibung = value;
+            }
+        }
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
         private System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType> _standardKulturen;
@@ -248,16 +293,6 @@ namespace Nota.Data.Generated.Lebewesen
         }
         
         /// <summary>
-        /// <para xml:lang="de">Initialisiert eine neue Instanz der <see cref="Morph" /> Klasse.</para>
-        /// <para xml:lang="en">Initializes a new instance of the <see cref="Morph" /> class.</para>
-        /// </summary>
-        public Morph()
-        {
-            this._standardKulturen = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType>();
-            this._lebensabschnitte = new System.Collections.ObjectModel.Collection<Lebensabschnitt>();
-        }
-        
-        /// <summary>
         /// </summary>
         [System.Xml.Serialization.XmlElementAttribute("EigenschaftModifikation", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
         public EigenschaftsMods EigenschaftModifikation { get; set; }
@@ -288,8 +323,8 @@ namespace Nota.Data.Generated.Lebewesen
         
         /// <summary>
         /// </summary>
-        [System.Xml.Serialization.XmlAttributeAttribute("Name", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string Name { get; set; }
+        [System.Xml.Serialization.XmlAttributeAttribute("Id", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string Id { get; set; }
     }
     
     /// <summary>
@@ -577,8 +612,8 @@ namespace Nota.Data.Generated.Lebewesen
         
         /// <summary>
         /// </summary>
-        [System.Xml.Serialization.XmlAttributeAttribute("Name", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string Name { get; set; }
+        [System.Xml.Serialization.XmlAttributeAttribute("Id", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string Id { get; set; }
         
         /// <summary>
         /// <para xml:lang="de">Die minimale Größe in m.</para>
@@ -803,6 +838,8 @@ namespace Nota.Data.Generated.Lebewesen
             this._standardKulturen = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType>();
             this._morphe = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Lebewesen.Morph>();
             this._besonderheiten = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType>();
+            this._name = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung>();
+            this._beschreibung = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung>();
         }
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
@@ -856,15 +893,48 @@ namespace Nota.Data.Generated.Lebewesen
             }
         }
         
-        /// <summary>
-        /// </summary>
-        [System.Xml.Serialization.XmlElementAttribute("Beschreibung", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
-        public string Beschreibung { get; set; }
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        private System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung> _name;
         
         /// <summary>
         /// </summary>
-        [System.Xml.Serialization.XmlAttributeAttribute("Name", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string Name { get; set; }
+        [System.Xml.Serialization.XmlArrayAttribute("Name", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
+        [System.Xml.Serialization.XmlArrayItemAttribute("Lokalisirung", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
+        public System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung> Name
+        {
+            get
+            {
+                return this._name;
+            }
+            private set
+            {
+                this._name = value;
+            }
+        }
+        
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        private System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung> _beschreibung;
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlArrayAttribute("Beschreibung", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
+        [System.Xml.Serialization.XmlArrayItemAttribute("Lokalisirung", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
+        public System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung> Beschreibung
+        {
+            get
+            {
+                return this._beschreibung;
+            }
+            private set
+            {
+                this._beschreibung = value;
+            }
+        }
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlAttributeAttribute("Id", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string Id { get; set; }
         
         /// <summary>
         /// </summary>
