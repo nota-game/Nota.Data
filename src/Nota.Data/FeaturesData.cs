@@ -29,6 +29,19 @@ namespace Nota.Data
             }
         }
 
+        private Expressions.Result acquistionProblem;
+        public Expressions.Result AcquistionProblem
+        {
+            get
+            {
+                if (this.acquistionProblem == null)
+                {
+                    this.acquistionProblem = this.Reference.Expression.Evaluate(this.Character);
+                }
+                return this.acquistionProblem;
+            }
+        }
+
         public bool IsAcquired => this.NumberOfAcquisition > 0;
 
         public bool IsReplaced => this.replacingFeatures.Any(x => x.IsAcquired);
@@ -58,6 +71,34 @@ namespace Nota.Data
                         replacedFeature.FirePropertyChanged(nameof(this.IsReplaced));
                 };
             }
+
+            foreach (var item in this.Reference.Expression.CompetencyInvolved)
+                this.Character.Competency[item].PropertyChanged += (sender, e) =>
+                {
+                    if (e.PropertyName == nameof(CompetencyData.IsAcquired))
+                        this.FirePropertyChanged(nameof(this.AcquistionProblem));
+                };
+
+            foreach (var item in this.Reference.Expression.FeaturesInvolved)
+                this.Character.Features[item].PropertyChanged += (sender, e) =>
+                {
+                    if (e.PropertyName == nameof(FeaturesData.IsAcquired))
+                        this.FirePropertyChanged(nameof(this.AcquistionProblem));
+                };
+
+            foreach (var item in this.Reference.Expression.TalentInvolved)
+                this.Character.Talent[item].PropertyChanged += (sender, e) =>
+                {
+                    if (e.PropertyName == nameof(TalentData.BaseLevel))
+                        this.FirePropertyChanged(nameof(this.AcquistionProblem));
+                };
+
+            if (this.Reference.Expression.TagsInvolved.Any())
+                this.Character.PropertyChanged += (sender, e) =>
+                {
+                    if (e.PropertyName == nameof(CharacterData.Tags))
+                        this.FirePropertyChanged(nameof(this.AcquistionProblem));
+                };
         }
     }
 }

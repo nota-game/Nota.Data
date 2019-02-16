@@ -1,9 +1,10 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Nota.Data.Generated.Misc;
 
 namespace Nota.Data
 {
-    public class TagReference
+    public class TagReference : IReference
     {
 
         internal TagReference(Tag x, Data data)
@@ -18,5 +19,10 @@ namespace Nota.Data
         public LocalizedString Name { get; }
         public LocalizedString Description { get; }
         public Data Data { get; }
+
+        void IReference.Initilize(Dictionary<string, TalentReference> talentLookup, Dictionary<string, CompetencyReference> directoryCompetency, Dictionary<string, FeaturesReference> directoryFeatures, Dictionary<string, TagReference> directoryTags)
+        {
+
+        }
     }
 }

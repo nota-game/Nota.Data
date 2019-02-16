@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
+using Nota.Data.Expressions;
 using Nota.Data.Generated.Talent;
 
 namespace Nota.Data
 {
-    public class TalentReference : IEquatable<TalentReference>
+    public class TalentReference : IEquatable<TalentReference>, IReference
     {
+        private readonly TalenteTalent origin;
         private readonly TalenteTalent item;
 
         public Check Check { get; }
@@ -24,11 +27,12 @@ namespace Nota.Data
 
         internal TalentReference(TalenteTalent item, Data data)
         {
+            this.origin = item;
             this.item = item;
             this.Data = data;
             this.Name = item.Name;
             this.Id = item.Id;
-            if (item.BedingugenSpecified)
+            if (item.BedingungenSpecified)
             {
                 // Todo 
             }
@@ -95,17 +99,19 @@ namespace Nota.Data
                     break;
             }
 
-            if (item.BedingugenSpecified)
-                this.Description = item.Beschreibung;
+
+            this.Description = item.Beschreibung;
 
             this.Check = new Check(item.Probe);
 
 
         }
+        internal ImmutableArray<LevelExpression> Expressions { get; private set; }
 
-        internal void InitilizeDerivation(Dictionary<string, TalentReference> talentLookup)
+        void IReference.Initilize(Dictionary<string, TalentReference> talentLookup, Dictionary<string, CompetencyReference> directoryCompetency, Dictionary<string, FeaturesReference> directoryFeatures, Dictionary<string, TagReference> directoryTags)
         {
             this.Derivation = GenerateDerivation(this.item.Ableitungen);
+            this.Expressions = ImmutableArray.Create(this.origin.Bedingungen.OrderBy(x => x.Wert).Select(x => new LevelExpression(level: x.Wert, expresion: Expresion.GetExpresion(talentLookup, directoryCompetency, directoryFeatures, directoryTags, x))).ToArray());
 
 
             DerivationCollection GenerateDerivation(AbleitungsAuswahl ableitungen)
@@ -147,6 +153,19 @@ namespace Nota.Data
 
                 TalentReference SearchTalent(string name) => talentLookup[name];
             }
+        }
+
+        internal class LevelExpression
+        {
+            public LevelExpression(int level, Expresion expresion)
+            {
+                this.Level = level;
+                this.Expresion = expresion;
+            }
+
+
+            public int Level { get; }
+            internal Expresion Expresion { get; }
         }
 
         public override bool Equals(object obj)

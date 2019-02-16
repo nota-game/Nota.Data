@@ -254,6 +254,26 @@ namespace Nota.Data
             }
         }
 
+        public Expressions.Result AcquistionProblem => this.LevelProblem.result;
+        public int AcquistionProblemLevel => this.LevelProblem.level;
+
+        private (int level, Expressions.Result result)? levelProblem;
+        internal (int level, Expressions.Result result) LevelProblem
+        {
+            get
+            {
+                if (this.levelProblem == null)
+                {
+                    this.levelProblem = this.Reference.Expressions
+                        .Select<TalentReference.LevelExpression, (int level, Expressions.Result result)?>(x => (level: x.Level, x.Expresion.Evaluate(this.Character)))
+                        .FirstOrDefault(x => x.Value.result) ?? (0, Expressions.Result.OK);
+                    this.FirePropertyChanged(nameof(this.AcquistionProblem));
+                    this.FirePropertyChanged(nameof(this.AcquistionProblemLevel));
+                }
+                return this.levelProblem.Value;
+            }
+        }
+
         public TalentData(TalentReference reference, CharacterData character)
         {
             this.Reference = reference;
@@ -261,7 +281,7 @@ namespace Nota.Data
             this.Character.PropertyChanged += this.Character_PropertyChanged;
 
 
-            Increase = new DataAction<TalentData, int, IncreaseResult>(this.Character, this,
+            this.Increase = new DataAction<TalentData, int, IncreaseResult>(this.Character, this,
                 (p, increase) =>
                 {
                     var oldLevel = p.Level;
@@ -310,6 +330,46 @@ namespace Nota.Data
             foreach (var item in allDerivationsTalents)
                 this.Character.Talent[item].PropertyChanged += this.OtherTalent_PropertyChanged;
 
+            foreach (var item in this.Reference.Expressions.SelectMany(x => x.Expresion.CompetencyInvolved))
+                this.Character.Competency[item].PropertyChanged += (sender, e) =>
+                {
+                    if (e.PropertyName == nameof(CompetencyData.IsAcquired))
+                    {
+                        this.Increase.FireCanExecuteChanged();
+                        this.FirePropertyChanged(nameof(this.AcquistionProblem));
+                    }
+                };
+
+            foreach (var item in this.Reference.Expressions.SelectMany(x => x.Expresion.FeaturesInvolved))
+                this.Character.Features[item].PropertyChanged += (sender, e) =>
+                {
+                    if (e.PropertyName == nameof(CompetencyData.IsAcquired))
+                    {
+                        this.Increase.FireCanExecuteChanged();
+                        this.FirePropertyChanged(nameof(this.AcquistionProblem));
+                    }
+                };
+
+            foreach (var item in this.Reference.Expressions.SelectMany(x => x.Expresion.TalentInvolved))
+                this.Character.Talent[item].PropertyChanged += (sender, e) =>
+                {
+                    if (e.PropertyName == nameof(TalentData.BaseLevel))
+                    {
+                        this.Increase.FireCanExecuteChanged();
+                        this.FirePropertyChanged(nameof(this.AcquistionProblem));
+                    }
+                };
+
+            if (this.Reference.Expressions.SelectMany(x => x.Expresion.TagsInvolved).Any())
+                this.Character.PropertyChanged += (sender, e) =>
+                {
+                    if (e.PropertyName == nameof(CharacterData.Tags))
+                    {
+                        this.Increase.FireCanExecuteChanged();
+                        this.FirePropertyChanged(nameof(this.AcquistionProblem));
+                    }
+                };
+
         }
         public class IncreaseResult
         {
@@ -326,12 +386,12 @@ namespace Nota.Data
         private void Character_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(this.Character.ExpirienceAvailable))
-                Increase.FireCanExecuteChanged();
+                this.Increase.FireCanExecuteChanged();
         }
 
         private void OtherTalent_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(BaseLevel))
+            if (e.PropertyName == nameof(this.BaseLevel))
             {
                 this.FirePropertyChanged(nameof(this.SupportLevel));
                 this.FirePropertyChanged(nameof(this.BestNextLevel));
@@ -367,6 +427,10 @@ namespace Nota.Data
                 case nameof(this.SupportLevel):
                     this.supportLevel = null;
                     _ = this.SupportLevel;
+                    break;
+                case nameof(this.LevelProblem):
+                    this.levelProblem = null;
+                    _ = this.LevelProblem;
                     break;
 
                 default:

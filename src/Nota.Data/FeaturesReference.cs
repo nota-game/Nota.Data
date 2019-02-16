@@ -6,10 +6,11 @@ using System.Linq;
 
 namespace Nota.Data
 {
-    public class FeaturesReference
+    public class FeaturesReference : IReference
     {
         internal FeaturesReference(BesonderheitenBesonderheit x, Data data)
         {
+            this.origin = x;
             this.Data = data;
             this.Description = x.Beschreibung;
             this.Id = x.Id;
@@ -17,10 +18,11 @@ namespace Nota.Data
             this.Tags = x.Tags?.Select(y => data.Tags.First(z => z.Id == y.Id)).ToList().AsReadOnly() ?? new List<TagReference>().AsReadOnly();
 
             this.Cost = x.Kosten;
-            this.ersetzt = x.Ersetzt?.Besonderheit.Id;
             this.Hidden = x.Gebunden;
 
         }
+
+        private readonly BesonderheitenBesonderheit origin;
 
         public Data Data { get; }
         public LocalizedString Description { get; }
@@ -29,18 +31,22 @@ namespace Nota.Data
         public ReadOnlyCollection<TagReference> Tags { get; }
         public int Cost { get; }
 
-        private readonly string ersetzt;
 
         /// <summary>
         /// Hidden Features can't be bought activly. They come with species like a tail.
         /// </summary>
         public bool Hidden { get; }
         public FeaturesReference Replaces { get; private set; }
+        internal Expressions.Expresion Expression { get; private set; }
 
-        internal void InitilizeReplacement(Dictionary<string, FeaturesReference> directory)
+        void IReference.Initilize(Dictionary<string, TalentReference> talentLookup, Dictionary<string, CompetencyReference> directoryCompetency, Dictionary<string, FeaturesReference> directoryFeatures, Dictionary<string, TagReference> directoryTags)
         {
-            if (this.ersetzt != null)
-                this.Replaces = directory[this.ersetzt];
+            if (this.origin.Ersetzt?.Besonderheit.Id != null)
+                this.Replaces = directoryFeatures[this.origin.Ersetzt?.Besonderheit.Id];
+
+            this.Expression = Expressions.Expresion.GetExpresion(talentLookup, directoryCompetency, directoryFeatures, directoryTags, this.origin.Bedingung);
+
+
         }
 
     }

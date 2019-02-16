@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
@@ -84,18 +85,18 @@ namespace Nota.Data
         }
 
 
-        private IReadOnlyList<TagReference> tags;
+        private ImmutableHashSet<TagReference> tags;
 
-        public IReadOnlyList<TagReference> Tags
+        public ImmutableHashSet<TagReference> Tags
         {
             get
             {
                 if (this.tags == null)
                 {
-                    this.tags = this.Competency
-                        .SelectMany(x => x.Reference.Tags)
-                        .Concat(this.Features.SelectMany(x => x.Reference.Tags))
-                        .Distinct().ToList().AsReadOnly();
+                    this.tags = ImmutableHashSet.Create(
+                        this.Competency.SelectMany(x => x.Reference.Tags)
+                        .Concat(this.Features.SelectMany(x => x.Reference.Tags)
+                        ).ToArray());
                 }
                 return this.tags;
             }
@@ -222,6 +223,11 @@ namespace Nota.Data
                 case nameof(this.TotalExpirience):
                     this.totalExpirience = null;
                     _ = this.TotalExpirience;
+                    break;
+
+                case nameof(this.Tags):
+                    this.tags = null;
+                    _ = this.Tags;
                     break;
 
                 default:

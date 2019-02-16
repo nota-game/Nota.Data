@@ -36,6 +36,19 @@ namespace Nota.Data
         public CompetencyReference Reference { get; }
         public CharacterData Character { get; }
 
+        private Expressions.Result acquistionProblem;
+        public Expressions.Result AcquistionProblem
+        {
+            get
+            {
+                if (this.acquistionProblem == null)
+                {
+                    this.acquistionProblem = this.Reference.Expression.Evaluate(this.Character);
+                }
+                return this.acquistionProblem;
+            }
+        }
+
         public CompetencyData(CompetencyReference reference, CharacterData character)
         {
             this.Reference = reference;
@@ -46,7 +59,7 @@ namespace Nota.Data
                 execute: c => this.NumberOfAcquisition++,
                 undoExecute: c => this.NumberOfAcquisition--,
                 description: c => $"Sonderfertigkeit {c.Reference.Name} erworben",
-                canExecute: c => !this.IsAcquired && c.Character.ExpirienceAvailable >= c.Reference.Cost
+                canExecute: c => !this.IsAcquired && c.Character.ExpirienceAvailable >= c.Reference.Cost && this.Reference.Expression.Evaluate(this.Character)
             );
         }
 
@@ -62,6 +75,46 @@ namespace Nota.Data
                         replacedCompetency.FirePropertyChanged(nameof(this.IsReplaced));
                 };
             }
+
+            foreach (var item in this.Reference.Expression.CompetencyInvolved)
+                this.Character.Competency[item].PropertyChanged += (sender, e) =>
+                {
+                    if (e.PropertyName == nameof(CompetencyData.IsAcquired))
+                    {
+                        this.Acquire.FireCanExecuteChanged();
+                        this.FirePropertyChanged(nameof(this.AcquistionProblem));
+                    }
+                };
+
+            foreach (var item in this.Reference.Expression.FeaturesInvolved)
+                this.Character.Features[item].PropertyChanged += (sender, e) =>
+                {
+                    if (e.PropertyName == nameof(CompetencyData.IsAcquired))
+                    {
+                        this.Acquire.FireCanExecuteChanged();
+                        this.FirePropertyChanged(nameof(this.AcquistionProblem));
+                    }
+                };
+
+            foreach (var item in this.Reference.Expression.TalentInvolved)
+                this.Character.Talent[item].PropertyChanged += (sender, e) =>
+                {
+                    if (e.PropertyName == nameof(TalentData.BaseLevel))
+                    {
+                        this.Acquire.FireCanExecuteChanged();
+                        this.FirePropertyChanged(nameof(this.AcquistionProblem));
+                    }
+                };
+
+            if (this.Reference.Expression.TagsInvolved.Any())
+                this.Character.PropertyChanged += (sender, e) =>
+                 {
+                     if (e.PropertyName == nameof(CharacterData.Tags))
+                     {
+                         this.Acquire.FireCanExecuteChanged();
+                         this.FirePropertyChanged(nameof(this.AcquistionProblem));
+                     }
+                 };
         }
 
         private void Character_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -72,6 +125,15 @@ namespace Nota.Data
 
         private void FirePropertyChanged([CallerMemberName]string proeprty = null)
         {
+
+            switch (proeprty)
+            {
+                case nameof(this.AcquistionProblem):
+                    this.acquistionProblem = null;
+                    _ = this.AcquistionProblem;
+                    break;
+            }
+
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(proeprty));
         }
 

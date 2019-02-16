@@ -21,53 +21,58 @@ namespace Nota.Data.Generated.Besonderheit
     /// </summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.0.206.0")]
     [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute("BedingugsAuswahl", Namespace="http://nota-game.azurewebsites.net/schema/besonderheit")]
+    [System.Xml.Serialization.XmlTypeAttribute("BedingungsAuswahl", Namespace="http://nota-game.azurewebsites.net/schema/besonderheit")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlRootAttribute("Not", Namespace="http://nota-game.azurewebsites.net/schema/besonderheit")]
-    public partial class BedingugsAuswahl
+    public partial class BedingungsAuswahl
     {
         
         /// <summary>
         /// </summary>
         [System.Xml.Serialization.XmlElementAttribute("Or", Namespace="http://nota-game.azurewebsites.net/schema/besonderheit")]
-        public BedingugsAuswahlen Or { get; set; }
+        public BedingungsAuswahlen Or { get; set; }
         
         /// <summary>
         /// </summary>
         [System.Xml.Serialization.XmlElementAttribute("And", Namespace="http://nota-game.azurewebsites.net/schema/besonderheit")]
-        public BedingugsAuswahlen And { get; set; }
+        public BedingungsAuswahlen And { get; set; }
         
         /// <summary>
         /// </summary>
         [System.Xml.Serialization.XmlElementAttribute("Not", Namespace="http://nota-game.azurewebsites.net/schema/besonderheit")]
-        public BedingugsAuswahl Not { get; set; }
+        public BedingungsAuswahl Not { get; set; }
         
         /// <summary>
         /// </summary>
         [System.Xml.Serialization.XmlElementAttribute("Besonderheit", Namespace="http://nota-game.azurewebsites.net/schema/besonderheit")]
         public Nota.Data.Generated.Misc.NamedType Besonderheit { get; set; }
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlElementAttribute("Tag", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
+        public Nota.Data.Generated.Misc.NamedType Tag { get; set; }
     }
     
     /// <summary>
     /// </summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.0.206.0")]
     [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute("BedingugsAuswahlen", Namespace="http://nota-game.azurewebsites.net/schema/besonderheit")]
+    [System.Xml.Serialization.XmlTypeAttribute("BedingungsAuswahlen", Namespace="http://nota-game.azurewebsites.net/schema/besonderheit")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlRootAttribute("Or", Namespace="http://nota-game.azurewebsites.net/schema/besonderheit")]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(And))]
-    public partial class BedingugsAuswahlen
+    public partial class BedingungsAuswahlen
     {
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
-        private System.Collections.ObjectModel.Collection<BedingugsAuswahlen> _or;
+        private System.Collections.ObjectModel.Collection<BedingungsAuswahlen> _or;
         
         /// <summary>
         /// </summary>
         [System.Xml.Serialization.XmlElementAttribute("Or", Namespace="http://nota-game.azurewebsites.net/schema/besonderheit")]
-        public System.Collections.ObjectModel.Collection<BedingugsAuswahlen> Or
+        public System.Collections.ObjectModel.Collection<BedingungsAuswahlen> Or
         {
             get
             {
@@ -93,24 +98,25 @@ namespace Nota.Data.Generated.Besonderheit
         }
         
         /// <summary>
-        /// <para xml:lang="de">Initialisiert eine neue Instanz der <see cref="BedingugsAuswahlen" /> Klasse.</para>
-        /// <para xml:lang="en">Initializes a new instance of the <see cref="BedingugsAuswahlen" /> class.</para>
+        /// <para xml:lang="de">Initialisiert eine neue Instanz der <see cref="BedingungsAuswahlen" /> Klasse.</para>
+        /// <para xml:lang="en">Initializes a new instance of the <see cref="BedingungsAuswahlen" /> class.</para>
         /// </summary>
-        public BedingugsAuswahlen()
+        public BedingungsAuswahlen()
         {
-            this._or = new System.Collections.ObjectModel.Collection<BedingugsAuswahlen>();
-            this._and = new System.Collections.ObjectModel.Collection<BedingugsAuswahlen>();
-            this._not = new System.Collections.ObjectModel.Collection<BedingugsAuswahl>();
+            this._or = new System.Collections.ObjectModel.Collection<BedingungsAuswahlen>();
+            this._and = new System.Collections.ObjectModel.Collection<BedingungsAuswahlen>();
+            this._not = new System.Collections.ObjectModel.Collection<BedingungsAuswahl>();
             this._besonderheit = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType>();
+            this._tag = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType>();
         }
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
-        private System.Collections.ObjectModel.Collection<BedingugsAuswahlen> _and;
+        private System.Collections.ObjectModel.Collection<BedingungsAuswahlen> _and;
         
         /// <summary>
         /// </summary>
         [System.Xml.Serialization.XmlElementAttribute("And", Namespace="http://nota-game.azurewebsites.net/schema/besonderheit")]
-        public System.Collections.ObjectModel.Collection<BedingugsAuswahlen> And
+        public System.Collections.ObjectModel.Collection<BedingungsAuswahlen> And
         {
             get
             {
@@ -136,12 +142,12 @@ namespace Nota.Data.Generated.Besonderheit
         }
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
-        private System.Collections.ObjectModel.Collection<BedingugsAuswahl> _not;
+        private System.Collections.ObjectModel.Collection<BedingungsAuswahl> _not;
         
         /// <summary>
         /// </summary>
         [System.Xml.Serialization.XmlElementAttribute("Not", Namespace="http://nota-game.azurewebsites.net/schema/besonderheit")]
-        public System.Collections.ObjectModel.Collection<BedingugsAuswahl> Not
+        public System.Collections.ObjectModel.Collection<BedingungsAuswahl> Not
         {
             get
             {
@@ -196,6 +202,37 @@ namespace Nota.Data.Generated.Besonderheit
                 return (this.Besonderheit.Count != 0);
             }
         }
+        
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        private System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType> _tag;
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlElementAttribute("Tag", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
+        public System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType> Tag
+        {
+            get
+            {
+                return this._tag;
+            }
+            private set
+            {
+                this._tag = value;
+            }
+        }
+        
+        /// <summary>
+        /// <para xml:lang="de">Ruft einen Wert ab, der angibt, ob die Tag-Collection leer ist.</para>
+        /// <para xml:lang="en">Gets a value indicating whether the Tag collection is empty.</para>
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool TagSpecified
+        {
+            get
+            {
+                return (this.Tag.Count != 0);
+            }
+        }
     }
     
     /// <summary>
@@ -216,7 +253,7 @@ namespace Nota.Data.Generated.Besonderheit
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlRootAttribute("And", Namespace="http://nota-game.azurewebsites.net/schema/besonderheit")]
-    public partial class And : BedingugsAuswahlen
+    public partial class And : BedingungsAuswahlen
     {
     }
     
@@ -371,7 +408,7 @@ namespace Nota.Data.Generated.Besonderheit
         /// <summary>
         /// </summary>
         [System.Xml.Serialization.XmlElementAttribute("Bedingung", Namespace="http://nota-game.azurewebsites.net/schema/besonderheit")]
-        public Nota.Data.Generated.Besonderheit.BedingugsAuswahl Bedingung { get; set; }
+        public Nota.Data.Generated.Besonderheit.BedingungsAuswahl Bedingung { get; set; }
         
         /// <summary>
         /// </summary>

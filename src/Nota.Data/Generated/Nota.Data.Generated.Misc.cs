@@ -467,7 +467,7 @@ namespace Nota.Data.Generated.Misc
     [System.Xml.Serialization.XmlTypeAttribute("BedingungsAuswahl", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Nota.Data.Generated.Talent.TalenteTalentBedingugenBedingung))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Nota.Data.Generated.Talent.TalenteTalentBedingungenBedingung))]
     public partial class BedingungsAuswahl
     {
         

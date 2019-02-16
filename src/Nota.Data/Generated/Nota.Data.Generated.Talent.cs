@@ -33,40 +33,23 @@ namespace Nota.Data.Generated.Talent
         [System.Xml.Serialization.XmlAttributeAttribute("Id", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public string Id { get; set; }
         
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        private int _level = 1;
+        
         /// <summary>
+        /// <para xml:lang="en">Minimum inclusive value: 1.</para>
         /// </summary>
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        [System.ComponentModel.DefaultValueAttribute(1)]
         [System.Xml.Serialization.XmlAttributeAttribute("Level", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public int LevelValue { get; set; }
-        
-        /// <summary>
-        /// <para xml:lang="de">Ruft einen Wert ab, der angibt, ob die Level-Eigenschaft spezifiziert ist, oder legt diesen fest.</para>
-        /// <para xml:lang="en">Gets or sets a value indicating whether the Level property is specified.</para>
-        /// </summary>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
-        public bool LevelValueSpecified { get; set; }
-        
-        /// <summary>
-        /// </summary>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public System.Nullable<int> Level
+        public int Level
         {
             get
             {
-                if (this.LevelValueSpecified)
-                {
-                    return this.LevelValue;
-                }
-                else
-                {
-                    return null;
-                }
+                return this._level;
             }
             set
             {
-                this.LevelValue = value.GetValueOrDefault();
-                this.LevelValueSpecified = value.HasValue;
+                this._level = value;
             }
         }
     }
@@ -406,7 +389,7 @@ namespace Nota.Data.Generated.Talent
         {
             this._name = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung>();
             this._beschreibung = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung>();
-            this._bedingugen = new System.Collections.ObjectModel.Collection<TalenteTalentBedingugenBedingung>();
+            this._bedingungen = new System.Collections.ObjectModel.Collection<TalenteTalentBedingungenBedingung>();
         }
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
@@ -429,34 +412,34 @@ namespace Nota.Data.Generated.Talent
         }
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
-        private System.Collections.ObjectModel.Collection<TalenteTalentBedingugenBedingung> _bedingugen;
+        private System.Collections.ObjectModel.Collection<TalenteTalentBedingungenBedingung> _bedingungen;
         
         /// <summary>
         /// </summary>
-        [System.Xml.Serialization.XmlArrayAttribute("Bedingugen", Namespace="http://nota-game.azurewebsites.net/schema/talent")]
+        [System.Xml.Serialization.XmlArrayAttribute("Bedingungen", Namespace="http://nota-game.azurewebsites.net/schema/talent")]
         [System.Xml.Serialization.XmlArrayItemAttribute("Bedingung", Namespace="http://nota-game.azurewebsites.net/schema/talent")]
-        public System.Collections.ObjectModel.Collection<TalenteTalentBedingugenBedingung> Bedingugen
+        public System.Collections.ObjectModel.Collection<TalenteTalentBedingungenBedingung> Bedingungen
         {
             get
             {
-                return this._bedingugen;
+                return this._bedingungen;
             }
             private set
             {
-                this._bedingugen = value;
+                this._bedingungen = value;
             }
         }
         
         /// <summary>
-        /// <para xml:lang="de">Ruft einen Wert ab, der angibt, ob die Bedingugen-Collection leer ist.</para>
-        /// <para xml:lang="en">Gets a value indicating whether the Bedingugen collection is empty.</para>
+        /// <para xml:lang="de">Ruft einen Wert ab, der angibt, ob die Bedingungen-Collection leer ist.</para>
+        /// <para xml:lang="en">Gets a value indicating whether the Bedingungen collection is empty.</para>
         /// </summary>
         [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool BedingugenSpecified
+        public bool BedingungenSpecified
         {
             get
             {
-                return (this.Bedingugen.Count != 0);
+                return (this.Bedingungen.Count != 0);
             }
         }
         
@@ -890,19 +873,19 @@ namespace Nota.Data.Generated.Talent
     /// </summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.0.206.0")]
     [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute("TalenteTalentBedingugen", Namespace="http://nota-game.azurewebsites.net/schema/talent", AnonymousType=true)]
+    [System.Xml.Serialization.XmlTypeAttribute("TalenteTalentBedingungen", Namespace="http://nota-game.azurewebsites.net/schema/talent", AnonymousType=true)]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class TalenteTalentBedingugen
+    public partial class TalenteTalentBedingungen
     {
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
-        private System.Collections.ObjectModel.Collection<TalenteTalentBedingugenBedingung> _bedingung;
+        private System.Collections.ObjectModel.Collection<TalenteTalentBedingungenBedingung> _bedingung;
         
         /// <summary>
         /// </summary>
         [System.Xml.Serialization.XmlElementAttribute("Bedingung", Namespace="http://nota-game.azurewebsites.net/schema/talent")]
-        public System.Collections.ObjectModel.Collection<TalenteTalentBedingugenBedingung> Bedingung
+        public System.Collections.ObjectModel.Collection<TalenteTalentBedingungenBedingung> Bedingung
         {
             get
             {
@@ -915,12 +898,12 @@ namespace Nota.Data.Generated.Talent
         }
         
         /// <summary>
-        /// <para xml:lang="de">Initialisiert eine neue Instanz der <see cref="TalenteTalentBedingugen" /> Klasse.</para>
-        /// <para xml:lang="en">Initializes a new instance of the <see cref="TalenteTalentBedingugen" /> class.</para>
+        /// <para xml:lang="de">Initialisiert eine neue Instanz der <see cref="TalenteTalentBedingungen" /> Klasse.</para>
+        /// <para xml:lang="en">Initializes a new instance of the <see cref="TalenteTalentBedingungen" /> class.</para>
         /// </summary>
-        public TalenteTalentBedingugen()
+        public TalenteTalentBedingungen()
         {
-            this._bedingung = new System.Collections.ObjectModel.Collection<TalenteTalentBedingugenBedingung>();
+            this._bedingung = new System.Collections.ObjectModel.Collection<TalenteTalentBedingungenBedingung>();
         }
     }
     
@@ -928,17 +911,18 @@ namespace Nota.Data.Generated.Talent
     /// </summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.0.206.0")]
     [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute("TalenteTalentBedingugenBedingung", Namespace="http://nota-game.azurewebsites.net/schema/talent")]
+    [System.Xml.Serialization.XmlTypeAttribute("TalenteTalentBedingungenBedingung", Namespace="http://nota-game.azurewebsites.net/schema/talent")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class TalenteTalentBedingugenBedingung : Nota.Data.Generated.Misc.BedingungsAuswahl
+    public partial class TalenteTalentBedingungenBedingung : Nota.Data.Generated.Misc.BedingungsAuswahl
     {
         
         /// <summary>
         /// <para xml:lang="de">Der Wert ab dem die Bedingung erfüllt sein muss.</para>
+        /// <para xml:lang="en">Minimum inclusive value: 1.</para>
         /// </summary>
         [System.ComponentModel.DescriptionAttribute("Der Wert ab dem die Bedingung erfüllt sein muss.")]
         [System.Xml.Serialization.XmlAttributeAttribute("Wert", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string Wert { get; set; }
+        public int Wert { get; set; }
     }
 }

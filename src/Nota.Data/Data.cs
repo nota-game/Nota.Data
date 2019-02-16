@@ -39,8 +39,6 @@ namespace Nota.Data
                     talentList.Add(item);
                     directoryTalent.Add(item.Id, item);
                 }
-                foreach (var item in output.Talents)
-                    item.InitilizeDerivation(directoryTalent);
 
                 var directoryCompetency = new Dictionary<string, CompetencyReference>();
                 foreach (var item in data.Fertigkeiten.Select(x => new CompetencyReference(x, output)))
@@ -48,8 +46,6 @@ namespace Nota.Data
                     competencyList.Add(item);
                     directoryCompetency.Add(item.Id, item);
                 }
-                foreach (var item in output.Competency)
-                    item.InitilizeReplacement(directoryCompetency);
 
                 var directoryFeatures = new Dictionary<string, FeaturesReference>();
                 foreach (var item in data.Besonderheiten.Select(x => new FeaturesReference(x, output)))
@@ -57,14 +53,23 @@ namespace Nota.Data
                     featuresList.Add(item);
                     directoryFeatures.Add(item.Id, item);
                 }
-                foreach (var item in output.Features)
-                    item.InitilizeReplacement(directoryFeatures);
 
-
-
-
+                var directoryTags = new Dictionary<string, TagReference>();
                 foreach (var item in data.Tags.Select(x => new TagReference(x, output)))
+                {
                     tagList.Add(item);
+                    directoryTags.Add(item.Id, item);
+                }
+
+
+                foreach (var item in output.Features
+                    .Concat<IReference>(output.Competency)
+                    .Concat(output.Talents)
+                    .Concat(output.Tags))
+                    item.Initilize(directoryTalent, directoryCompetency, directoryFeatures, directoryTags);
+
+
+
 
 
 
