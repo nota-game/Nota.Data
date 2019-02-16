@@ -238,8 +238,48 @@ namespace Nota.Data.Generated.Misc
         
         /// <summary>
         /// </summary>
-        [System.Xml.Serialization.XmlAttributeAttribute("sparche", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        [System.Xml.Serialization.XmlAttributeAttribute("Sparche", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public string Sparche { get; set; }
+        
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        private Geschlecht _geschlecht = Nota.Data.Generated.Misc.Geschlecht.Neutral;
+        
+        /// <summary>
+        /// </summary>
+        [System.ComponentModel.DefaultValueAttribute(Nota.Data.Generated.Misc.Geschlecht.Neutral)]
+        [System.Xml.Serialization.XmlAttributeAttribute("Geschlecht", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public Geschlecht Geschlecht
+        {
+            get
+            {
+                return this._geschlecht;
+            }
+            set
+            {
+                this._geschlecht = value;
+            }
+        }
+    }
+    
+    /// <summary>
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.0.206.0")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute("Geschlecht", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
+    public enum Geschlecht
+    {
+        
+        /// <summary>
+        /// </summary>
+        Neutral,
+        
+        /// <summary>
+        /// </summary>
+        Mänlich,
+        
+        /// <summary>
+        /// </summary>
+        Weiblich,
     }
     
     /// <summary>
@@ -792,6 +832,83 @@ namespace Nota.Data.Generated.Misc
     public partial class LevelsLevel : Nota.Data.Generated.Misc.IKostenElement
     {
         
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        private System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung> _name;
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlArrayAttribute("Name", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
+        [System.Xml.Serialization.XmlArrayItemAttribute("Lokalisirung", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
+        public System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung> Name
+        {
+            get
+            {
+                return this._name;
+            }
+            private set
+            {
+                this._name = value;
+            }
+        }
+        
+        /// <summary>
+        /// <para xml:lang="de">Ruft einen Wert ab, der angibt, ob die Name-Collection leer ist.</para>
+        /// <para xml:lang="en">Gets a value indicating whether the Name collection is empty.</para>
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool NameSpecified
+        {
+            get
+            {
+                return (this.Name.Count != 0);
+            }
+        }
+        
+        /// <summary>
+        /// <para xml:lang="de">Initialisiert eine neue Instanz der <see cref="LevelsLevel" /> Klasse.</para>
+        /// <para xml:lang="en">Initializes a new instance of the <see cref="LevelsLevel" /> class.</para>
+        /// </summary>
+        public LevelsLevel()
+        {
+            this._name = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung>();
+            this._beschreibung = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung>();
+            this._fertigkeit = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType>();
+            this._talent = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Talent.Talent>();
+            this._besonderheit = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType>();
+        }
+        
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        private System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung> _beschreibung;
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlArrayAttribute("Beschreibung", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
+        [System.Xml.Serialization.XmlArrayItemAttribute("Lokalisirung", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
+        public System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung> Beschreibung
+        {
+            get
+            {
+                return this._beschreibung;
+            }
+            private set
+            {
+                this._beschreibung = value;
+            }
+        }
+        
+        /// <summary>
+        /// <para xml:lang="de">Ruft einen Wert ab, der angibt, ob die Beschreibung-Collection leer ist.</para>
+        /// <para xml:lang="en">Gets a value indicating whether the Beschreibung collection is empty.</para>
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool BeschreibungSpecified
+        {
+            get
+            {
+                return (this.Beschreibung.Count != 0);
+            }
+        }
+        
         /// <summary>
         /// <para xml:lang="de">Die voraussetzungenm welche zum erlernen des Levels gegeben sein müssen.</para>
         /// </summary>
@@ -828,17 +945,6 @@ namespace Nota.Data.Generated.Misc
             {
                 return (this.Fertigkeit.Count != 0);
             }
-        }
-        
-        /// <summary>
-        /// <para xml:lang="de">Initialisiert eine neue Instanz der <see cref="LevelsLevel" /> Klasse.</para>
-        /// <para xml:lang="en">Initializes a new instance of the <see cref="LevelsLevel" /> class.</para>
-        /// </summary>
-        public LevelsLevel()
-        {
-            this._fertigkeit = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType>();
-            this._talent = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Talent.Talent>();
-            this._besonderheit = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType>();
         }
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]

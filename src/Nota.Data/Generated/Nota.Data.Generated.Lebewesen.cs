@@ -325,6 +325,25 @@ namespace Nota.Data.Generated.Lebewesen
         /// </summary>
         [System.Xml.Serialization.XmlAttributeAttribute("Id", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public string Id { get; set; }
+        
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        private Nota.Data.Generated.Misc.Geschlecht _geschlecht = Nota.Data.Generated.Misc.Geschlecht.Neutral;
+        
+        /// <summary>
+        /// </summary>
+        [System.ComponentModel.DefaultValueAttribute(Nota.Data.Generated.Misc.Geschlecht.Neutral)]
+        [System.Xml.Serialization.XmlAttributeAttribute("Geschlecht", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public Nota.Data.Generated.Misc.Geschlecht Geschlecht
+        {
+            get
+            {
+                return this._geschlecht;
+            }
+            set
+            {
+                this._geschlecht = value;
+            }
+        }
     }
     
     /// <summary>
@@ -590,10 +609,53 @@ namespace Nota.Data.Generated.Lebewesen
         [System.Xml.Serialization.XmlElementAttribute("Spielbar", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
         public LebensabschnittSpielbar Spielbar { get; set; }
         
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        private System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung> _name;
+        
         /// <summary>
         /// </summary>
-        [System.Xml.Serialization.XmlElementAttribute("Beschreibung", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
-        public string Beschreibung { get; set; }
+        [System.Xml.Serialization.XmlArrayAttribute("Name", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
+        [System.Xml.Serialization.XmlArrayItemAttribute("Lokalisirung", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
+        public System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung> Name
+        {
+            get
+            {
+                return this._name;
+            }
+            private set
+            {
+                this._name = value;
+            }
+        }
+        
+        /// <summary>
+        /// <para xml:lang="de">Initialisiert eine neue Instanz der <see cref="Lebensabschnitt" /> Klasse.</para>
+        /// <para xml:lang="en">Initializes a new instance of the <see cref="Lebensabschnitt" /> class.</para>
+        /// </summary>
+        public Lebensabschnitt()
+        {
+            this._name = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung>();
+            this._beschreibung = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung>();
+        }
+        
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        private System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung> _beschreibung;
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlArrayAttribute("Beschreibung", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
+        [System.Xml.Serialization.XmlArrayItemAttribute("Lokalisirung", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
+        public System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung> Beschreibung
+        {
+            get
+            {
+                return this._beschreibung;
+            }
+            private set
+            {
+                this._beschreibung = value;
+            }
+        }
         
         /// <summary>
         /// </summary>
@@ -1006,6 +1068,13 @@ namespace Nota.Data.Generated.Lebewesen
         /// </summary>
         [System.Xml.Serialization.XmlElementAttribute("Konstitution", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
         public Nota.Data.Generated.Lebewesen.EigenschaftsWert Konstitution { get; set; }
+        
+        /// <summary>
+        /// <para xml:lang="de">Die Anzahl der Punkte die auf die Eigneschaften verteilt werden müssen.</para>
+        /// </summary>
+        [System.ComponentModel.DescriptionAttribute("Die Anzahl der Punkte die auf die Eigneschaften verteilt werden müssen.")]
+        [System.Xml.Serialization.XmlAttributeAttribute("Punkte", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public int Punkte { get; set; }
     }
     
     /// <summary>

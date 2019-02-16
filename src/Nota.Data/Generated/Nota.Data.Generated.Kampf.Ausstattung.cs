@@ -381,6 +381,56 @@ namespace Nota.Data.Generated.Kampf.Ausstattung
     public partial class AusstattungWaffenNahkampfwaffe : Nota.Data.Generated.Misc.INamedElement
     {
         
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        private System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung> _name;
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlArrayAttribute("Name", Namespace="http://nota-game.azurewebsites.net/schema/kampf/ausstattung")]
+        [System.Xml.Serialization.XmlArrayItemAttribute("Lokalisirung", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
+        public System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung> Name
+        {
+            get
+            {
+                return this._name;
+            }
+            private set
+            {
+                this._name = value;
+            }
+        }
+        
+        /// <summary>
+        /// <para xml:lang="de">Initialisiert eine neue Instanz der <see cref="AusstattungWaffenNahkampfwaffe" /> Klasse.</para>
+        /// <para xml:lang="en">Initializes a new instance of the <see cref="AusstattungWaffenNahkampfwaffe" /> class.</para>
+        /// </summary>
+        public AusstattungWaffenNahkampfwaffe()
+        {
+            this._name = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung>();
+            this._beschreibung = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung>();
+            this._eigenschaften = new System.Collections.ObjectModel.Collection<Eigenschaft>();
+            this._talente = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Talent.Talent>();
+        }
+        
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        private System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung> _beschreibung;
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlArrayAttribute("Beschreibung", Namespace="http://nota-game.azurewebsites.net/schema/kampf/ausstattung")]
+        [System.Xml.Serialization.XmlArrayItemAttribute("Lokalisirung", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
+        public System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung> Beschreibung
+        {
+            get
+            {
+                return this._beschreibung;
+            }
+            private set
+            {
+                this._beschreibung = value;
+            }
+        }
+        
         /// <summary>
         /// </summary>
         [System.Xml.Serialization.XmlElementAttribute("Schaden", Namespace="http://nota-game.azurewebsites.net/schema/kampf/ausstattung")]
@@ -416,16 +466,6 @@ namespace Nota.Data.Generated.Kampf.Ausstattung
             {
                 return (this.Eigenschaften.Count != 0);
             }
-        }
-        
-        /// <summary>
-        /// <para xml:lang="de">Initialisiert eine neue Instanz der <see cref="AusstattungWaffenNahkampfwaffe" /> Klasse.</para>
-        /// <para xml:lang="en">Initializes a new instance of the <see cref="AusstattungWaffenNahkampfwaffe" /> class.</para>
-        /// </summary>
-        public AusstattungWaffenNahkampfwaffe()
-        {
-            this._eigenschaften = new System.Collections.ObjectModel.Collection<Eigenschaft>();
-            this._talente = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Talent.Talent>();
         }
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
@@ -652,6 +692,57 @@ namespace Nota.Data.Generated.Kampf.Ausstattung
     public partial class AusstattungWaffenFernkampfwaffe : Nota.Data.Generated.Misc.INamedElement
     {
         
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        private System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung> _name;
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlArrayAttribute("Name", Namespace="http://nota-game.azurewebsites.net/schema/kampf/ausstattung")]
+        [System.Xml.Serialization.XmlArrayItemAttribute("Lokalisirung", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
+        public System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung> Name
+        {
+            get
+            {
+                return this._name;
+            }
+            private set
+            {
+                this._name = value;
+            }
+        }
+        
+        /// <summary>
+        /// <para xml:lang="de">Initialisiert eine neue Instanz der <see cref="AusstattungWaffenFernkampfwaffe" /> Klasse.</para>
+        /// <para xml:lang="en">Initializes a new instance of the <see cref="AusstattungWaffenFernkampfwaffe" /> class.</para>
+        /// </summary>
+        public AusstattungWaffenFernkampfwaffe()
+        {
+            this._name = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung>();
+            this._beschreibung = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung>();
+            this._reichweiten = new System.Collections.ObjectModel.Collection<AusstattungWaffenFernkampfwaffeReichweitenReichweite>();
+            this._eigenschaften = new System.Collections.ObjectModel.Collection<Eigenschaft>();
+            this._talente = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Talent.Talent>();
+        }
+        
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        private System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung> _beschreibung;
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlArrayAttribute("Beschreibung", Namespace="http://nota-game.azurewebsites.net/schema/kampf/ausstattung")]
+        [System.Xml.Serialization.XmlArrayItemAttribute("Lokalisirung", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
+        public System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung> Beschreibung
+        {
+            get
+            {
+                return this._beschreibung;
+            }
+            private set
+            {
+                this._beschreibung = value;
+            }
+        }
+        
         /// <summary>
         /// </summary>
         [System.Xml.Serialization.XmlElementAttribute("Schaden", Namespace="http://nota-game.azurewebsites.net/schema/kampf/ausstattung")]
@@ -679,17 +770,6 @@ namespace Nota.Data.Generated.Kampf.Ausstattung
             {
                 this._reichweiten = value;
             }
-        }
-        
-        /// <summary>
-        /// <para xml:lang="de">Initialisiert eine neue Instanz der <see cref="AusstattungWaffenFernkampfwaffe" /> Klasse.</para>
-        /// <para xml:lang="en">Initializes a new instance of the <see cref="AusstattungWaffenFernkampfwaffe" /> class.</para>
-        /// </summary>
-        public AusstattungWaffenFernkampfwaffe()
-        {
-            this._reichweiten = new System.Collections.ObjectModel.Collection<AusstattungWaffenFernkampfwaffeReichweitenReichweite>();
-            this._eigenschaften = new System.Collections.ObjectModel.Collection<Eigenschaft>();
-            this._talente = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Talent.Talent>();
         }
         
         /// <summary>
@@ -1088,6 +1168,55 @@ namespace Nota.Data.Generated.Kampf.Ausstattung
     public partial class AusstattungRüstungenRüstung : Nota.Data.Generated.Misc.INamedElement
     {
         
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        private System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung> _name;
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlArrayAttribute("Name", Namespace="http://nota-game.azurewebsites.net/schema/kampf/ausstattung")]
+        [System.Xml.Serialization.XmlArrayItemAttribute("Lokalisirung", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
+        public System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung> Name
+        {
+            get
+            {
+                return this._name;
+            }
+            private set
+            {
+                this._name = value;
+            }
+        }
+        
+        /// <summary>
+        /// <para xml:lang="de">Initialisiert eine neue Instanz der <see cref="AusstattungRüstungenRüstung" /> Klasse.</para>
+        /// <para xml:lang="en">Initializes a new instance of the <see cref="AusstattungRüstungenRüstung" /> class.</para>
+        /// </summary>
+        public AusstattungRüstungenRüstung()
+        {
+            this._name = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung>();
+            this._beschreibung = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung>();
+            this._eigenschaften = new System.Collections.ObjectModel.Collection<Eigenschaft>();
+        }
+        
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        private System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung> _beschreibung;
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlArrayAttribute("Beschreibung", Namespace="http://nota-game.azurewebsites.net/schema/kampf/ausstattung")]
+        [System.Xml.Serialization.XmlArrayItemAttribute("Lokalisirung", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
+        public System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung> Beschreibung
+        {
+            get
+            {
+                return this._beschreibung;
+            }
+            private set
+            {
+                this._beschreibung = value;
+            }
+        }
+        
         /// <summary>
         /// </summary>
         [System.Xml.Serialization.XmlElementAttribute("Schutz", Namespace="http://nota-game.azurewebsites.net/schema/kampf/ausstattung")]
@@ -1128,15 +1257,6 @@ namespace Nota.Data.Generated.Kampf.Ausstattung
             {
                 return (this.Eigenschaften.Count != 0);
             }
-        }
-        
-        /// <summary>
-        /// <para xml:lang="de">Initialisiert eine neue Instanz der <see cref="AusstattungRüstungenRüstung" /> Klasse.</para>
-        /// <para xml:lang="en">Initializes a new instance of the <see cref="AusstattungRüstungenRüstung" /> class.</para>
-        /// </summary>
-        public AusstattungRüstungenRüstung()
-        {
-            this._eigenschaften = new System.Collections.ObjectModel.Collection<Eigenschaft>();
         }
         
         /// <summary>
