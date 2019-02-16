@@ -11,10 +11,12 @@ namespace Nota.Data
 {
     public class Data
     {
-        private Data(IReadOnlyList<TalentReference> talents, IReadOnlyList<CompetencyReference> competency)
+        private Data(IReadOnlyList<TalentReference> talents, IReadOnlyList<CompetencyReference> competency, IReadOnlyList<TagReference> tags, IReadOnlyList<FeaturesReference> features)
         {
             this.Talents = talents;
             this.Competency = competency;
+            this.Tags = tags;
+            this.Features = features;
         }
 
         public static Task<Data> LoadAsync(System.IO.Stream stream)
@@ -25,12 +27,14 @@ namespace Nota.Data
                 var data = serializer.Deserialize(stream) as Generated.Core.Daten;
                 var talentList = new List<TalentReference>();
                 var competencyList = new List<CompetencyReference>();
+                var tagList = new List<TagReference>();
+                var featuresList = new List<FeaturesReference>();
 
 
 
-                var output = new Data(talentList.AsReadOnly(), competencyList.AsReadOnly());
+                var output = new Data(talentList.AsReadOnly(), competencyList.AsReadOnly(), tagList.AsReadOnly(), featuresList.AsReadOnly());
                 var directoryTalent = new Dictionary<string, TalentReference>();
-                foreach (var item in data.Talente.Select(x => new TalentReference(x)))
+                foreach (var item in data.Talente.Select(x => new TalentReference(x, output)))
                 {
                     talentList.Add(item);
                     directoryTalent.Add(item.Id, item);
@@ -39,13 +43,29 @@ namespace Nota.Data
                     item.InitilizeDerivation(directoryTalent);
 
                 var directoryCompetency = new Dictionary<string, CompetencyReference>();
-                foreach (var item in data.Fertigkeiten.Select(x => new CompetencyReference(x)))
+                foreach (var item in data.Fertigkeiten.Select(x => new CompetencyReference(x, output)))
                 {
                     competencyList.Add(item);
                     directoryCompetency.Add(item.Id, item);
                 }
                 foreach (var item in output.Competency)
                     item.InitilizeReplacement(directoryCompetency);
+
+                var directoryFeatures = new Dictionary<string, FeaturesReference>();
+                foreach (var item in data.Besonderheiten.Select(x => new FeaturesReference(x, output)))
+                {
+                    featuresList.Add(item);
+                    directoryFeatures.Add(item.Id, item);
+                }
+                foreach (var item in output.Features)
+                    item.InitilizeReplacement(directoryFeatures);
+
+
+
+
+                foreach (var item in data.Tags.Select(x => new TagReference(x, output)))
+                    tagList.Add(item);
+
 
 
                 return output;
@@ -55,6 +75,8 @@ namespace Nota.Data
 
         public IReadOnlyList<TalentReference> Talents { get; }
         public IReadOnlyList<CompetencyReference> Competency { get; }
+        public IReadOnlyList<TagReference> Tags { get; }
+        public IReadOnlyList<FeaturesReference> Features { get; }
 
         public Task SaveCharacters(Stream stream, IEnumerable<CharacterData> characters)
         {
@@ -72,7 +94,8 @@ namespace Nota.Data
             {
                 var serelizer = new DataContractSerializer(typeof(CharacterSerelizer));
                 var root = serelizer.ReadObject(stream) as CharacterSerelizer;
-                var idLookup = this.Talents.ToDictionary(x => x.Id, x => x);
+                var idLookupTalents = this.Talents.ToDictionary(x => x.Id, x => x);
+                var idLookupCompetency = this.Competency.ToDictionary(x => x.Id, x => x);
 
                 return root.Characters.Select(cs =>
                 {
@@ -85,7 +108,10 @@ namespace Nota.Data
                         c.adventureEntries.Add(new AdventureEntry(item.Title, item.GainedExp, item.Description));
 
                     foreach (var item in cs.Talents)
-                        c.Talent[idLookup[item.Id]].ExpirienceSpent = item.SpentExperience;
+                        c.Talent[idLookupTalents[item.Id]].ExpirienceSpent = item.SpentExperience;
+
+                    foreach (var item in cs.Competency)
+                        c.Competency[idLookupCompetency[item.Id]].NumberOfAcquisition = item.NumberOfAcquisition;
 
                     return c;
                 }).ToArray() as IEnumerable<CharacterData>;

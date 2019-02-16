@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -84,6 +83,21 @@ namespace Nota.Data
             }
         }
 
+
+        private IReadOnlyList<TagReference> tags;
+
+        public IReadOnlyList<TagReference> Tags
+        {
+            get
+            {
+                if (this.tags == null)
+                {
+                    this.tags = this.Competency.SelectMany(x => x.Reference.Tags).Distinct().ToList().AsReadOnly();
+                }
+                return this.tags;
+            }
+        }
+
         public ReadOnlyObservableCollection<AdventureEntry> AdventureEntries { get; }
         internal readonly ObservableCollection<AdventureEntry> adventureEntries = new ObservableCollection<AdventureEntry>();
         private readonly Dictionary<CompetencyReference, CompetencyData> competency;
@@ -134,8 +148,17 @@ namespace Nota.Data
                 this.competency.Add(reference, value);
             }
 
+            this.features = new Dictionary<FeaturesReference, FeaturesData>();
+            this.Competency = new IndexAccessor<FeaturesReference, FeaturesData>(this.competency);
+            foreach (var reference in data.Competency)
+            {
+                var value = new CompetencyData(reference, this);
+                value.PropertyChanged += this.OnCompetencyChanging;
+                this.competency.Add(reference, value);
+            }
 
-            foreach (var item in Competency.Concat<IInitilizable>(Talent))
+
+            foreach (var item in this.Competency.Concat<IInitilizable>(this.Talent))
                 item.Initialize();
 
 
@@ -143,31 +166,20 @@ namespace Nota.Data
             {
                 this.FirePropertyChanged(nameof(this.TotalExpirience));
             };
-
-            //TalentChanging?.Invoke(value);
-            //this.TalentChanged?.Invoke(this, (value, CollectionChangedKind.Add));
-
         }
 
         private void OnCompetencyChanging(object sender, PropertyChangedEventArgs e)
         {
+            var competency = sender as CompetencyData;
             if (e.PropertyName == nameof(CompetencyData.IsAcquired))
+            {
                 this.FirePropertyChanged(nameof(this.TotalExpirienceSpent));
+                if (competency.Reference.Tags.Count > 0)
+                    this.FirePropertyChanged(nameof(this.Tags));
+            }
         }
 
-        //public TalentData AddTallent(TalentReference reference)
-        //{
-        //}
-
-        //internal event Action<TalentData> TalentChanging;
         public event PropertyChangedEventHandler PropertyChanged;
-        //public event EventHandler<(TalentData talent, CollectionChangedKind kind)> TalentChanged;
-
-        //public enum CollectionChangedKind
-        //{
-        //    Add,
-        //    Remove
-        //}
 
         private void OnTalentChanging(object sender, PropertyChangedEventArgs e)
         {
@@ -209,6 +221,7 @@ namespace Nota.Data
                 Id = this.Id,
                 Name = this.Name,
                 Talents = this.Talent.Select(x => x.GetSerelizer()).Where(x => x.SpentExperience > 0).ToArray(),
+                Competency = this.Competency.Select(x => x.GetSerelizer()).Where(x => x.NumberOfAcquisition > 0).ToArray(),
                 AdventureEntrys = this.AdventureEntries.Select(x => x.GetSerelizer()).ToArray()
             };
         }
@@ -224,41 +237,10 @@ namespace Nota.Data
             public TalentData.Serelizer[] Talents { get; set; }
 
             [DataMember]
+            public CompetencyData.Serelizer[] Competency { get; set; }
+
+            [DataMember]
             public AdventureEntry.Serelizer[] AdventureEntrys { get; set; }
-
-
-
         }
-
-    }
-
-    public struct IndexAccessor<TKey, TValue> : IEnumerable<TValue>
-    {
-        private readonly IDictionary<TKey, TValue> dictionary;
-
-        public IndexAccessor(IDictionary<TKey, TValue> dictionary)
-        {
-            this.dictionary = dictionary;
-        }
-
-        public TValue this[TKey index]
-        {
-            get
-            {
-                if (this.dictionary.ContainsKey(index))
-                    return this.dictionary[index];
-                return default;
-            }
-        }
-
-        public IEnumerator<TValue> GetEnumerator()
-        {
-            foreach (var item in this.dictionary.Values)
-                yield return item;
-        }
-
-        IEnumerator IEnumerable.GetEnumerator() => this.GetEnumerator();
-
-
     }
 }

@@ -20,10 +20,12 @@ namespace Nota.Data
         public DerivationCollection Derivation { get; private set; }
         public LocalizedString Name { get; }
         public string Id { get; }
+        public Data Data { get; }
 
-        internal TalentReference(TalenteTalent item)
+        internal TalentReference(TalenteTalent item, Data data)
         {
             this.item = item;
+            this.Data = data;
             this.Name = item.Name;
             this.Id = item.Id;
             if (item.BedingugenSpecified)

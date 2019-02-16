@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
 
 namespace Nota.Data
 {
@@ -64,6 +65,18 @@ namespace Nota.Data
         private void FirePropertyChanged([CallerMemberName]string proeprty = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(proeprty));
+        }
+
+        internal Serelizer GetSerelizer() => new Serelizer() { Id = this.Reference.Id, NumberOfAcquisition = this.NumberOfAcquisition};
+
+        [DataContract]
+        internal class Serelizer
+        {
+            [DataMember]
+            public string Id { get; set; }
+
+            [DataMember]
+            public int NumberOfAcquisition { get; set; }
         }
 
     }
