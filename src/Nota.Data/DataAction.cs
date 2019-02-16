@@ -9,6 +9,48 @@ namespace Nota.Data
         void Execute(TInput input);
     }
 
+    public class DataAction<TParent> 
+    {
+        private readonly CharacterData character;
+        internal readonly TParent parent;
+        private readonly Action<TParent> execute;
+        private readonly Action<TParent> undoExecute;
+        private readonly Func<TParent, string> description;
+        private readonly Func<TParent, bool> canExecute;
+
+        public event EventHandler CanExecuteChanged;
+
+        public DataAction(CharacterData character, TParent parent, Action<TParent> execute, Action<TParent> undoExecute, Func<TParent, string> description, Func<TParent, bool> canExecute = null)
+        {
+            this.character = character ?? throw new ArgumentNullException(nameof(character));
+            this.parent = parent;
+            this.execute = execute ?? throw new ArgumentNullException(nameof(execute));
+            this.undoExecute = undoExecute ?? throw new ArgumentNullException(nameof(undoExecute));
+            this.description = description ?? throw new ArgumentNullException(nameof(description));
+            this.canExecute = canExecute;
+            CanExecuteChanged = null;
+        }
+
+
+
+        public bool CanExecute()
+        {
+            return this.canExecute?.Invoke(this.parent) ?? true;
+        }
+
+        public DataActionReturn<TParent> Execute()
+        {
+            if (!this.CanExecute())
+                return default;
+            this.execute(this.parent);
+            var dataActionReturn = new DataActionReturn<TParent>(this.description(this.parent), this, this.character, this.undoExecute);
+            this.character.AddToUndo(dataActionReturn);
+            return dataActionReturn;
+        }
+
+        internal void FireCanExecuteChanged() => CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+    }
+
     public class DataAction<TParent, TInput> : IDataAction<TParent, TInput>
     {
         private readonly CharacterData character;
@@ -108,6 +150,31 @@ namespace Nota.Data
                 throw new ArgumentException("message", nameof(description));
             this.Description = description;
         }
+    }
+    public class DataActionReturn<TParent> : DataActionReturn
+    {
+        private readonly DataAction<TParent> dataAction;
+        private readonly CharacterData character;
+        private readonly Action<TParent> undoExecute;
+
+        public DataActionReturn(string description, DataAction<TParent> dataAction, CharacterData character,  Action<TParent> undoExecute)
+            : base(description)
+        {
+            this.dataAction = dataAction;
+            this.character = character;
+            this.undoExecute = undoExecute;
+        }
+
+        internal override CharacterData Origin => this.character;
+
+        internal override void Undo()
+        {
+            if (this.hasUndone)
+                return;
+            this.hasUndone = true;
+            this.undoExecute(this.dataAction.parent);
+        }
+
     }
     public class DataActionReturn<TParent, TInput> : DataActionReturn
     {

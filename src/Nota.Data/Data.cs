@@ -11,9 +11,10 @@ namespace Nota.Data
 {
     public class Data
     {
-        private Data(IReadOnlyList<TalentReference> talents)
+        private Data(IReadOnlyList<TalentReference> talents, IReadOnlyList<CompetencyReference> competency)
         {
             this.Talents = talents;
+            this.Competency = competency;
         }
 
         public static Task<Data> LoadAsync(System.IO.Stream stream)
@@ -23,20 +24,28 @@ namespace Nota.Data
                 var serializer = new XmlSerializer(typeof(Generated.Core.Daten));
                 var data = serializer.Deserialize(stream) as Generated.Core.Daten;
                 var talentList = new List<TalentReference>();
+                var competencyList = new List<CompetencyReference>();
 
 
 
-                var output = new Data(talentList.AsReadOnly());
-                var directory = new Dictionary<string, TalentReference>();
-                foreach (var item in data.Talente.Select(x => new TalentReference(x)).OrderBy(x => x.Category).ThenBy(x => x.Id).Reverse())
+                var output = new Data(talentList.AsReadOnly(), competencyList.AsReadOnly());
+                var directoryTalent = new Dictionary<string, TalentReference>();
+                foreach (var item in data.Talente.Select(x => new TalentReference(x)))
                 {
                     talentList.Add(item);
-                    directory.Add(item.Id, item);
+                    directoryTalent.Add(item.Id, item);
                 }
                 foreach (var item in output.Talents)
-                    item.InitilizeDerivation(directory);
+                    item.InitilizeDerivation(directoryTalent);
 
-
+                var directoryCompetency = new Dictionary<string, CompetencyReference>();
+                foreach (var item in data.Fertigkeiten.Select(x => new CompetencyReference(x)))
+                {
+                    competencyList.Add(item);
+                    directoryCompetency.Add(item.Id, item);
+                }
+                foreach (var item in output.Competency)
+                    item.InitilizeReplacement(directoryCompetency);
 
 
                 return output;
@@ -45,6 +54,7 @@ namespace Nota.Data
         }
 
         public IReadOnlyList<TalentReference> Talents { get; }
+        public IReadOnlyList<CompetencyReference> Competency { get; }
 
         public Task SaveCharacters(Stream stream, IEnumerable<CharacterData> characters)
         {

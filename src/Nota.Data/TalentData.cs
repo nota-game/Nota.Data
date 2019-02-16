@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Nota.Data
 {
-    public class TalentData : INotifyPropertyChanged
+    public class TalentData : INotifyPropertyChanged, IInitilizable
     {
 
         private int expirienceSpent;
@@ -80,7 +80,6 @@ namespace Nota.Data
         }
 
         public int? supportLevel;
-        private readonly HashSet<TalentReference> allDerivationsTalents;
 
         public int SupportLevel
         {
@@ -259,25 +258,8 @@ namespace Nota.Data
         {
             this.Reference = reference;
             this.Character = character;
-            this.Character.TalentChanging += this.CharacterTalentChangin;
             this.Character.PropertyChanged += this.Character_PropertyChanged;
-            this.allDerivationsTalents = new HashSet<TalentReference>(GetDerivations(reference.Derivation));
 
-            IEnumerable<TalentReference> GetDerivations(AbstractDerivation derivations)
-            {
-                switch (derivations)
-                {
-                    case DerivationAll all:
-                        return all.Derivations.SelectMany(GetDerivations);
-                    case DerivationMax max:
-                        return max.Derivations.SelectMany(GetDerivations);
-                    case Derivation derivation:
-
-                        return Enumerable.Repeat(derivation.Talent, 1);
-                    default:
-                        throw new NotImplementedException($"The type {derivations?.GetType().FullName ?? "<null>"} is not implemented. :/");
-                }
-            }
 
             Increase = new DataAction<TalentData, int, IncreaseResult>(this.Character, this,
                 (p, increase) =>
@@ -305,6 +287,30 @@ namespace Nota.Data
                     return toIncrease <= p.Character.ExpirienceAvailable;
                 });
         }
+
+        void IInitilizable.Initialize()
+        {
+            var allDerivationsTalents = new HashSet<TalentReference>(GetDerivations(this.Reference.Derivation));
+            IEnumerable<TalentReference> GetDerivations(AbstractDerivation derivations)
+            {
+                switch (derivations)
+                {
+                    case DerivationAll all:
+                        return all.Derivations.SelectMany(GetDerivations);
+                    case DerivationMax max:
+                        return max.Derivations.SelectMany(GetDerivations);
+                    case Derivation derivation:
+
+                        return Enumerable.Repeat(derivation.Talent, 1);
+                    default:
+                        throw new NotImplementedException($"The type {derivations?.GetType().FullName ?? "<null>"} is not implemented. :/");
+                }
+            }
+
+            foreach (var item in allDerivationsTalents)
+                this.Character.Talent[item].PropertyChanged += this.OtherTalent_PropertyChanged;
+
+        }
         public class IncreaseResult
         {
             public IncreaseResult(int oldLevel, int newLevel)
@@ -323,16 +329,13 @@ namespace Nota.Data
                 Increase.FireCanExecuteChanged();
         }
 
-        private void CharacterTalentChangin(TalentData obj)
+        private void OtherTalent_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (obj == this)
-                return;
-            if (this.allDerivationsTalents.Contains(obj.Reference))
+            if (e.PropertyName == nameof(BaseLevel))
             {
                 this.FirePropertyChanged(nameof(this.SupportLevel));
                 this.FirePropertyChanged(nameof(this.BestNextLevel));
             }
-
         }
 
         public TalentReference Reference { get; }

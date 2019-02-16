@@ -365,8 +365,8 @@ namespace Nota.Data.Generated.Besonderheit
         
         /// <summary>
         /// </summary>
-        [System.Xml.Serialization.XmlElementAttribute("Verbessert", Namespace="http://nota-game.azurewebsites.net/schema/besonderheit")]
-        public BesonderheitenBesonderheitVerbessert Verbessert { get; set; }
+        [System.Xml.Serialization.XmlElementAttribute("Ersetzt", Namespace="http://nota-game.azurewebsites.net/schema/besonderheit")]
+        public BesonderheitenBesonderheitErsetzt Ersetzt { get; set; }
         
         /// <summary>
         /// </summary>
@@ -463,10 +463,10 @@ namespace Nota.Data.Generated.Besonderheit
     /// </summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.0.206.0")]
     [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute("BesonderheitenBesonderheitVerbessert", Namespace="http://nota-game.azurewebsites.net/schema/besonderheit", AnonymousType=true)]
+    [System.Xml.Serialization.XmlTypeAttribute("BesonderheitenBesonderheitErsetzt", Namespace="http://nota-game.azurewebsites.net/schema/besonderheit", AnonymousType=true)]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class BesonderheitenBesonderheitVerbessert
+    public partial class BesonderheitenBesonderheitErsetzt
     {
         
         /// <summary>

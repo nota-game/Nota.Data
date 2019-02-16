@@ -59,7 +59,10 @@ namespace Nota.Data
             {
                 if (this.totalExpirienceSpent == null)
                 {
-                    this.totalExpirienceSpent = this.Talent.Select(x => x.ExpirienceSpent).Sum();
+                    this.totalExpirienceSpent =
+                        this.Talent.Select(x => x.ExpirienceSpent).Sum()
+                        + this.Competency.Where(x => x.IsAcquired).Select(x => x.Reference.Cost).Sum();
+                    ;
                     this.FirePropertyChanged(nameof(this.ExpirienceAvailable));
                 }
                 return this.totalExpirienceSpent.Value;
@@ -83,7 +86,9 @@ namespace Nota.Data
 
         public ReadOnlyObservableCollection<AdventureEntry> AdventureEntries { get; }
         internal readonly ObservableCollection<AdventureEntry> adventureEntries = new ObservableCollection<AdventureEntry>();
+        private readonly Dictionary<CompetencyReference, CompetencyData> competency;
 
+        internal IndexAccessor<CompetencyReference, CompetencyData> Competency { get; }
         public DataAction<CharacterData, AdventureEntry> AddEvent { get; }
 
 
@@ -95,16 +100,8 @@ namespace Nota.Data
             this.Id = id;
             this.data = data;
             this.UndoStack = new ReadOnlyObservableCollection<DataActionReturn>(this.undoStack);
-            this.AdventureEntries = new ReadOnlyObservableCollection<AdventureEntry>(this.adventureEntries);
-            this.talent = new Dictionary<TalentReference, TalentData>();
-            this.Talent = new IndexAccessor<TalentReference, TalentData>(this.talent);
-            foreach (var reference in data.Talents)
-            {
-                var value = new TalentData(reference, this);
-                value.PropertyChanged += this.OnTalentChanging;
-                this.talent.Add(reference, value);
-            }
 
+            this.AdventureEntries = new ReadOnlyObservableCollection<AdventureEntry>(this.adventureEntries);
 
             this.AddEvent = new DataAction<CharacterData, AdventureEntry>(this, this, (c, e) =>
             {
@@ -117,6 +114,31 @@ namespace Nota.Data
                 return $"Abenteuer eintrag  \"{e.Title}\" hinzugefügt ({e.GainedExp} AP)";
             });
 
+
+            this.talent = new Dictionary<TalentReference, TalentData>();
+            this.Talent = new IndexAccessor<TalentReference, TalentData>(this.talent);
+            foreach (var reference in data.Talents)
+            {
+                var value = new TalentData(reference, this);
+                value.PropertyChanged += this.OnTalentChanging;
+                this.talent.Add(reference, value);
+            }
+
+
+            this.competency = new Dictionary<CompetencyReference, CompetencyData>();
+            this.Competency = new IndexAccessor<CompetencyReference, CompetencyData>(this.competency);
+            foreach (var reference in data.Competency)
+            {
+                var value = new CompetencyData(reference, this);
+                value.PropertyChanged += this.OnCompetencyChanging;
+                this.competency.Add(reference, value);
+            }
+
+
+            foreach (var item in Competency.Concat<IInitilizable>(Talent))
+                item.Initialize();
+
+
             this.adventureEntries.CollectionChanged += (sender, e) =>
             {
                 this.FirePropertyChanged(nameof(this.TotalExpirience));
@@ -127,11 +149,17 @@ namespace Nota.Data
 
         }
 
+        private void OnCompetencyChanging(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(CompetencyData.IsAcquired))
+                this.FirePropertyChanged(nameof(this.TotalExpirienceSpent));
+        }
+
         //public TalentData AddTallent(TalentReference reference)
         //{
         //}
 
-        internal event Action<TalentData> TalentChanging;
+        //internal event Action<TalentData> TalentChanging;
         public event PropertyChangedEventHandler PropertyChanged;
         //public event EventHandler<(TalentData talent, CollectionChangedKind kind)> TalentChanged;
 
@@ -143,8 +171,8 @@ namespace Nota.Data
 
         private void OnTalentChanging(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(TalentData.BaseLevel))
-                TalentChanging?.Invoke((TalentData)sender);
+            //if (e.PropertyName == nameof(TalentData.BaseLevel))
+            //    TalentChanging?.Invoke((TalentData)sender);
             if (e.PropertyName == nameof(TalentData.ExpirienceSpent))
                 this.FirePropertyChanged(nameof(this.TotalExpirienceSpent));
         }
@@ -180,7 +208,7 @@ namespace Nota.Data
             {
                 Id = this.Id,
                 Name = this.Name,
-                Talents = this.Talent.Select(x => x.GetSerelizer()).ToArray(),
+                Talents = this.Talent.Select(x => x.GetSerelizer()).Where(x => x.SpentExperience > 0).ToArray(),
                 AdventureEntrys = this.AdventureEntries.Select(x => x.GetSerelizer()).ToArray()
             };
         }

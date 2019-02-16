@@ -124,6 +124,11 @@ namespace Nota.Data.Generated.Fertigkeit
         
         /// <summary>
         /// </summary>
+        [System.Xml.Serialization.XmlElementAttribute("Ersetzt", Namespace="http://nota-game.azurewebsites.net/schema/fertigkeit")]
+        public FertigkeitenFertigkeitErsetzt Ersetzt { get; set; }
+        
+        /// <summary>
+        /// </summary>
         [System.Xml.Serialization.XmlElementAttribute("Voraussetzung", Namespace="http://nota-game.azurewebsites.net/schema/fertigkeit")]
         public Nota.Data.Generated.Misc.BedingungsAuswahl Voraussetzung { get; set; }
         
@@ -169,6 +174,11 @@ namespace Nota.Data.Generated.Fertigkeit
         /// </summary>
         [System.Xml.Serialization.XmlAttributeAttribute("Id", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public string Id { get; set; }
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlAttributeAttribute("Kosten", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public int Kosten { get; set; }
     }
     
     /// <summary>
@@ -207,6 +217,22 @@ namespace Nota.Data.Generated.Fertigkeit
         {
             this._tag = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType>();
         }
+    }
+    
+    /// <summary>
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.0.206.0")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute("FertigkeitenFertigkeitErsetzt", Namespace="http://nota-game.azurewebsites.net/schema/fertigkeit", AnonymousType=true)]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class FertigkeitenFertigkeitErsetzt
+    {
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlElementAttribute("Fertigkeit", Namespace="http://nota-game.azurewebsites.net/schema/fertigkeit")]
+        public Nota.Data.Generated.Misc.NamedType Fertigkeit { get; set; }
     }
     
     /// <summary>
