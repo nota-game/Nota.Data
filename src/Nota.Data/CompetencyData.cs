@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 
@@ -26,7 +28,9 @@ namespace Nota.Data
 
         public bool IsAcquired => this.NumberOfAcquisition > 0;
 
-        public bool IsReplaced => this.Reference.Replaces != null ? this.Character.Competency[this.Reference.Replaces].IsAcquired : false;
+        public bool IsReplaced => this.replacingCompetency.Any(x => x.IsAcquired);
+
+        private readonly List<CompetencyData> replacingCompetency = new List<CompetencyData>();
 
         public DataAction<CompetencyData> Acquire { get; }
         public CompetencyReference Reference { get; }
@@ -49,11 +53,15 @@ namespace Nota.Data
         void IInitilizable.Initialize()
         {
             if (this.Reference.Replaces != null)
-                this.Character.Competency[this.Reference.Replaces].PropertyChanged += (sender, e) =>
+            {
+                this.Character.Competency[this.Reference.Replaces].replacingCompetency.Add(this);
+                this.PropertyChanged += (sender, e) =>
                 {
+                    var replacedCompetency = this.Character.Competency[this.Reference.Replaces];
                     if (e.PropertyName == nameof(this.IsAcquired))
-                        this.FirePropertyChanged(nameof(this.IsReplaced));
+                        replacedCompetency.FirePropertyChanged(nameof(this.IsReplaced));
                 };
+            }
         }
 
         private void Character_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -67,7 +75,7 @@ namespace Nota.Data
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(proeprty));
         }
 
-        internal Serelizer GetSerelizer() => new Serelizer() { Id = this.Reference.Id, NumberOfAcquisition = this.NumberOfAcquisition};
+        internal Serelizer GetSerelizer() => new Serelizer() { Id = this.Reference.Id, NumberOfAcquisition = this.NumberOfAcquisition };
 
         [DataContract]
         internal class Serelizer

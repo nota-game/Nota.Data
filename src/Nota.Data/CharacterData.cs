@@ -92,7 +92,10 @@ namespace Nota.Data
             {
                 if (this.tags == null)
                 {
-                    this.tags = this.Competency.SelectMany(x => x.Reference.Tags).Distinct().ToList().AsReadOnly();
+                    this.tags = this.Competency
+                        .SelectMany(x => x.Reference.Tags)
+                        .Concat(this.Features.SelectMany(x => x.Reference.Tags))
+                        .Distinct().ToList().AsReadOnly();
                 }
                 return this.tags;
             }
@@ -101,7 +104,9 @@ namespace Nota.Data
         public ReadOnlyObservableCollection<AdventureEntry> AdventureEntries { get; }
         internal readonly ObservableCollection<AdventureEntry> adventureEntries = new ObservableCollection<AdventureEntry>();
         private readonly Dictionary<CompetencyReference, CompetencyData> competency;
+        private readonly Dictionary<FeaturesReference, FeaturesData> features;
 
+        internal IndexAccessor<FeaturesReference, FeaturesData> Features { get; }
         internal IndexAccessor<CompetencyReference, CompetencyData> Competency { get; }
         public DataAction<CharacterData, AdventureEntry> AddEvent { get; }
 
@@ -149,16 +154,18 @@ namespace Nota.Data
             }
 
             this.features = new Dictionary<FeaturesReference, FeaturesData>();
-            this.Competency = new IndexAccessor<FeaturesReference, FeaturesData>(this.competency);
-            foreach (var reference in data.Competency)
+            this.Features = new IndexAccessor<FeaturesReference, FeaturesData>(this.features);
+            foreach (var reference in data.Features)
             {
-                var value = new CompetencyData(reference, this);
-                value.PropertyChanged += this.OnCompetencyChanging;
-                this.competency.Add(reference, value);
+                var value = new FeaturesData(reference, this);
+                value.PropertyChanged += this.OnFeaturesChanging;
+                this.features.Add(reference, value);
             }
 
 
-            foreach (var item in this.Competency.Concat<IInitilizable>(this.Talent))
+            foreach (var item in this.Competency
+                .Concat<IInitilizable>(this.Talent)
+                .Concat(this.Features))
                 item.Initialize();
 
 
@@ -166,6 +173,16 @@ namespace Nota.Data
             {
                 this.FirePropertyChanged(nameof(this.TotalExpirience));
             };
+        }
+
+        private void OnFeaturesChanging(object sender, PropertyChangedEventArgs e)
+        {
+            var feature = sender as FeaturesData;
+            if (e.PropertyName == nameof(FeaturesData.IsAcquired))
+            {
+                if (feature.Reference.Tags.Count > 0)
+                    this.FirePropertyChanged(nameof(this.Tags));
+            }
         }
 
         private void OnCompetencyChanging(object sender, PropertyChangedEventArgs e)
