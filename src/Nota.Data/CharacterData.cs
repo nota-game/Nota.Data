@@ -6,6 +6,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
 
 namespace Nota.Data
 {
@@ -14,7 +15,20 @@ namespace Nota.Data
         private readonly Data data;
         private readonly Dictionary<TalentReference, TalentData> talent;
 
-        //private readonly Stack<DataActionReturn> undoQueue = new Stack<DataActionReturn>();
+
+        private string name;
+        public string Name
+        {
+            get => this.name; set
+            {
+                if (this.name != value)
+                {
+                    this.name = value;
+                    this.FirePropertyChanged();
+                }
+            }
+        }
+
 
         internal void AddToUndo(DataActionReturn data) => this.undoStack.Add(data);
 
@@ -60,7 +74,7 @@ namespace Nota.Data
             {
                 if (this.totalExpirience == null)
                 {
-                    this.totalExpirience = AdventureEntries.Sum(x => x.GainedExp);
+                    this.totalExpirience = this.AdventureEntries.Sum(x => x.GainedExp);
                     this.FirePropertyChanged(nameof(this.ExpirienceAvailable));
                 }
                 return this.totalExpirience.Value;
@@ -68,7 +82,7 @@ namespace Nota.Data
         }
 
         public ReadOnlyObservableCollection<AdventureEntry> AdventureEntries { get; }
-        private readonly ObservableCollection<AdventureEntry> adventureEntries = new ObservableCollection<AdventureEntry>();
+        internal readonly ObservableCollection<AdventureEntry> adventureEntries = new ObservableCollection<AdventureEntry>();
 
         public DataAction<CharacterData, AdventureEntry> AddEvent { get; }
 
@@ -76,8 +90,9 @@ namespace Nota.Data
         public int ExpirienceAvailable => this.TotalExpirience - this.TotalExpirienceSpent;
 
 
-        internal CharacterData(Data data)
+        internal CharacterData(Guid id, Data data)
         {
+            this.Id = id;
             this.data = data;
             this.UndoStack = new ReadOnlyObservableCollection<DataActionReturn>(this.undoStack);
             this.AdventureEntries = new ReadOnlyObservableCollection<AdventureEntry>(this.adventureEntries);
@@ -135,7 +150,7 @@ namespace Nota.Data
         }
 
         public IndexAccessor<TalentReference, TalentData> Talent { get; }
-
+        public Guid Id { get; }
 
         private void FirePropertyChanged([CallerMemberName]string proeprty = null)
         {
@@ -156,6 +171,35 @@ namespace Nota.Data
                     break;
             }
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(proeprty));
+        }
+
+        internal Serelizer GetSerelizer()
+        {
+
+            return new Serelizer()
+            {
+                Id = this.Id,
+                Name = this.Name,
+                Talents = this.Talent.Select(x => x.GetSerelizer()).ToArray(),
+                AdventureEntrys = this.AdventureEntries.Select(x => x.GetSerelizer()).ToArray()
+            };
+        }
+
+        [DataContract]
+        internal class Serelizer
+        {
+            [DataMember]
+            public Guid Id { get; set; }
+            [DataMember]
+            public string Name { get; set; }
+            [DataMember]
+            public TalentData.Serelizer[] Talents { get; set; }
+
+            [DataMember]
+            public AdventureEntry.Serelizer[] AdventureEntrys { get; set; }
+
+
+
         }
 
     }
@@ -186,5 +230,7 @@ namespace Nota.Data
         }
 
         IEnumerator IEnumerable.GetEnumerator() => this.GetEnumerator();
+
+
     }
 }

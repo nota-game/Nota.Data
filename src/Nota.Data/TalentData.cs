@@ -3,18 +3,20 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace Nota.Data
 {
     public class TalentData : INotifyPropertyChanged
     {
+
         private int expirienceSpent;
 
         public int ExpirienceSpent
         {
             get => this.expirienceSpent;
-            private set
+            internal set
             {
                 if (this.expirienceSpent != value)
                 {
@@ -370,5 +372,15 @@ namespace Nota.Data
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(proeprty));
         }
 
+        internal Serelizer GetSerelizer() => new Serelizer() { Id = this.Reference.Id, SpentExperience = this.ExpirienceSpent };
+
+        [DataContract]
+        internal class Serelizer
+        {
+            [DataMember]
+            public string Id { get; set; }
+            [DataMember]
+            public int SpentExperience { get; set; }
+        }
     }
 }
