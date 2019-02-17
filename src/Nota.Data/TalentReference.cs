@@ -24,6 +24,7 @@ namespace Nota.Data
         public LocalizedString Name { get; }
         public string Id { get; }
         public Data Data { get; }
+        internal ImmutableArray<LevelExpression> Expressions { get; private set; }
 
         internal TalentReference(TalenteTalent item, Data data)
         {
@@ -106,7 +107,6 @@ namespace Nota.Data
 
 
         }
-        internal ImmutableArray<LevelExpression> Expressions { get; private set; }
 
         void IReference.Initilize(Dictionary<string, TalentReference> talentLookup, Dictionary<string, CompetencyReference> directoryCompetency, Dictionary<string, FeaturesReference> directoryFeatures, Dictionary<string, TagReference> directoryTags)
         {

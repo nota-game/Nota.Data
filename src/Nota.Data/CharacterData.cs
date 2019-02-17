@@ -181,7 +181,7 @@ namespace Nota.Data
             var feature = sender as FeaturesData;
             if (e.PropertyName == nameof(FeaturesData.IsAcquired))
             {
-                if (feature.Reference.Tags.Count > 0)
+                if (feature.Reference.Tags.Length > 0)
                     this.FirePropertyChanged(nameof(this.Tags));
             }
         }
@@ -192,7 +192,7 @@ namespace Nota.Data
             if (e.PropertyName == nameof(CompetencyData.IsAcquired))
             {
                 this.FirePropertyChanged(nameof(this.TotalExpirienceSpent));
-                if (competency.Reference.Tags.Count > 0)
+                if (competency.Reference.Tags.Length > 0)
                     this.FirePropertyChanged(nameof(this.Tags));
             }
         }

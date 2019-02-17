@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Nota.Data.Expressions;
@@ -16,7 +17,6 @@ namespace Nota.Data
             this.Description = x.Beschreibung;
             this.Id = x.Id;
             this.Name = x.Name;
-            this.Tags = x.Tags.Select(y => data.Tags.First(z => z.Id == y.Id)).ToList().AsReadOnly();
 
             this.Cost = x.Kosten;
             this.Data = data;
@@ -27,7 +27,7 @@ namespace Nota.Data
         public LocalizedString Description { get; }
         public string Id { get; }
         public LocalizedString Name { get; }
-        public ReadOnlyCollection<TagReference> Tags { get; }
+        public ImmutableArray<TagReference> Tags { get; private set; }
         public int Cost { get; }
         public CompetencyReference Replaces { get; private set; }
         public Data Data { get; }
@@ -40,9 +40,7 @@ namespace Nota.Data
                 this.Replaces = directoryCompetency[this.origin.Ersetzt?.Fertigkeit.Id];
 
             this.Expression = Expresion.GetExpresion(talentLookup, directoryCompetency, directoryFeatures, directoryTags, this.origin.Voraussetzung);
-
-
-
+            this.Tags = this.origin.Tags.Select(y => directoryTags[y.Id]).ToImmutableArray();
         }
 
     }

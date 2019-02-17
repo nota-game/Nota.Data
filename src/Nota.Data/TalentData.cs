@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -45,7 +46,10 @@ namespace Nota.Data
             get
             {
                 if (this.totalCostForNextLevel == null)
-                    this.totalCostForNextLevel = TalentExperienceCost.CalculateTotalCostForLevel(this.Reference.Compexety, this.BaseLevel + 1);
+                {
+                    this.totalCostForNextLevel = TalentExperienceCost.CalculateTotalCostForLevel(this.Reference.Compexety, Math.Min(this.BaseLevel + 1, this.IncreaseProblemLevel - 1));
+                    this.FirePropertyChanged(nameof(this.ExpirienceToNextLevel));
+                }
                 return this.totalCostForNextLevel.Value;
             }
             set => this.totalCostForNextLevel = value;
@@ -72,8 +76,12 @@ namespace Nota.Data
                 if (this.baseLevel == null)
                 {
                     this.baseLevel = TalentExperienceCost.CalculateLevelFromSpentExpirience(this.Reference.Compexety, this.ExpirienceSpent);
+
+                    this.baseLevel = Math.Min(this.baseLevel.Value, this.IncreaseProblemLevel - 1);
                     this.FirePropertyChanged(nameof(this.Level));
                     this.FirePropertyChanged(nameof(this.TotalCostForNextLevel));
+
+
                 }
                 return this.baseLevel.Value;
             }
@@ -159,17 +167,17 @@ namespace Nota.Data
             }
         }
 
-        private IEnumerable<NextLevelCost> bestNextLevel;
+        private ImmutableArray<NextLevelCost>? bestNextLevel;
 
-        public IEnumerable<NextLevelCost> BestNextLevel
+        public ImmutableArray<NextLevelCost> BestNextLevel
         {
             get
             {
                 if (this.bestNextLevel == null)
                 {
-                    this.bestNextLevel = CostForBestNextLevel().ToArray();
+                    this.bestNextLevel = CostForBestNextLevel().Where(x => x.Cost > 0).ToImmutableArray();
                 }
-                return this.bestNextLevel;
+                return this.bestNextLevel.Value;
 
                 IEnumerable<NextLevelCost> CostForBestNextLevel()
                 {
@@ -254,8 +262,8 @@ namespace Nota.Data
             }
         }
 
-        public Expressions.Result AcquistionProblem => this.LevelProblem.result;
-        public int AcquistionProblemLevel => this.LevelProblem.level;
+        public Expressions.Result IncreaseProblemResult => this.LevelProblem.result;
+        public int IncreaseProblemLevel => this.LevelProblem.level;
 
         private (int level, Expressions.Result result)? levelProblem;
         internal (int level, Expressions.Result result) LevelProblem
@@ -266,9 +274,13 @@ namespace Nota.Data
                 {
                     this.levelProblem = this.Reference.Expressions
                         .Select<TalentReference.LevelExpression, (int level, Expressions.Result result)?>(x => (level: x.Level, x.Expresion.Evaluate(this.Character)))
-                        .FirstOrDefault(x => x.Value.result) ?? (0, Expressions.Result.OK);
-                    this.FirePropertyChanged(nameof(this.AcquistionProblem));
-                    this.FirePropertyChanged(nameof(this.AcquistionProblemLevel));
+                        .FirstOrDefault(x => !x.Value.result) ?? (int.MaxValue, Expressions.Result.OK);
+                    this.FirePropertyChanged(nameof(this.IncreaseProblemResult));
+                    this.FirePropertyChanged(nameof(this.IncreaseProblemLevel));
+                    this.FirePropertyChanged(nameof(this.BaseLevel));
+                    this.FirePropertyChanged(nameof(this.BestNextLevel));
+                    this.FirePropertyChanged(nameof(this.ExpirienceToNextLevel));
+                    this.FirePropertyChanged(nameof(this.TotalCostForNextLevel));
                 }
                 return this.levelProblem.Value;
             }
@@ -336,7 +348,7 @@ namespace Nota.Data
                     if (e.PropertyName == nameof(CompetencyData.IsAcquired))
                     {
                         this.Increase.FireCanExecuteChanged();
-                        this.FirePropertyChanged(nameof(this.AcquistionProblem));
+                        this.FirePropertyChanged(nameof(this.LevelProblem));
                     }
                 };
 
@@ -346,7 +358,7 @@ namespace Nota.Data
                     if (e.PropertyName == nameof(CompetencyData.IsAcquired))
                     {
                         this.Increase.FireCanExecuteChanged();
-                        this.FirePropertyChanged(nameof(this.AcquistionProblem));
+                        this.FirePropertyChanged(nameof(this.LevelProblem));
                     }
                 };
 
@@ -356,7 +368,7 @@ namespace Nota.Data
                     if (e.PropertyName == nameof(TalentData.BaseLevel))
                     {
                         this.Increase.FireCanExecuteChanged();
-                        this.FirePropertyChanged(nameof(this.AcquistionProblem));
+                        this.FirePropertyChanged(nameof(this.LevelProblem));
                     }
                 };
 
@@ -366,7 +378,7 @@ namespace Nota.Data
                     if (e.PropertyName == nameof(CharacterData.Tags))
                     {
                         this.Increase.FireCanExecuteChanged();
-                        this.FirePropertyChanged(nameof(this.AcquistionProblem));
+                        this.FirePropertyChanged(nameof(this.LevelProblem));
                     }
                 };
 

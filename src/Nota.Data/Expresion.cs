@@ -127,6 +127,8 @@ namespace Nota.Data.Expressions
 
         public static Expresion GetExpresion(Dictionary<string, TalentReference> talentLookup, Dictionary<string, CompetencyReference> directoryCompetency, Dictionary<string, FeaturesReference> directoryFeatures, Dictionary<string, TagReference> directoryTags, Generated.Misc.BedingungsAuswahl bedingung)
         {
+            if (bedingung == null)
+                return new TrueExpresion();
             if (bedingung.Talent != null)
                 return new TalentExpresion(talentLookup[bedingung.Talent.Id], bedingung.Talent.Level);
             if (bedingung.Besonderheit != null)
@@ -146,8 +148,10 @@ namespace Nota.Data.Expressions
         }
 
         public static Expresion[] GetExpresion(Dictionary<string, TalentReference> talentLookup, Dictionary<string, CompetencyReference> directoryCompetency, Dictionary<string, FeaturesReference> directoryFeatures, Dictionary<string, TagReference> directoryTags, Generated.Misc.BedingungsAuswahlen bedingung)
-        {                                                                                                                                                                                                                                                             
-            
+        {
+
+            if (bedingung == null)
+                return new[] { new TrueExpresion() };
             if (bedingung.TalentSpecified)
                 return bedingung.Talent.Select(x => new TalentExpresion(talentLookup[x.Id], x.Level)).ToArray();
             if (bedingung.BesonderheitSpecified)
@@ -168,6 +172,8 @@ namespace Nota.Data.Expressions
 
         internal static Expresion GetExpresion(Dictionary<string, TalentReference> talentLookup, Dictionary<string, CompetencyReference> directoryCompetency, Dictionary<string, FeaturesReference> directoryFeatures, Dictionary<string, TagReference> directoryTags, Generated.Besonderheit.BedingungsAuswahl bedingung)
         {
+            if (bedingung == null)
+                return new TrueExpresion();
             if (bedingung.Besonderheit != null)
                 return new FeatureExpresion(directoryFeatures[bedingung.Besonderheit.Id]);
             if (bedingung.Tag != null)
@@ -184,6 +190,8 @@ namespace Nota.Data.Expressions
 
         public static Expresion[] GetExpresion(Dictionary<string, TalentReference> talentLookup, Dictionary<string, CompetencyReference> directoryCompetency, Dictionary<string, FeaturesReference> directoryFeatures, Dictionary<string, TagReference> directoryTags, Generated.Besonderheit.BedingungsAuswahlen bedingung)
         {
+            if (bedingung == null)
+                return new[] { new TrueExpresion() };
             if (bedingung.BesonderheitSpecified)
                 return bedingung.Besonderheit.Select(x => new FeatureExpresion(directoryFeatures[x.Id])).ToArray();
             if (bedingung.TagSpecified)
@@ -217,6 +225,12 @@ namespace Nota.Data.Expressions
                     return Result.OK;
                 return new Result.MissingTalent(this.talentReference, this.level, negate);
             }
+        }
+        private class TrueExpresion : Expresion
+        {
+
+
+            protected override Result Evaluate(CharacterData character, bool negate) => Result.OK;
         }
 
         private class FeatureExpresion : Expresion

@@ -1,6 +1,7 @@
 ﻿using Nota.Data.Generated.Besonderheit;
 using Nota.Data.Generated.Misc;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -15,7 +16,6 @@ namespace Nota.Data
             this.Description = x.Beschreibung;
             this.Id = x.Id;
             this.Name = x.Name;
-            this.Tags = x.Tags?.Select(y => data.Tags.First(z => z.Id == y.Id)).ToList().AsReadOnly() ?? new List<TagReference>().AsReadOnly();
 
             this.Cost = x.Kosten;
             this.Hidden = x.Gebunden;
@@ -28,7 +28,7 @@ namespace Nota.Data
         public LocalizedString Description { get; }
         public string Id { get; }
         public LocalizedString Name { get; }
-        public ReadOnlyCollection<TagReference> Tags { get; }
+        public ImmutableArray<TagReference> Tags { get; private set; }
         public int Cost { get; }
 
 
@@ -45,6 +45,7 @@ namespace Nota.Data
                 this.Replaces = directoryFeatures[this.origin.Ersetzt?.Besonderheit.Id];
 
             this.Expression = Expressions.Expresion.GetExpresion(talentLookup, directoryCompetency, directoryFeatures, directoryTags, this.origin.Bedingung);
+            this.Tags = this.origin.Tags.Select(y => directoryTags[y.Id]).ToImmutableArray();
 
 
         }

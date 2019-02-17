@@ -104,22 +104,30 @@ namespace Nota.Data
 
                 return root.Characters.Select(cs =>
                 {
-                    var c = new CharacterData(cs.Id, this)
+                    try
                     {
-                        Name = cs.Name
-                    };
+                        var c = new CharacterData(cs.Id, this)
+                        {
+                            Name = cs.Name
+                        };
 
-                    foreach (var item in cs.AdventureEntrys)
-                        c.adventureEntries.Add(new AdventureEntry(item.Title, item.GainedExp, item.Description));
+                        foreach (var item in cs.AdventureEntrys)
+                            c.adventureEntries.Add(new AdventureEntry(item.Title, item.GainedExp, item.Description));
 
-                    foreach (var item in cs.Talents)
-                        c.Talent[idLookupTalents[item.Id]].ExpirienceSpent = item.SpentExperience;
+                        foreach (var item in cs.Talents)
+                            c.Talent[idLookupTalents[item.Id]].ExpirienceSpent = item.SpentExperience;
 
-                    foreach (var item in cs.Competency)
-                        c.Competency[idLookupCompetency[item.Id]].NumberOfAcquisition = item.NumberOfAcquisition;
+                        foreach (var item in cs.Competency)
+                            c.Competency[idLookupCompetency[item.Id]].NumberOfAcquisition = item.NumberOfAcquisition;
 
-                    return c;
-                }).ToArray() as IEnumerable<CharacterData>;
+                        return c;
+                    }
+                    catch (Exception)
+                    {
+
+                        return null;
+                    }
+                }).Where(x => x != null).ToArray() as IEnumerable<CharacterData>;
             });
         }
 
