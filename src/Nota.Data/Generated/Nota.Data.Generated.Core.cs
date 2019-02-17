@@ -33,38 +33,10 @@ namespace Nota.Data.Generated.Core
         [System.Xml.Serialization.XmlElementAttribute("StandardDaten", Namespace="http://nota-game.azurewebsites.net/schema/nota")]
         public DatenStandardDaten StandardDaten { get; set; }
         
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        private System.Collections.ObjectModel.Collection<Nota.Data.Generated.Lebewesen.LebeweseneLebewesen> _lebewesene;
-        
         /// <summary>
         /// </summary>
-        [System.Xml.Serialization.XmlArrayAttribute("Lebewesene", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
-        [System.Xml.Serialization.XmlArrayItemAttribute("Lebewesen", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
-        public System.Collections.ObjectModel.Collection<Nota.Data.Generated.Lebewesen.LebeweseneLebewesen> Lebewesene
-        {
-            get
-            {
-                return this._lebewesene;
-            }
-            private set
-            {
-                this._lebewesene = value;
-            }
-        }
-        
-        /// <summary>
-        /// <para xml:lang="de">Initialisiert eine neue Instanz der <see cref="Daten" /> Klasse.</para>
-        /// <para xml:lang="en">Initializes a new instance of the <see cref="Daten" /> class.</para>
-        /// </summary>
-        public Daten()
-        {
-            this._lebewesene = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Lebewesen.LebeweseneLebewesen>();
-            this._pfadGruppen = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Pfad.PfadGruppenPfade>();
-            this._talente = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Talent.TalenteTalent>();
-            this._fertigkeiten = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Fertigkeit.FertigkeitenFertigkeit>();
-            this._besonderheiten = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Besonderheit.BesonderheitenBesonderheit>();
-            this._tags = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.Tag>();
-        }
+        [System.Xml.Serialization.XmlElementAttribute("Organismen", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
+        public Nota.Data.Generated.Lebewesen.Organismen Organismen { get; set; }
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
         private System.Collections.ObjectModel.Collection<Nota.Data.Generated.Pfad.PfadGruppenPfade> _pfadGruppen;
@@ -83,6 +55,19 @@ namespace Nota.Data.Generated.Core
             {
                 this._pfadGruppen = value;
             }
+        }
+        
+        /// <summary>
+        /// <para xml:lang="de">Initialisiert eine neue Instanz der <see cref="Daten" /> Klasse.</para>
+        /// <para xml:lang="en">Initializes a new instance of the <see cref="Daten" /> class.</para>
+        /// </summary>
+        public Daten()
+        {
+            this._pfadGruppen = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Pfad.PfadGruppenPfade>();
+            this._talente = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Talent.TalenteTalent>();
+            this._fertigkeiten = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Fertigkeit.FertigkeitenFertigkeit>();
+            this._besonderheiten = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Besonderheit.BesonderheitenBesonderheit>();
+            this._tags = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.Tag>();
         }
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]

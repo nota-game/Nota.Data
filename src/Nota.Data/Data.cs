@@ -11,13 +11,18 @@ namespace Nota.Data
 {
     public class Data
     {
-        private Data(IReadOnlyList<TalentReference> talents, IReadOnlyList<CompetencyReference> competency, IReadOnlyList<TagReference> tags, IReadOnlyList<FeaturesReference> features)
+        private Data(IReadOnlyList<TalentReference> talents, IReadOnlyList<CompetencyReference> competency, IReadOnlyList<TagReference> tags, IReadOnlyList<FeaturesReference> features, IReadOnlyList<BeingReference> beings, IReadOnlyList<GenusReference> genus)
         {
             this.Talents = talents;
             this.Competency = competency;
             this.Tags = tags;
             this.Features = features;
+            this.Beings = beings;
+            this.Genus = genus;
         }
+
+        public IReadOnlyList<BeingReference> Beings { get; }
+        public IReadOnlyList<GenusReference> Genus { get; }
 
         public static Task<Data> LoadAsync(System.IO.Stream stream)
         {
@@ -26,13 +31,31 @@ namespace Nota.Data
                 var serializer = new XmlSerializer(typeof(Generated.Core.Daten));
                 var data = serializer.Deserialize(stream) as Generated.Core.Daten;
                 var talentList = new List<TalentReference>();
+                var beingList = new List<BeingReference>();
                 var competencyList = new List<CompetencyReference>();
                 var tagList = new List<TagReference>();
+                var genusList = new List<GenusReference>();
                 var featuresList = new List<FeaturesReference>();
 
+                var output = new Data(talentList.AsReadOnly(), competencyList.AsReadOnly(), tagList.AsReadOnly(), featuresList.AsReadOnly(), beingList.AsReadOnly(), genusList.AsReadOnly());
+
+                var directoryBeing = new Dictionary<string, BeingReference>();
+                foreach (var item in data.Organismen.Organismus.Select(x => new BeingReference(x, output)))
+                {
+                    beingList.Add(item);
+                    directoryBeing.Add(item.Id, item);
+                }
+
+                var directoryGenus = new Dictionary<string, GenusReference>();
+                foreach (var item in data.Organismen.Gattung.Select(x => new GenusReference(x, output)))
+                {
+                    genusList.Add(item);
+                    directoryGenus.Add(item.Id, item);
+                }
 
 
-                var output = new Data(talentList.AsReadOnly(), competencyList.AsReadOnly(), tagList.AsReadOnly(), featuresList.AsReadOnly());
+
+
                 var directoryTalent = new Dictionary<string, TalentReference>();
                 foreach (var item in data.Talente.Select(x => new TalentReference(x, output)))
                 {
@@ -65,8 +88,10 @@ namespace Nota.Data
                 foreach (var item in output.Features
                     .Concat<IReference>(output.Competency)
                     .Concat(output.Talents)
-                    .Concat(output.Tags))
-                    item.Initilize(directoryTalent, directoryCompetency, directoryFeatures, directoryTags);
+                    .Concat(output.Tags)
+                    .Concat(output.Beings)
+                    .Concat(output.Genus))
+                    item.Initilize(directoryTalent, directoryCompetency, directoryFeatures, directoryTags,directoryGenus, directoryBeing);
 
 
 
