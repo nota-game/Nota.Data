@@ -235,7 +235,7 @@ namespace Nota.Data.Generated.Lebewesen
         {
             this._name = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung>();
             this._beschreibung = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung>();
-            this._standardKulturen = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType>();
+            this._standardPfade = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType>();
             this._lebensabschnitte = new System.Collections.ObjectModel.Collection<Lebensabschnitt>();
         }
         
@@ -259,36 +259,36 @@ namespace Nota.Data.Generated.Lebewesen
         }
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
-        private System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType> _standardKulturen;
+        private System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType> _standardPfade;
         
         /// <summary>
         /// <para xml:lang="de">Die Kulturen in denen sich dieser Morph üblicherweise aufhält.</para>
         /// </summary>
         [System.ComponentModel.DescriptionAttribute("Die Kulturen in denen sich dieser Morph üblicherweise aufhält.")]
-        [System.Xml.Serialization.XmlArrayAttribute("StandardKulturen", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
-        [System.Xml.Serialization.XmlArrayItemAttribute("Kultur", Namespace="http://nota-game.azurewebsites.net/schema/kultur")]
-        public System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType> StandardKulturen
+        [System.Xml.Serialization.XmlArrayAttribute("StandardPfade", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
+        [System.Xml.Serialization.XmlArrayItemAttribute("Pfad", Namespace="http://nota-game.azurewebsites.net/schema/pfad")]
+        public System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType> StandardPfade
         {
             get
             {
-                return this._standardKulturen;
+                return this._standardPfade;
             }
             private set
             {
-                this._standardKulturen = value;
+                this._standardPfade = value;
             }
         }
         
         /// <summary>
-        /// <para xml:lang="de">Ruft einen Wert ab, der angibt, ob die StandardKulturen-Collection leer ist.</para>
-        /// <para xml:lang="en">Gets a value indicating whether the StandardKulturen collection is empty.</para>
+        /// <para xml:lang="de">Ruft einen Wert ab, der angibt, ob die StandardPfade-Collection leer ist.</para>
+        /// <para xml:lang="en">Gets a value indicating whether the StandardPfade collection is empty.</para>
         /// </summary>
         [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool StandardKulturenSpecified
+        public bool StandardPfadeSpecified
         {
             get
             {
-                return (this.StandardKulturen.Count != 0);
+                return (this.StandardPfade.Count != 0);
             }
         }
         
@@ -347,40 +347,43 @@ namespace Nota.Data.Generated.Lebewesen
     }
     
     /// <summary>
+    /// <para xml:lang="de">Die Kulturen in denen sich dieses Wesen üblicherweise aufhält.</para>
     /// </summary>
+    [System.ComponentModel.DescriptionAttribute("Die Kulturen in denen sich dieses Wesen üblicherweise aufhält.")]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.0.206.0")]
     [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute("MorphStandardKulturen", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen", AnonymousType=true)]
+    [System.Xml.Serialization.XmlTypeAttribute("StandardPfade", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen", AnonymousType=true)]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class MorphStandardKulturen
+    [System.Xml.Serialization.XmlRootAttribute("StandardPfade", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
+    public partial class StandardPfade
     {
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
-        private System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType> _kultur;
+        private System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType> _pfad;
         
         /// <summary>
         /// </summary>
-        [System.Xml.Serialization.XmlElementAttribute("Kultur", Namespace="http://nota-game.azurewebsites.net/schema/kultur")]
-        public System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType> Kultur
+        [System.Xml.Serialization.XmlElementAttribute("Pfad", Namespace="http://nota-game.azurewebsites.net/schema/pfad")]
+        public System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType> Pfad
         {
             get
             {
-                return this._kultur;
+                return this._pfad;
             }
             private set
             {
-                this._kultur = value;
+                this._pfad = value;
             }
         }
         
         /// <summary>
-        /// <para xml:lang="de">Initialisiert eine neue Instanz der <see cref="MorphStandardKulturen" /> Klasse.</para>
-        /// <para xml:lang="en">Initializes a new instance of the <see cref="MorphStandardKulturen" /> class.</para>
+        /// <para xml:lang="de">Initialisiert eine neue Instanz der <see cref="StandardPfade" /> Klasse.</para>
+        /// <para xml:lang="en">Initializes a new instance of the <see cref="StandardPfade" /> class.</para>
         /// </summary>
-        public MorphStandardKulturen()
+        public StandardPfade()
         {
-            this._kultur = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType>();
+            this._pfad = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType>();
         }
     }
     
@@ -713,6 +716,46 @@ namespace Nota.Data.Generated.Lebewesen
     {
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
+        private System.Collections.ObjectModel.Collection<LebensabschnittSpielbarPfadPunkte> _pfadPunkte;
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlElementAttribute("PfadPunkte", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
+        public System.Collections.ObjectModel.Collection<LebensabschnittSpielbarPfadPunkte> PfadPunkte
+        {
+            get
+            {
+                return this._pfadPunkte;
+            }
+            private set
+            {
+                this._pfadPunkte = value;
+            }
+        }
+        
+        /// <summary>
+        /// <para xml:lang="de">Ruft einen Wert ab, der angibt, ob die PfadPunkte-Collection leer ist.</para>
+        /// <para xml:lang="en">Gets a value indicating whether the PfadPunkte collection is empty.</para>
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool PfadPunkteSpecified
+        {
+            get
+            {
+                return (this.PfadPunkte.Count != 0);
+            }
+        }
+        
+        /// <summary>
+        /// <para xml:lang="de">Initialisiert eine neue Instanz der <see cref="LebensabschnittSpielbar" /> Klasse.</para>
+        /// <para xml:lang="en">Initializes a new instance of the <see cref="LebensabschnittSpielbar" /> class.</para>
+        /// </summary>
+        public LebensabschnittSpielbar()
+        {
+            this._pfadPunkte = new System.Collections.ObjectModel.Collection<LebensabschnittSpielbarPfadPunkte>();
+        }
+        
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
         private int _kosten = 0;
         
         /// <summary>
@@ -730,16 +773,27 @@ namespace Nota.Data.Generated.Lebewesen
                 this._kosten = value;
             }
         }
+    }
+    
+    /// <summary>
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.0.206.0")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute("LebensabschnittSpielbarPfadPunkte", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen", AnonymousType=true)]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class LebensabschnittSpielbarPfadPunkte
+    {
         
         /// <summary>
         /// </summary>
-        [System.Xml.Serialization.XmlAttributeAttribute("professionsLevel", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string ProfessionsLevel { get; set; }
+        [System.Xml.Serialization.XmlAttributeAttribute("Pfade", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string Pfade { get; set; }
         
         /// <summary>
         /// </summary>
-        [System.Xml.Serialization.XmlAttributeAttribute("kulturLevel", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string KulturLevel { get; set; }
+        [System.Xml.Serialization.XmlAttributeAttribute("Punkte", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string Punkte { get; set; }
     }
     
     /// <summary>
@@ -776,6 +830,28 @@ namespace Nota.Data.Generated.Lebewesen
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlRootAttribute("Lebewesen", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
     public partial class Lebewesen : Nota.Data.Generated.Misc.NamedType
+    {
+    }
+    
+    /// <summary>
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.0.206.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlRootAttribute("Morph", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
+    public partial class Morph2 : Nota.Data.Generated.Misc.NamedType
+    {
+    }
+    
+    /// <summary>
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.0.206.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlRootAttribute("Lebensabschnitt", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
+    public partial class Lebensabschnitt2 : Nota.Data.Generated.Misc.NamedType
     {
     }
     
@@ -858,36 +934,34 @@ namespace Nota.Data.Generated.Lebewesen
         public LebeweseneLebewesenEigenschaften Eigenschaften { get; set; }
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
-        private System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType> _standardKulturen;
+        private System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType> _standardPfade;
         
         /// <summary>
-        /// <para xml:lang="de">Die Kulturen in denen sich dieses Wesen üblicherweise aufhält.</para>
         /// </summary>
-        [System.ComponentModel.DescriptionAttribute("Die Kulturen in denen sich dieses Wesen üblicherweise aufhält.")]
-        [System.Xml.Serialization.XmlArrayAttribute("StandardKulturen", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
-        [System.Xml.Serialization.XmlArrayItemAttribute("Kultur", Namespace="http://nota-game.azurewebsites.net/schema/kultur")]
-        public System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType> StandardKulturen
+        [System.Xml.Serialization.XmlArrayAttribute("StandardPfade", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
+        [System.Xml.Serialization.XmlArrayItemAttribute("Pfad", Namespace="http://nota-game.azurewebsites.net/schema/pfad")]
+        public System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType> StandardPfade
         {
             get
             {
-                return this._standardKulturen;
+                return this._standardPfade;
             }
             private set
             {
-                this._standardKulturen = value;
+                this._standardPfade = value;
             }
         }
         
         /// <summary>
-        /// <para xml:lang="de">Ruft einen Wert ab, der angibt, ob die StandardKulturen-Collection leer ist.</para>
-        /// <para xml:lang="en">Gets a value indicating whether the StandardKulturen collection is empty.</para>
+        /// <para xml:lang="de">Ruft einen Wert ab, der angibt, ob die StandardPfade-Collection leer ist.</para>
+        /// <para xml:lang="en">Gets a value indicating whether the StandardPfade collection is empty.</para>
         /// </summary>
         [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool StandardKulturenSpecified
+        public bool StandardPfadeSpecified
         {
             get
             {
-                return (this.StandardKulturen.Count != 0);
+                return (this.StandardPfade.Count != 0);
             }
         }
         
@@ -897,7 +971,7 @@ namespace Nota.Data.Generated.Lebewesen
         /// </summary>
         public LebeweseneLebewesen()
         {
-            this._standardKulturen = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType>();
+            this._standardPfade = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType>();
             this._morphe = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Lebewesen.Morph>();
             this._besonderheiten = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType>();
             this._name = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung>();
@@ -1075,44 +1149,6 @@ namespace Nota.Data.Generated.Lebewesen
         [System.ComponentModel.DescriptionAttribute("Die Anzahl der Punkte die auf die Eigneschaften verteilt werden müssen.")]
         [System.Xml.Serialization.XmlAttributeAttribute("Punkte", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public int Punkte { get; set; }
-    }
-    
-    /// <summary>
-    /// </summary>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.0.206.0")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute("LebeweseneLebewesenStandardKulturen", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen", AnonymousType=true)]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class LebeweseneLebewesenStandardKulturen
-    {
-        
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        private System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType> _kultur;
-        
-        /// <summary>
-        /// </summary>
-        [System.Xml.Serialization.XmlElementAttribute("Kultur", Namespace="http://nota-game.azurewebsites.net/schema/kultur")]
-        public System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType> Kultur
-        {
-            get
-            {
-                return this._kultur;
-            }
-            private set
-            {
-                this._kultur = value;
-            }
-        }
-        
-        /// <summary>
-        /// <para xml:lang="de">Initialisiert eine neue Instanz der <see cref="LebeweseneLebewesenStandardKulturen" /> Klasse.</para>
-        /// <para xml:lang="en">Initializes a new instance of the <see cref="LebeweseneLebewesenStandardKulturen" /> class.</para>
-        /// </summary>
-        public LebeweseneLebewesenStandardKulturen()
-        {
-            this._kultur = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType>();
-        }
     }
     
     /// <summary>

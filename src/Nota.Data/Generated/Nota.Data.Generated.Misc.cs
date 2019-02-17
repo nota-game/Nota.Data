@@ -27,12 +27,14 @@ namespace Nota.Data.Generated.Misc
     [System.Xml.Serialization.XmlRootAttribute("Tag", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Nota.Data.Generated.Besonderheit.Besonderheit))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Nota.Data.Generated.Fertigkeit.Fertigkeit))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Nota.Data.Generated.Kultur.Kultur))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Nota.Data.Generated.Lebewesen.Lebensabschnitt2))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Nota.Data.Generated.Lebewesen.Lebewesen))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Level))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Nota.Data.Generated.Lebewesen.Morph2))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(NamedTypeOptionalValue))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(NamedTypeReqiredeValue))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Nota.Data.Generated.Profession.Profession))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Nota.Data.Generated.Pfad.Pfad))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Nota.Data.Generated.Pfad.Pfade))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Tag))]
     public partial class NamedType : INamedElement
     {
@@ -875,6 +877,7 @@ namespace Nota.Data.Generated.Misc
             this._fertigkeit = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType>();
             this._talent = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Talent.Talent>();
             this._besonderheit = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType>();
+            this._tag = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType>();
         }
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
@@ -1010,6 +1013,56 @@ namespace Nota.Data.Generated.Misc
         }
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
+        private System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType> _tag;
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlElementAttribute("Tag", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
+        public System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType> Tag
+        {
+            get
+            {
+                return this._tag;
+            }
+            private set
+            {
+                this._tag = value;
+            }
+        }
+        
+        /// <summary>
+        /// <para xml:lang="de">Ruft einen Wert ab, der angibt, ob die Tag-Collection leer ist.</para>
+        /// <para xml:lang="en">Gets a value indicating whether the Tag collection is empty.</para>
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool TagSpecified
+        {
+            get
+            {
+                return (this.Tag.Count != 0);
+            }
+        }
+        
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        private string _pfadKosten = "0";
+        
+        /// <summary>
+        /// </summary>
+        [System.ComponentModel.DefaultValueAttribute("0")]
+        [System.Xml.Serialization.XmlAttributeAttribute("PfadKosten", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string PfadKosten
+        {
+            get
+            {
+                return this._pfadKosten;
+            }
+            set
+            {
+                this._pfadKosten = value;
+            }
+        }
+        
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
         private int _kosten = 0;
         
         /// <summary>
@@ -1048,19 +1101,20 @@ namespace Nota.Data.Generated.Misc
     {
         
         /// <summary>
-        /// <para xml:lang="de">Die besonderheiten die ein Charakter besizten muss um dieses level zu erlernen.</para>
-        /// </summary>
-        [System.ComponentModel.DescriptionAttribute("Die besonderheiten die ein Charakter besizten muss um dieses level zu erlernen.")]
-        [System.Xml.Serialization.XmlElementAttribute("Besonderheiten", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
-        public Nota.Data.Generated.Misc.BedingungsAuswahl Besonderheiten { get; set; }
-        
-        /// <summary>
         /// <para xml:lang="de">Andere Level die der Charakter bereist besitzen muss um dieses Level zu erlernen.</para>
         /// </summary>
         [System.ComponentModel.DescriptionAttribute("Andere Level die der Charakter bereist besitzen muss um dieses Level zu erlernen." +
             "")]
         [System.Xml.Serialization.XmlElementAttribute("LevelVoraussetzung", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
         public Nota.Data.Generated.Misc.LevelAuswahl LevelVoraussetzung { get; set; }
+        
+        /// <summary>
+        /// <para xml:lang="de">Weitres bedingungen die der Charakter erfüllen muss. ACHTUNG, zu diesem Zeitpunkt gab es noch keine möglichkeit Vorteile und Fertigkeiten zu erwerben.</para>
+        /// </summary>
+        [System.ComponentModel.DescriptionAttribute("Weitres bedingungen die der Charakter erfüllen muss. ACHTUNG, zu diesem Zeitpunkt" +
+            " gab es noch keine möglichkeit Vorteile und Fertigkeiten zu erwerben.")]
+        [System.Xml.Serialization.XmlElementAttribute("Zusätzlich", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
+        public Nota.Data.Generated.Misc.BedingungsAuswahl Zusätzlich { get; set; }
     }
     
     /// <summary>

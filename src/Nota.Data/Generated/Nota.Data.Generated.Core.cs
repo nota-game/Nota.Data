@@ -28,57 +28,10 @@ namespace Nota.Data.Generated.Core
     public partial class Daten
     {
         
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        private System.Collections.ObjectModel.Collection<DatenPfadePfadAuswahl> _pfade;
-        
         /// <summary>
-        /// <para xml:lang="de">Neben Gattung Kultur und Profession, können noch weitere Entscheidungen bei der Charakterschaffung beschritten werden. Welche dies sind wird an dieser Stelle definiert.</para>
         /// </summary>
-        [System.ComponentModel.DescriptionAttribute("Neben Gattung Kultur und Profession, können noch weitere Entscheidungen bei der C" +
-            "harakterschaffung beschritten werden. Welche dies sind wird an dieser Stelle def" +
-            "iniert.")]
-        [System.Xml.Serialization.XmlArrayAttribute("Pfade", Namespace="http://nota-game.azurewebsites.net/schema/nota")]
-        [System.Xml.Serialization.XmlArrayItemAttribute("PfadAuswahl", Namespace="http://nota-game.azurewebsites.net/schema/nota")]
-        public System.Collections.ObjectModel.Collection<DatenPfadePfadAuswahl> Pfade
-        {
-            get
-            {
-                return this._pfade;
-            }
-            private set
-            {
-                this._pfade = value;
-            }
-        }
-        
-        /// <summary>
-        /// <para xml:lang="de">Ruft einen Wert ab, der angibt, ob die Pfade-Collection leer ist.</para>
-        /// <para xml:lang="en">Gets a value indicating whether the Pfade collection is empty.</para>
-        /// </summary>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool PfadeSpecified
-        {
-            get
-            {
-                return (this.Pfade.Count != 0);
-            }
-        }
-        
-        /// <summary>
-        /// <para xml:lang="de">Initialisiert eine neue Instanz der <see cref="Daten" /> Klasse.</para>
-        /// <para xml:lang="en">Initializes a new instance of the <see cref="Daten" /> class.</para>
-        /// </summary>
-        public Daten()
-        {
-            this._pfade = new System.Collections.ObjectModel.Collection<DatenPfadePfadAuswahl>();
-            this._lebewesene = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Lebewesen.LebeweseneLebewesen>();
-            this._kulturen = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Kultur.KulturenKultur>();
-            this._professionen = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Profession.ProfessionenProfession>();
-            this._talente = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Talent.TalenteTalent>();
-            this._fertigkeiten = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Fertigkeit.FertigkeitenFertigkeit>();
-            this._besonderheiten = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Besonderheit.BesonderheitenBesonderheit>();
-            this._tags = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.Tag>();
-        }
+        [System.Xml.Serialization.XmlElementAttribute("StandardDaten", Namespace="http://nota-game.azurewebsites.net/schema/nota")]
+        public DatenStandardDaten StandardDaten { get; set; }
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
         private System.Collections.ObjectModel.Collection<Nota.Data.Generated.Lebewesen.LebeweseneLebewesen> _lebewesene;
@@ -99,41 +52,36 @@ namespace Nota.Data.Generated.Core
             }
         }
         
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        private System.Collections.ObjectModel.Collection<Nota.Data.Generated.Kultur.KulturenKultur> _kulturen;
-        
         /// <summary>
+        /// <para xml:lang="de">Initialisiert eine neue Instanz der <see cref="Daten" /> Klasse.</para>
+        /// <para xml:lang="en">Initializes a new instance of the <see cref="Daten" /> class.</para>
         /// </summary>
-        [System.Xml.Serialization.XmlArrayAttribute("Kulturen", Namespace="http://nota-game.azurewebsites.net/schema/kultur")]
-        [System.Xml.Serialization.XmlArrayItemAttribute("Kultur", Namespace="http://nota-game.azurewebsites.net/schema/kultur")]
-        public System.Collections.ObjectModel.Collection<Nota.Data.Generated.Kultur.KulturenKultur> Kulturen
+        public Daten()
         {
-            get
-            {
-                return this._kulturen;
-            }
-            private set
-            {
-                this._kulturen = value;
-            }
+            this._lebewesene = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Lebewesen.LebeweseneLebewesen>();
+            this._pfadGruppen = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Pfad.PfadGruppenPfade>();
+            this._talente = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Talent.TalenteTalent>();
+            this._fertigkeiten = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Fertigkeit.FertigkeitenFertigkeit>();
+            this._besonderheiten = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Besonderheit.BesonderheitenBesonderheit>();
+            this._tags = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.Tag>();
         }
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
-        private System.Collections.ObjectModel.Collection<Nota.Data.Generated.Profession.ProfessionenProfession> _professionen;
+        private System.Collections.ObjectModel.Collection<Nota.Data.Generated.Pfad.PfadGruppenPfade> _pfadGruppen;
         
         /// <summary>
         /// </summary>
-        [System.Xml.Serialization.XmlArrayAttribute("Professionen", Namespace="http://nota-game.azurewebsites.net/schema/profession")]
-        [System.Xml.Serialization.XmlArrayItemAttribute("Profession", Namespace="http://nota-game.azurewebsites.net/schema/profession")]
-        public System.Collections.ObjectModel.Collection<Nota.Data.Generated.Profession.ProfessionenProfession> Professionen
+        [System.Xml.Serialization.XmlArrayAttribute("PfadGruppen", Namespace="http://nota-game.azurewebsites.net/schema/pfad")]
+        [System.Xml.Serialization.XmlArrayItemAttribute("Pfade", Namespace="http://nota-game.azurewebsites.net/schema/pfad")]
+        public System.Collections.ObjectModel.Collection<Nota.Data.Generated.Pfad.PfadGruppenPfade> PfadGruppen
         {
             get
             {
-                return this._professionen;
+                return this._pfadGruppen;
             }
             private set
             {
-                this._professionen = value;
+                this._pfadGruppen = value;
             }
         }
         
@@ -233,359 +181,15 @@ namespace Nota.Data.Generated.Core
     /// </summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.0.206.0")]
     [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute("DatenPfade", Namespace="http://nota-game.azurewebsites.net/schema/nota", AnonymousType=true)]
+    [System.Xml.Serialization.XmlTypeAttribute("DatenStandardDaten", Namespace="http://nota-game.azurewebsites.net/schema/nota", AnonymousType=true)]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class DatenPfade
-    {
-        
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        private System.Collections.ObjectModel.Collection<DatenPfadePfadAuswahl> _pfadAuswahl;
-        
-        /// <summary>
-        /// </summary>
-        [System.Xml.Serialization.XmlElementAttribute("PfadAuswahl", Namespace="http://nota-game.azurewebsites.net/schema/nota")]
-        public System.Collections.ObjectModel.Collection<DatenPfadePfadAuswahl> PfadAuswahl
-        {
-            get
-            {
-                return this._pfadAuswahl;
-            }
-            private set
-            {
-                this._pfadAuswahl = value;
-            }
-        }
-        
-        /// <summary>
-        /// <para xml:lang="de">Initialisiert eine neue Instanz der <see cref="DatenPfade" /> Klasse.</para>
-        /// <para xml:lang="en">Initializes a new instance of the <see cref="DatenPfade" /> class.</para>
-        /// </summary>
-        public DatenPfade()
-        {
-            this._pfadAuswahl = new System.Collections.ObjectModel.Collection<DatenPfadePfadAuswahl>();
-        }
-    }
-    
-    /// <summary>
-    /// </summary>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.0.206.0")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute("DatenPfadePfadAuswahl", Namespace="http://nota-game.azurewebsites.net/schema/nota", AnonymousType=true)]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class DatenPfadePfadAuswahl : Nota.Data.Generated.Misc.INamedElement
-    {
-        
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        private System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung> _name;
-        
-        /// <summary>
-        /// </summary>
-        [System.Xml.Serialization.XmlArrayAttribute("Name", Namespace="http://nota-game.azurewebsites.net/schema/nota")]
-        [System.Xml.Serialization.XmlArrayItemAttribute("Lokalisirung", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
-        public System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung> Name
-        {
-            get
-            {
-                return this._name;
-            }
-            private set
-            {
-                this._name = value;
-            }
-        }
-        
-        /// <summary>
-        /// <para xml:lang="de">Initialisiert eine neue Instanz der <see cref="DatenPfadePfadAuswahl" /> Klasse.</para>
-        /// <para xml:lang="en">Initializes a new instance of the <see cref="DatenPfadePfadAuswahl" /> class.</para>
-        /// </summary>
-        public DatenPfadePfadAuswahl()
-        {
-            this._name = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung>();
-            this._beschreibung = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung>();
-            this._pfad = new System.Collections.ObjectModel.Collection<DatenPfadePfadAuswahlPfad>();
-        }
-        
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        private System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung> _beschreibung;
-        
-        /// <summary>
-        /// </summary>
-        [System.Xml.Serialization.XmlArrayAttribute("Beschreibung", Namespace="http://nota-game.azurewebsites.net/schema/nota")]
-        [System.Xml.Serialization.XmlArrayItemAttribute("Lokalisirung", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
-        public System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung> Beschreibung
-        {
-            get
-            {
-                return this._beschreibung;
-            }
-            private set
-            {
-                this._beschreibung = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        private System.Collections.ObjectModel.Collection<DatenPfadePfadAuswahlPfad> _pfad;
-        
-        /// <summary>
-        /// </summary>
-        [System.Xml.Serialization.XmlElementAttribute("Pfad", Namespace="http://nota-game.azurewebsites.net/schema/nota")]
-        public System.Collections.ObjectModel.Collection<DatenPfadePfadAuswahlPfad> Pfad
-        {
-            get
-            {
-                return this._pfad;
-            }
-            private set
-            {
-                this._pfad = value;
-            }
-        }
-        
-        /// <summary>
-        /// </summary>
-        [System.Xml.Serialization.XmlAttributeAttribute("Id", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string Id { get; set; }
-        
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        private string _minimumAuswahl = "1";
-        
-        /// <summary>
-        /// <para xml:lang="de">Der Nutzer muss mindestens die angegebene Anzahl an auswahlen treffen. (Default ist 1)</para>
-        /// </summary>
-        [System.ComponentModel.DefaultValueAttribute("1")]
-        [System.ComponentModel.DescriptionAttribute("Der Nutzer muss mindestens die angegebene Anzahl an auswahlen treffen. (Default i" +
-            "st 1)")]
-        [System.Xml.Serialization.XmlAttributeAttribute("MinimumAuswahl", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string MinimumAuswahl
-        {
-            get
-            {
-                return this._minimumAuswahl;
-            }
-            set
-            {
-                this._minimumAuswahl = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        private string _maximumAuswahl = "1";
-        
-        /// <summary>
-        /// <para xml:lang="de">Der Nutzer muss mindestens die angegebene Anzahl an auswahlen treffen. (Default ist 1)</para>
-        /// </summary>
-        [System.ComponentModel.DefaultValueAttribute("1")]
-        [System.ComponentModel.DescriptionAttribute("Der Nutzer muss mindestens die angegebene Anzahl an auswahlen treffen. (Default i" +
-            "st 1)")]
-        [System.Xml.Serialization.XmlAttributeAttribute("MaximumAuswahl", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string MaximumAuswahl
-        {
-            get
-            {
-                return this._maximumAuswahl;
-            }
-            set
-            {
-                this._maximumAuswahl = value;
-            }
-        }
-    }
-    
-    /// <summary>
-    /// </summary>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.0.206.0")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute("DatenPfadePfadAuswahlPfad", Namespace="http://nota-game.azurewebsites.net/schema/nota", AnonymousType=true)]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class DatenPfadePfadAuswahlPfad : Nota.Data.Generated.Misc.INamedElement
-    {
-        
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        private System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung> _name;
-        
-        /// <summary>
-        /// </summary>
-        [System.Xml.Serialization.XmlArrayAttribute("Name", Namespace="http://nota-game.azurewebsites.net/schema/nota")]
-        [System.Xml.Serialization.XmlArrayItemAttribute("Lokalisirung", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
-        public System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung> Name
-        {
-            get
-            {
-                return this._name;
-            }
-            private set
-            {
-                this._name = value;
-            }
-        }
-        
-        /// <summary>
-        /// <para xml:lang="de">Initialisiert eine neue Instanz der <see cref="DatenPfadePfadAuswahlPfad" /> Klasse.</para>
-        /// <para xml:lang="en">Initializes a new instance of the <see cref="DatenPfadePfadAuswahlPfad" /> class.</para>
-        /// </summary>
-        public DatenPfadePfadAuswahlPfad()
-        {
-            this._name = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung>();
-            this._beschreibung = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung>();
-            this._bedingung = new System.Collections.ObjectModel.Collection<DatenPfadePfadAuswahlPfadBedingung>();
-            this._fertigkeit = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType>();
-            this._talent = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Talent.Talent>();
-        }
-        
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        private System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung> _beschreibung;
-        
-        /// <summary>
-        /// </summary>
-        [System.Xml.Serialization.XmlArrayAttribute("Beschreibung", Namespace="http://nota-game.azurewebsites.net/schema/nota")]
-        [System.Xml.Serialization.XmlArrayItemAttribute("Lokalisirung", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
-        public System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung> Beschreibung
-        {
-            get
-            {
-                return this._beschreibung;
-            }
-            private set
-            {
-                this._beschreibung = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        private System.Collections.ObjectModel.Collection<DatenPfadePfadAuswahlPfadBedingung> _bedingung;
-        
-        /// <summary>
-        /// </summary>
-        [System.Xml.Serialization.XmlElementAttribute("Bedingung", Namespace="http://nota-game.azurewebsites.net/schema/nota")]
-        public System.Collections.ObjectModel.Collection<DatenPfadePfadAuswahlPfadBedingung> Bedingung
-        {
-            get
-            {
-                return this._bedingung;
-            }
-            private set
-            {
-                this._bedingung = value;
-            }
-        }
-        
-        /// <summary>
-        /// <para xml:lang="de">Ruft einen Wert ab, der angibt, ob die Bedingung-Collection leer ist.</para>
-        /// <para xml:lang="en">Gets a value indicating whether the Bedingung collection is empty.</para>
-        /// </summary>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool BedingungSpecified
-        {
-            get
-            {
-                return (this.Bedingung.Count != 0);
-            }
-        }
-        
-        /// <summary>
-        /// </summary>
-        [System.Xml.Serialization.XmlElementAttribute("Modifikationen", Namespace="http://nota-game.azurewebsites.net/schema/nota")]
-        public Nota.Data.Generated.Lebewesen.Mods Modifikationen { get; set; }
-        
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        private System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType> _fertigkeit;
-        
-        /// <summary>
-        /// </summary>
-        [System.Xml.Serialization.XmlElementAttribute("Fertigkeit", Namespace="http://nota-game.azurewebsites.net/schema/fertigkeit")]
-        public System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType> Fertigkeit
-        {
-            get
-            {
-                return this._fertigkeit;
-            }
-            private set
-            {
-                this._fertigkeit = value;
-            }
-        }
-        
-        /// <summary>
-        /// <para xml:lang="de">Ruft einen Wert ab, der angibt, ob die Fertigkeit-Collection leer ist.</para>
-        /// <para xml:lang="en">Gets a value indicating whether the Fertigkeit collection is empty.</para>
-        /// </summary>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool FertigkeitSpecified
-        {
-            get
-            {
-                return (this.Fertigkeit.Count != 0);
-            }
-        }
-        
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        private System.Collections.ObjectModel.Collection<Nota.Data.Generated.Talent.Talent> _talent;
-        
-        /// <summary>
-        /// </summary>
-        [System.Xml.Serialization.XmlElementAttribute("Talent", Namespace="http://nota-game.azurewebsites.net/schema/talent")]
-        public System.Collections.ObjectModel.Collection<Nota.Data.Generated.Talent.Talent> Talent
-        {
-            get
-            {
-                return this._talent;
-            }
-            private set
-            {
-                this._talent = value;
-            }
-        }
-        
-        /// <summary>
-        /// <para xml:lang="de">Ruft einen Wert ab, der angibt, ob die Talent-Collection leer ist.</para>
-        /// <para xml:lang="en">Gets a value indicating whether the Talent collection is empty.</para>
-        /// </summary>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool TalentSpecified
-        {
-            get
-            {
-                return (this.Talent.Count != 0);
-            }
-        }
-        
-        /// <summary>
-        /// </summary>
-        [System.Xml.Serialization.XmlAttributeAttribute("Id", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string Id { get; set; }
-    }
-    
-    /// <summary>
-    /// <para xml:lang="de">Falls es mindestens eine Bedingung Existiert, muss mindestens eine Bedingung Wahr sein damit die Auswahl gültig ist. Eine Bedingung ist wahr falls alle seine Kunder Wahr sind.</para>
-    /// </summary>
-    [System.ComponentModel.DescriptionAttribute("Falls es mindestens eine Bedingung Existiert, muss mindestens eine Bedingung Wahr" +
-        " sein damit die Auswahl gültig ist. Eine Bedingung ist wahr falls alle seine Kun" +
-        "der Wahr sind.")]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.0.206.0")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute("DatenPfadePfadAuswahlPfadBedingung", Namespace="http://nota-game.azurewebsites.net/schema/nota", AnonymousType=true)]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class DatenPfadePfadAuswahlPfadBedingung
+    public partial class DatenStandardDaten
     {
         
         /// <summary>
         /// </summary>
-        [System.Xml.Serialization.XmlElementAttribute("ProfessionsBedingung", Namespace="http://nota-game.azurewebsites.net/schema/nota")]
-        public Nota.Data.Generated.Profession.ProfessionAuswahlen ProfessionsBedingung { get; set; }
-        
-        /// <summary>
-        /// </summary>
-        [System.Xml.Serialization.XmlElementAttribute("KulturBedingung", Namespace="http://nota-game.azurewebsites.net/schema/nota")]
-        public Nota.Data.Generated.Kultur.KulturAuswahlen KulturBedingung { get; set; }
-        
-        /// <summary>
-        /// </summary>
-        [System.Xml.Serialization.XmlElementAttribute("LebewesenBedingung", Namespace="http://nota-game.azurewebsites.net/schema/nota")]
-        public Nota.Data.Generated.Lebewesen.LebewesenAuswahlen LebewesenBedingung { get; set; }
+        [System.Xml.Serialization.XmlAttributeAttribute("GenerierungsPunkte", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string GenerierungsPunkte { get; set; }
     }
 }
