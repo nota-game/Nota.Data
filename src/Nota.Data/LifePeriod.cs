@@ -1,27 +1,28 @@
 ﻿using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Collections.ObjectModel;
+using System.Linq;
 using Nota.Data.Generated.Lebewesen;
 using Nota.Data.Generated.Misc;
 
 namespace Nota.Data
 {
-    internal class LifePeriodReference : IReference
+    public class LifePeriodReference : IReference
     {
-        private readonly Lebensabschnitt origin;
+        protected readonly Lebensabschnitt origin;
 
-        public LifePeriodReference(Lebensabschnitt x, Data data)
+        internal LifePeriodReference(Lebensabschnitt x, Data data)
         {
             this.origin = x;
             this.Data = data;
 
-            this.Modifications = new Modification(x.Mods);
+            this.Modifications = new ModificationReference(x.Mods);
             this.Description = x.Beschreibung;
             this.Age = new Range(x.StartAlter, x.EndAlter);
             this.BMI = new Range(x.MinBMI, x.MaxBMI);
             this.Size = new Range(x.MinGröße, x.MaxGröße);
             this.Id = x.Id;
             this.Name = x.Name;
-            //this. = x.Spielbar.;
 
         }
 
@@ -33,8 +34,13 @@ namespace Nota.Data
                 return new LifePeriodReference(x, data);
         }
 
+        void IReference.Initilize(Dictionary<string, TalentReference> directoryTalent, Dictionary<string, CompetencyReference> directoryCompetency, Dictionary<string, FeaturesReference> directoryFeatures, Dictionary<string, TagReference> directoryTags, Dictionary<string, GenusReference> directoryGenus, Dictionary<string, BeingReference> directoryBeing, Dictionary<string, PathGroupReference> directoryPath)
+        {
+            ((IReference)this.Modifications).Initilize(directoryTalent, directoryCompetency, directoryFeatures, directoryTags, directoryGenus, directoryBeing, directoryPath);
+        }
+
         public Data Data { get; }
-        public Modification Modifications { get; }
+        public ModificationReference Modifications { get; }
         public LocalizedString Description { get; }
         public Range Age { get; }
         public Range BMI { get; }
@@ -42,18 +48,25 @@ namespace Nota.Data
         public string Id { get; }
         public LocalizedString Name { get; }
 
-        void IReference.Initilize(Dictionary<string, TalentReference> directoryTalent, Dictionary<string, CompetencyReference> directoryCompetency, Dictionary<string, FeaturesReference> directoryFeatures, Dictionary<string, TagReference> directoryTags, Dictionary<string, GenusReference> directoryGenus, Dictionary<string, BeingReference> directoryBeing)
-        {
-        }
     }
 
-    internal class LifePeriodPlayableReference : LifePeriodReference
+    internal class LifePeriodPlayableReference : LifePeriodReference, IReference
     {
         public LifePeriodPlayableReference(Lebensabschnitt x, Data data) : base(x, data)
         {
             this.GenerationCost = x.Spielbar.Kosten;
+
         }
 
         public int GenerationCost { get; }
+        public ImmutableDictionary<PathGroupReference, string> PathPoints { get; private set; }
+
+        void IReference.Initilize(Dictionary<string, TalentReference> directoryTalent, Dictionary<string, CompetencyReference> directoryCompetency, Dictionary<string, FeaturesReference> directoryFeatures, Dictionary<string, TagReference> directoryTags, Dictionary<string, GenusReference> directoryGenus, Dictionary<string, BeingReference> directoryBeing, Dictionary<string, PathGroupReference> directoryPath)
+        {
+            if (this.origin.Spielbar.PfadPunkteSpecified)
+                this.PathPoints = this.origin.Spielbar.PfadPunkte.ToImmutableDictionary(x => directoryPath[x.Pfade], x => x.Punkte);
+            else
+                this.PathPoints = ImmutableDictionary.Create<PathGroupReference, string>();
+        }
     }
 }

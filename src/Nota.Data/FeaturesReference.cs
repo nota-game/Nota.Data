@@ -39,12 +39,12 @@ namespace Nota.Data
         public FeaturesReference Replaces { get; private set; }
         internal Expressions.Expresion Expression { get; private set; }
 
-        void IReference.Initilize(Dictionary<string, TalentReference> talentLookup, Dictionary<string, CompetencyReference> directoryCompetency, Dictionary<string, FeaturesReference> directoryFeatures, Dictionary<string, TagReference> directoryTags)
+        void IReference.Initilize(Dictionary<string, TalentReference> directoryTalent, Dictionary<string, CompetencyReference> directoryCompetency, Dictionary<string, FeaturesReference> directoryFeatures, Dictionary<string, TagReference> directoryTags, Dictionary<string, GenusReference> directoryGenus, Dictionary<string, BeingReference> directoryBeing, Dictionary<string, PathGroupReference> directoryPath)
         {
             if (this.origin.Ersetzt?.Besonderheit.Id != null)
                 this.Replaces = directoryFeatures[this.origin.Ersetzt?.Besonderheit.Id];
 
-            this.Expression = Expressions.Expresion.GetExpresion(talentLookup, directoryCompetency, directoryFeatures, directoryTags, this.origin.Bedingung);
+            this.Expression = Expressions.Expresion.GetExpresion(directoryTalent, directoryCompetency, directoryFeatures, directoryTags, this.origin.Bedingung);
             this.Tags = this.origin.Tags.Select(y => directoryTags[y.Id]).ToImmutableArray();
 
 

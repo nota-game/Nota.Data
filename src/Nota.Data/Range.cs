@@ -1,14 +1,15 @@
 ﻿namespace Nota.Data
 {
-    internal class Range
+    public class Range
     {
-        private float startAlter;
-        private float endAlter;
-
-        public Range(float startAlter, float endAlter)
+        public Range(float min, float max)
         {
-            this.startAlter = startAlter;
-            this.endAlter = endAlter;
+            this.Min = min;
+            this.Max = max;
         }
+
+        public float Max { get; }
+
+        public float Min { get; }
     }
 }

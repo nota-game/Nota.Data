@@ -108,10 +108,10 @@ namespace Nota.Data
 
         }
 
-        void IReference.Initilize(Dictionary<string, TalentReference> talentLookup, Dictionary<string, CompetencyReference> directoryCompetency, Dictionary<string, FeaturesReference> directoryFeatures, Dictionary<string, TagReference> directoryTags)
+        void IReference.Initilize(Dictionary<string, TalentReference> directoryTalent, Dictionary<string, CompetencyReference> directoryCompetency, Dictionary<string, FeaturesReference> directoryFeatures, Dictionary<string, TagReference> directoryTags, Dictionary<string, GenusReference> directoryGenus, Dictionary<string, BeingReference> directoryBeing, Dictionary<string, PathGroupReference> directoryPath)
         {
             this.Derivation = GenerateDerivation(this.item.Ableitungen);
-            this.Expressions = ImmutableArray.Create(this.origin.Bedingungen.OrderBy(x => x.Wert).Select(x => new LevelExpression(level: x.Wert, expresion: Expresion.GetExpresion(talentLookup, directoryCompetency, directoryFeatures, directoryTags, x))).ToArray());
+            this.Expressions = ImmutableArray.Create(this.origin.Bedingungen.OrderBy(x => x.Wert).Select(x => new LevelExpression(level: x.Wert, expresion: Expresion.GetExpresion(directoryTalent, directoryCompetency, directoryFeatures, directoryTags, x))).ToArray());
 
 
             DerivationCollection GenerateDerivation(AbleitungsAuswahl ableitungen)
@@ -151,7 +151,7 @@ namespace Nota.Data
 
                 }
 
-                TalentReference SearchTalent(string name) => talentLookup[name];
+                TalentReference SearchTalent(string name) => directoryTalent[name];
             }
         }
 

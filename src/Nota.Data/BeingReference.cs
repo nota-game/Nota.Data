@@ -36,15 +36,19 @@ namespace Nota.Data
         public ImmutableArray<MorphReference> Morphs { get; }
         public ImmutableArray<FeaturesReference> Features { get; private set; }
         public GenusReference Gattung { get; private set; }
+        public ImmutableArray<PathGroupReference> DefaultPathes { get; private set; }
 
-        void IReference.Initilize(Dictionary<string, TalentReference> directoryTalent, Dictionary<string, CompetencyReference> directoryCompetency, Dictionary<string, FeaturesReference> directoryFeatures, Dictionary<string, TagReference> directoryTags, Dictionary<string, GenusReference> directoryGenus, Dictionary<string, BeingReference> directoryBeing)
+        void IReference.Initilize(Dictionary<string, TalentReference> directoryTalent, Dictionary<string, CompetencyReference> directoryCompetency, Dictionary<string, FeaturesReference> directoryFeatures, Dictionary<string, TagReference> directoryTags, Dictionary<string, GenusReference> directoryGenus, Dictionary<string, BeingReference> directoryBeing, Dictionary<string, PathGroupReference> directoryPath)
         {
             this.Features = this.origin.BesonderheitenSpecified
                 ? this.origin.Besonderheiten.Select(x => directoryFeatures[x.Id]).ToImmutableArray()
                 : ImmutableArray.Create<FeaturesReference>();
 
+            foreach (IReference item in this.Morphs)
+                item.Initilize(directoryTalent, directoryCompetency, directoryFeatures, directoryTags, directoryGenus, directoryBeing, directoryPath);
+
             this.Gattung = directoryGenus[this.origin.Gattung];
-            this. = being.StandardPfade;
+            this.DefaultPathes = this.origin.StandardPfade.Select(x => directoryPath[x.Id]).ToImmutableArray();
         }
 
         public sealed class AttributeStore
@@ -56,11 +60,11 @@ namespace Nota.Data
                 this.Sympathy = new AttributeRange(eigenschaften.Sympathie);
                 this.Strength = new AttributeRange(eigenschaften.Stärke);
                 this.Courage = new AttributeRange(eigenschaften.Mut);
-                this.Constitution= new AttributeRange(eigenschaften.Konstitution);
-                this.Intelegence= new AttributeRange(eigenschaften.Klugheit);
+                this.Constitution = new AttributeRange(eigenschaften.Konstitution);
+                this.Intelegence = new AttributeRange(eigenschaften.Klugheit);
                 this.Intuition = new AttributeRange(eigenschaften.Intuition);
-                this.Luck= new AttributeRange(eigenschaften.Glück);
-                this.Agility= new AttributeRange(eigenschaften.Gewandtheit);
+                this.Luck = new AttributeRange(eigenschaften.Glück);
+                this.Agility = new AttributeRange(eigenschaften.Gewandtheit);
                 this.Dexterety = new AttributeRange(eigenschaften.Feinmotorik);
                 this.Antipathy = new AttributeRange(eigenschaften.Antipathie);
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -6,10 +7,10 @@ using Nota.Data.Generated.Misc;
 
 namespace Nota.Data
 {
-    public class MorphReference
+    public class MorphReference : IReference
     {
 
-        public MorphReference(Generated.Lebewesen.Morph morph, Data data)
+        internal MorphReference(Generated.Lebewesen.Morph morph, Data data)
         {
             this.origin = morph;
             this.Data = data;
@@ -33,10 +34,9 @@ namespace Nota.Data
             this.Id = morph.Id;
             this.Name = morph.Name;
             this.LifePeriods = morph.Lebensabschnitte.Select(x => new LifePeriodReference(x, data)).ToImmutableArray();
-            
-            this.Modification = new Modification(morph.Mods);
-            morph.StandardPfade;
-            
+
+            this.Modification = new ModificationReference(morph.Mods);
+
         }
 
         private readonly Generated.Lebewesen.Morph origin;
@@ -47,6 +47,16 @@ namespace Nota.Data
         public string Id { get; }
         public LocalizedString Name { get; }
         public ImmutableArray<LifePeriodReference> LifePeriods { get; }
-        internal Modification Modification { get; }
+        internal ModificationReference Modification { get; }
+        public ImmutableArray<PathGroupReference> DefaultPathes { get; private set; }
+
+
+        void IReference.Initilize(Dictionary<string, TalentReference> directoryTalent, Dictionary<string, CompetencyReference> directoryCompetency, Dictionary<string, FeaturesReference> directoryFeatures, Dictionary<string, TagReference> directoryTags, Dictionary<string, GenusReference> directoryGenus, Dictionary<string, BeingReference> directoryBeing, Dictionary<string, PathGroupReference> directoryPath)
+        {
+            this.DefaultPathes = this.origin.StandardPfade.Select(x => directoryPath[x.Id]).ToImmutableArray();
+            ((IReference)this.Modification).Initilize(directoryTalent, directoryCompetency, directoryFeatures, directoryTags, directoryGenus, directoryBeing, directoryPath);
+            foreach (IReference item in this.LifePeriods)
+                item.Initilize(directoryTalent, directoryCompetency, directoryFeatures, directoryTags, directoryGenus, directoryBeing, directoryPath);
+        }
     }
 }
