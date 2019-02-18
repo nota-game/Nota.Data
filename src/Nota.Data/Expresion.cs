@@ -4,6 +4,7 @@ using System.Collections.Immutable;
 using System.Linq;
 using Nota.Data.Generated.Besonderheit;
 using Nota.Data.Generated.Misc;
+using Nota.Data.Generated.Talent;
 
 namespace Nota.Data.Expressions
 {
@@ -130,7 +131,7 @@ namespace Nota.Data.Expressions
             if (bedingung == null)
                 return new TrueExpresion();
             if (bedingung.Talent != null)
-                return new TalentExpresion(talentLookup[bedingung.Talent.Id], bedingung.Talent.Level);
+                return new TalentExpresion(talentLookup[bedingung.Talent.Id], bedingung.Talent.Level, bedingung.Talent.LevelTyp);
             if (bedingung.Besonderheit != null)
                 return new FeatureExpresion(directoryFeatures[bedingung.Besonderheit.Id]);
             if (bedingung.Fertigkeit != null)
@@ -153,7 +154,7 @@ namespace Nota.Data.Expressions
             if (bedingung == null)
                 return new[] { new TrueExpresion() };
             if (bedingung.TalentSpecified)
-                return bedingung.Talent.Select(x => new TalentExpresion(talentLookup[x.Id], x.Level)).ToArray();
+                return bedingung.Talent.Select(x => new TalentExpresion(talentLookup[x.Id], x.Level, x.LevelTyp)).ToArray();
             if (bedingung.BesonderheitSpecified)
                 return bedingung.Besonderheit.Select(x => new FeatureExpresion(directoryFeatures[x.Id])).ToArray();
             if (bedingung.FertigkeitSpecified)
@@ -210,19 +211,36 @@ namespace Nota.Data.Expressions
         {
             private readonly TalentReference talentReference;
             private readonly int level;
-
+            private readonly LevelBedingungsTyp LevelKind;
 
             protected override IEnumerable<TalentReference> TalentInvolvedInternal => new[] { this.talentReference };
-            public TalentExpresion(TalentReference talentReference, int level)
+            public TalentExpresion(TalentReference talentReference, int level, LevelBedingungsTyp levelTyp)
             {
                 this.talentReference = talentReference;
                 this.level = level;
+                this.LevelKind = levelTyp;
             }
+
 
             protected override Result Evaluate(CharacterData character, bool negate)
             {
-                if (negate ^ (character.Talent[this.talentReference].BaseLevel >= this.level))
-                    return Result.OK;
+                switch (LevelKind)
+                {
+                    case LevelBedingungsTyp.Basis:
+                        if (negate ^ (character.Talent[this.talentReference].BaseLevel >= this.level))
+                            return Result.OK;
+                        break;
+                    case LevelBedingungsTyp.Effektiv:
+                        if (negate ^ (character.Talent[this.talentReference].Level >= this.level))
+                            return Result.OK;
+                        break;
+                    case LevelBedingungsTyp.Unterstützung:
+                        if (negate ^ (character.Talent[this.talentReference].SupportLevel >= this.level))
+                            return Result.OK;
+                        break;
+                    default:
+                        throw new NotSupportedException();
+                }
                 return new Result.MissingTalent(this.talentReference, this.level, negate);
             }
         }

@@ -365,7 +365,7 @@ namespace Nota.Data
             foreach (var item in this.Reference.Expressions.SelectMany(x => x.Expresion.TalentInvolved))
                 this.Character.Talent[item].PropertyChanged += (sender, e) =>
                 {
-                    if (e.PropertyName == nameof(TalentData.BaseLevel))
+                    if (e.PropertyName == nameof(TalentData.Level)) // well we also need to watch for BaseLevel and SupportLevel, But both will trigger also Level.
                     {
                         this.Increase.FireCanExecuteChanged();
                         this.FirePropertyChanged(nameof(this.LevelProblem));

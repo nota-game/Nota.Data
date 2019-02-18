@@ -34,6 +34,25 @@ namespace Nota.Data.Generated.Talent
         public string Id { get; set; }
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
+        private LevelBedingungsTyp _levelTyp = Nota.Data.Generated.Talent.LevelBedingungsTyp.Effektiv;
+        
+        /// <summary>
+        /// </summary>
+        [System.ComponentModel.DefaultValueAttribute(Nota.Data.Generated.Talent.LevelBedingungsTyp.Effektiv)]
+        [System.Xml.Serialization.XmlAttributeAttribute("LevelTyp", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public LevelBedingungsTyp LevelTyp
+        {
+            get
+            {
+                return this._levelTyp;
+            }
+            set
+            {
+                this._levelTyp = value;
+            }
+        }
+        
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
         private int _level = 1;
         
         /// <summary>
@@ -52,6 +71,27 @@ namespace Nota.Data.Generated.Talent
                 this._level = value;
             }
         }
+    }
+    
+    /// <summary>
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.0.206.0")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute("LevelBedingungsTyp", Namespace="http://nota-game.azurewebsites.net/schema/talent")]
+    public enum LevelBedingungsTyp
+    {
+        
+        /// <summary>
+        /// </summary>
+        Basis,
+        
+        /// <summary>
+        /// </summary>
+        Effektiv,
+        
+        /// <summary>
+        /// </summary>
+        Unterstützung,
     }
     
     /// <summary>

@@ -157,9 +157,10 @@ namespace Nota.Data.Generated.Core
         }
         
         /// <summary>
+        /// <para xml:lang="en">Minimum inclusive value: 1.</para>
         /// </summary>
         [System.Xml.Serialization.XmlAttributeAttribute("Version", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string Version { get; set; }
+        public int Version { get; set; }
     }
     
     /// <summary>
@@ -173,8 +174,9 @@ namespace Nota.Data.Generated.Core
     {
         
         /// <summary>
+        /// <para xml:lang="en">Minimum inclusive value: 1.</para>
         /// </summary>
         [System.Xml.Serialization.XmlAttributeAttribute("GenerierungsPunkte", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string GenerierungsPunkte { get; set; }
+        public int GenerierungsPunkte { get; set; }
     }
 }
