@@ -2,6 +2,7 @@
 {
     public enum Sex
     {
+        Unspecified,
         Neutral,
         Male,
         Female

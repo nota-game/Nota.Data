@@ -236,6 +236,7 @@ namespace Nota.Data.Generated.Lebewesen
             this._name = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung>();
             this._beschreibung = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung>();
             this._standardPfade = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType>();
+            this._besonderheiten = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType>();
             this._lebensabschnitte = new System.Collections.ObjectModel.Collection<Lebensabschnitt>();
         }
         
@@ -257,6 +258,11 @@ namespace Nota.Data.Generated.Lebewesen
                 this._beschreibung = value;
             }
         }
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlElementAttribute("Eigenschaften", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
+        public MorphEigenschaften Eigenschaften { get; set; }
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
         private System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType> _standardPfade;
@@ -292,10 +298,37 @@ namespace Nota.Data.Generated.Lebewesen
             }
         }
         
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        private System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType> _besonderheiten;
+        
         /// <summary>
         /// </summary>
-        [System.Xml.Serialization.XmlElementAttribute("Mods", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
-        public Mods Mods { get; set; }
+        [System.Xml.Serialization.XmlArrayAttribute("Besonderheiten", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
+        [System.Xml.Serialization.XmlArrayItemAttribute("Besonderheit", Namespace="http://nota-game.azurewebsites.net/schema/besonderheit")]
+        public System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType> Besonderheiten
+        {
+            get
+            {
+                return this._besonderheiten;
+            }
+            private set
+            {
+                this._besonderheiten = value;
+            }
+        }
+        
+        /// <summary>
+        /// <para xml:lang="de">Ruft einen Wert ab, der angibt, ob die Besonderheiten-Collection leer ist.</para>
+        /// <para xml:lang="en">Gets a value indicating whether the Besonderheiten collection is empty.</para>
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool BesonderheitenSpecified
+        {
+            get
+            {
+                return (this.Besonderheiten.Count != 0);
+            }
+        }
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
         private System.Collections.ObjectModel.Collection<Lebensabschnitt> _lebensabschnitte;
@@ -322,11 +355,11 @@ namespace Nota.Data.Generated.Lebewesen
         public string Id { get; set; }
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
-        private Nota.Data.Generated.Misc.Geschlecht _geschlecht = Nota.Data.Generated.Misc.Geschlecht.Neutral;
+        private Nota.Data.Generated.Misc.Geschlecht _geschlecht = Nota.Data.Generated.Misc.Geschlecht.Unspezifiziert;
         
         /// <summary>
         /// </summary>
-        [System.ComponentModel.DefaultValueAttribute(Nota.Data.Generated.Misc.Geschlecht.Neutral)]
+        [System.ComponentModel.DefaultValueAttribute(Nota.Data.Generated.Misc.Geschlecht.Unspezifiziert)]
         [System.Xml.Serialization.XmlAttributeAttribute("Geschlecht", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public Nota.Data.Generated.Misc.Geschlecht Geschlecht
         {
@@ -339,6 +372,100 @@ namespace Nota.Data.Generated.Lebewesen
                 this._geschlecht = value;
             }
         }
+    }
+    
+    /// <summary>
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.0.206.0")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute("MorphEigenschaften", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen", AnonymousType=true)]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class MorphEigenschaften
+    {
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlElementAttribute("Mut", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
+        public EigenschaftsWert Mut { get; set; }
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlElementAttribute("Glück", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
+        public EigenschaftsWert Glück { get; set; }
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlElementAttribute("Klugheit", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
+        public EigenschaftsWert Klugheit { get; set; }
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlElementAttribute("Intuition", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
+        public EigenschaftsWert Intuition { get; set; }
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlElementAttribute("Gewandtheit", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
+        public EigenschaftsWert Gewandtheit { get; set; }
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlElementAttribute("Feinmotorik", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
+        public EigenschaftsWert Feinmotorik { get; set; }
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlElementAttribute("Sympathie", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
+        public EigenschaftsWert Sympathie { get; set; }
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlElementAttribute("Antipathie", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
+        public EigenschaftsWert Antipathie { get; set; }
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlElementAttribute("Stärke", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
+        public EigenschaftsWert Stärke { get; set; }
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlElementAttribute("Konstitution", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
+        public EigenschaftsWert Konstitution { get; set; }
+        
+        /// <summary>
+        /// <para xml:lang="de">Die Anzahl der Punkte die auf die Eigneschaften verteilt werden müssen.</para>
+        /// </summary>
+        [System.ComponentModel.DescriptionAttribute("Die Anzahl der Punkte die auf die Eigneschaften verteilt werden müssen.")]
+        [System.Xml.Serialization.XmlAttributeAttribute("Punkte", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public int Punkte { get; set; }
+    }
+    
+    /// <summary>
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.0.206.0")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute("EigenschaftsWert", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class EigenschaftsWert
+    {
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlAttributeAttribute("Durchschnitt", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public int Durchschnitt { get; set; }
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlAttributeAttribute("Minimum", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public int Minimum { get; set; }
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlAttributeAttribute("Maximum", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public int Maximum { get; set; }
     }
     
     /// <summary>
@@ -386,144 +513,10 @@ namespace Nota.Data.Generated.Lebewesen
     /// </summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.0.206.0")]
     [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute("Mods", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
+    [System.Xml.Serialization.XmlTypeAttribute("MorphBesonderheiten", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen", AnonymousType=true)]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class Mods
-    {
-        
-        /// <summary>
-        /// </summary>
-        [System.Xml.Serialization.XmlElementAttribute("Eigenschaften", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
-        public EigenschaftsMods Eigenschaften { get; set; }
-        
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        private System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType> _besonderheiten;
-        
-        /// <summary>
-        /// </summary>
-        [System.Xml.Serialization.XmlArrayAttribute("Besonderheiten", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
-        [System.Xml.Serialization.XmlArrayItemAttribute("Besonderheit", Namespace="http://nota-game.azurewebsites.net/schema/besonderheit")]
-        public System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType> Besonderheiten
-        {
-            get
-            {
-                return this._besonderheiten;
-            }
-            private set
-            {
-                this._besonderheiten = value;
-            }
-        }
-        
-        /// <summary>
-        /// <para xml:lang="de">Ruft einen Wert ab, der angibt, ob die Besonderheiten-Collection leer ist.</para>
-        /// <para xml:lang="en">Gets a value indicating whether the Besonderheiten collection is empty.</para>
-        /// </summary>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool BesonderheitenSpecified
-        {
-            get
-            {
-                return (this.Besonderheiten.Count != 0);
-            }
-        }
-        
-        /// <summary>
-        /// <para xml:lang="de">Initialisiert eine neue Instanz der <see cref="Mods" /> Klasse.</para>
-        /// <para xml:lang="en">Initializes a new instance of the <see cref="Mods" /> class.</para>
-        /// </summary>
-        public Mods()
-        {
-            this._besonderheiten = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType>();
-        }
-    }
-    
-    /// <summary>
-    /// </summary>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.0.206.0")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute("EigenschaftsMods", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class EigenschaftsMods
-    {
-        
-        /// <summary>
-        /// </summary>
-        [System.Xml.Serialization.XmlElementAttribute("Mut", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
-        public ModWert Mut { get; set; }
-        
-        /// <summary>
-        /// </summary>
-        [System.Xml.Serialization.XmlElementAttribute("Glück", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
-        public ModWert Glück { get; set; }
-        
-        /// <summary>
-        /// </summary>
-        [System.Xml.Serialization.XmlElementAttribute("Klugheit", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
-        public ModWert Klugheit { get; set; }
-        
-        /// <summary>
-        /// </summary>
-        [System.Xml.Serialization.XmlElementAttribute("Intuition", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
-        public ModWert Intuition { get; set; }
-        
-        /// <summary>
-        /// </summary>
-        [System.Xml.Serialization.XmlElementAttribute("Gewandtheit", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
-        public ModWert Gewandtheit { get; set; }
-        
-        /// <summary>
-        /// </summary>
-        [System.Xml.Serialization.XmlElementAttribute("Feinmotorik", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
-        public ModWert Feinmotorik { get; set; }
-        
-        /// <summary>
-        /// </summary>
-        [System.Xml.Serialization.XmlElementAttribute("Sympathie", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
-        public ModWert Sympathie { get; set; }
-        
-        /// <summary>
-        /// </summary>
-        [System.Xml.Serialization.XmlElementAttribute("Antipathie", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
-        public ModWert Antipathie { get; set; }
-        
-        /// <summary>
-        /// </summary>
-        [System.Xml.Serialization.XmlElementAttribute("Stärke", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
-        public ModWert Stärke { get; set; }
-        
-        /// <summary>
-        /// </summary>
-        [System.Xml.Serialization.XmlElementAttribute("Konstitution", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
-        public ModWert Konstitution { get; set; }
-    }
-    
-    /// <summary>
-    /// </summary>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.0.206.0")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute("ModWert", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class ModWert
-    {
-        
-        /// <summary>
-        /// </summary>
-        [System.Xml.Serialization.XmlAttributeAttribute("Mod", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public int Mod { get; set; }
-    }
-    
-    /// <summary>
-    /// </summary>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.0.206.0")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute("ModsBesonderheiten", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen", AnonymousType=true)]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class ModsBesonderheiten
+    public partial class MorphBesonderheiten
     {
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
@@ -545,10 +538,10 @@ namespace Nota.Data.Generated.Lebewesen
         }
         
         /// <summary>
-        /// <para xml:lang="de">Initialisiert eine neue Instanz der <see cref="ModsBesonderheiten" /> Klasse.</para>
-        /// <para xml:lang="en">Initializes a new instance of the <see cref="ModsBesonderheiten" /> class.</para>
+        /// <para xml:lang="de">Initialisiert eine neue Instanz der <see cref="MorphBesonderheiten" /> Klasse.</para>
+        /// <para xml:lang="en">Initializes a new instance of the <see cref="MorphBesonderheiten" /> class.</para>
         /// </summary>
-        public ModsBesonderheiten()
+        public MorphBesonderheiten()
         {
             this._besonderheit = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType>();
         }
@@ -786,35 +779,182 @@ namespace Nota.Data.Generated.Lebewesen
         public string Pfade { get; set; }
         
         /// <summary>
+        /// <para xml:lang="en">Minimum inclusive value: 1.</para>
         /// </summary>
         [System.Xml.Serialization.XmlAttributeAttribute("Punkte", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string Punkte { get; set; }
+        public int Punkte { get; set; }
     }
     
     /// <summary>
     /// </summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.0.206.0")]
     [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute("EigenschaftsWert", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
+    [System.Xml.Serialization.XmlTypeAttribute("Mods", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class EigenschaftsWert
+    public partial class Mods
     {
         
         /// <summary>
         /// </summary>
-        [System.Xml.Serialization.XmlAttributeAttribute("Durchschnitt", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public int Durchschnitt { get; set; }
+        [System.Xml.Serialization.XmlElementAttribute("Eigenschaften", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
+        public EigenschaftsMods Eigenschaften { get; set; }
+        
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        private System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType> _besonderheiten;
         
         /// <summary>
         /// </summary>
-        [System.Xml.Serialization.XmlAttributeAttribute("Minimum", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public int Minimum { get; set; }
+        [System.Xml.Serialization.XmlArrayAttribute("Besonderheiten", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
+        [System.Xml.Serialization.XmlArrayItemAttribute("Besonderheit", Namespace="http://nota-game.azurewebsites.net/schema/besonderheit")]
+        public System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType> Besonderheiten
+        {
+            get
+            {
+                return this._besonderheiten;
+            }
+            private set
+            {
+                this._besonderheiten = value;
+            }
+        }
+        
+        /// <summary>
+        /// <para xml:lang="de">Ruft einen Wert ab, der angibt, ob die Besonderheiten-Collection leer ist.</para>
+        /// <para xml:lang="en">Gets a value indicating whether the Besonderheiten collection is empty.</para>
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool BesonderheitenSpecified
+        {
+            get
+            {
+                return (this.Besonderheiten.Count != 0);
+            }
+        }
+        
+        /// <summary>
+        /// <para xml:lang="de">Initialisiert eine neue Instanz der <see cref="Mods" /> Klasse.</para>
+        /// <para xml:lang="en">Initializes a new instance of the <see cref="Mods" /> class.</para>
+        /// </summary>
+        public Mods()
+        {
+            this._besonderheiten = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType>();
+        }
+    }
+    
+    /// <summary>
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.0.206.0")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute("EigenschaftsMods", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class EigenschaftsMods
+    {
         
         /// <summary>
         /// </summary>
-        [System.Xml.Serialization.XmlAttributeAttribute("Maximum", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public int Maximum { get; set; }
+        [System.Xml.Serialization.XmlElementAttribute("Mut", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
+        public ModWert Mut { get; set; }
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlElementAttribute("Glück", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
+        public ModWert Glück { get; set; }
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlElementAttribute("Klugheit", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
+        public ModWert Klugheit { get; set; }
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlElementAttribute("Intuition", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
+        public ModWert Intuition { get; set; }
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlElementAttribute("Gewandtheit", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
+        public ModWert Gewandtheit { get; set; }
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlElementAttribute("Feinmotorik", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
+        public ModWert Feinmotorik { get; set; }
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlElementAttribute("Sympathie", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
+        public ModWert Sympathie { get; set; }
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlElementAttribute("Antipathie", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
+        public ModWert Antipathie { get; set; }
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlElementAttribute("Stärke", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
+        public ModWert Stärke { get; set; }
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlElementAttribute("Konstitution", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
+        public ModWert Konstitution { get; set; }
+    }
+    
+    /// <summary>
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.0.206.0")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute("ModWert", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class ModWert
+    {
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlAttributeAttribute("Mod", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public int Mod { get; set; }
+    }
+    
+    /// <summary>
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.0.206.0")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute("ModsBesonderheiten", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen", AnonymousType=true)]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class ModsBesonderheiten
+    {
+        
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        private System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType> _besonderheit;
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlElementAttribute("Besonderheit", Namespace="http://nota-game.azurewebsites.net/schema/besonderheit")]
+        public System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType> Besonderheit
+        {
+            get
+            {
+                return this._besonderheit;
+            }
+            private set
+            {
+                this._besonderheit = value;
+            }
+        }
+        
+        /// <summary>
+        /// <para xml:lang="de">Initialisiert eine neue Instanz der <see cref="ModsBesonderheiten" /> Klasse.</para>
+        /// <para xml:lang="en">Initializes a new instance of the <see cref="ModsBesonderheiten" /> class.</para>
+        /// </summary>
+        public ModsBesonderheiten()
+        {
+            this._besonderheit = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType>();
+        }
     }
     
     /// <summary>
@@ -1004,11 +1144,6 @@ namespace Nota.Data.Generated.Lebewesen
     public partial class OrganismenOrganismus
     {
         
-        /// <summary>
-        /// </summary>
-        [System.Xml.Serialization.XmlElementAttribute("Eigenschaften", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
-        public OrganismenOrganismusEigenschaften Eigenschaften { get; set; }
-        
         [System.Xml.Serialization.XmlIgnoreAttribute()]
         private System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType> _standardPfade;
         
@@ -1172,74 +1307,6 @@ namespace Nota.Data.Generated.Lebewesen
         /// </summary>
         [System.Xml.Serialization.XmlAttributeAttribute("Gattung", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public string Gattung { get; set; }
-    }
-    
-    /// <summary>
-    /// </summary>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.0.206.0")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute("OrganismenOrganismusEigenschaften", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen", AnonymousType=true)]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class OrganismenOrganismusEigenschaften
-    {
-        
-        /// <summary>
-        /// </summary>
-        [System.Xml.Serialization.XmlElementAttribute("Mut", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
-        public Nota.Data.Generated.Lebewesen.EigenschaftsWert Mut { get; set; }
-        
-        /// <summary>
-        /// </summary>
-        [System.Xml.Serialization.XmlElementAttribute("Glück", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
-        public Nota.Data.Generated.Lebewesen.EigenschaftsWert Glück { get; set; }
-        
-        /// <summary>
-        /// </summary>
-        [System.Xml.Serialization.XmlElementAttribute("Klugheit", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
-        public Nota.Data.Generated.Lebewesen.EigenschaftsWert Klugheit { get; set; }
-        
-        /// <summary>
-        /// </summary>
-        [System.Xml.Serialization.XmlElementAttribute("Intuition", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
-        public Nota.Data.Generated.Lebewesen.EigenschaftsWert Intuition { get; set; }
-        
-        /// <summary>
-        /// </summary>
-        [System.Xml.Serialization.XmlElementAttribute("Gewandtheit", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
-        public Nota.Data.Generated.Lebewesen.EigenschaftsWert Gewandtheit { get; set; }
-        
-        /// <summary>
-        /// </summary>
-        [System.Xml.Serialization.XmlElementAttribute("Feinmotorik", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
-        public Nota.Data.Generated.Lebewesen.EigenschaftsWert Feinmotorik { get; set; }
-        
-        /// <summary>
-        /// </summary>
-        [System.Xml.Serialization.XmlElementAttribute("Sympathie", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
-        public Nota.Data.Generated.Lebewesen.EigenschaftsWert Sympathie { get; set; }
-        
-        /// <summary>
-        /// </summary>
-        [System.Xml.Serialization.XmlElementAttribute("Antipathie", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
-        public Nota.Data.Generated.Lebewesen.EigenschaftsWert Antipathie { get; set; }
-        
-        /// <summary>
-        /// </summary>
-        [System.Xml.Serialization.XmlElementAttribute("Stärke", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
-        public Nota.Data.Generated.Lebewesen.EigenschaftsWert Stärke { get; set; }
-        
-        /// <summary>
-        /// </summary>
-        [System.Xml.Serialization.XmlElementAttribute("Konstitution", Namespace="http://nota-game.azurewebsites.net/schema/lebewesen")]
-        public Nota.Data.Generated.Lebewesen.EigenschaftsWert Konstitution { get; set; }
-        
-        /// <summary>
-        /// <para xml:lang="de">Die Anzahl der Punkte die auf die Eigneschaften verteilt werden müssen.</para>
-        /// </summary>
-        [System.ComponentModel.DescriptionAttribute("Die Anzahl der Punkte die auf die Eigneschaften verteilt werden müssen.")]
-        [System.Xml.Serialization.XmlAttributeAttribute("Punkte", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public int Punkte { get; set; }
     }
     
     /// <summary>

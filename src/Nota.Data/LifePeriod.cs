@@ -59,14 +59,14 @@ namespace Nota.Data
         }
 
         public int GenerationCost { get; }
-        public ImmutableDictionary<PathGroupReference, string> PathPoints { get; private set; }
+        public ImmutableDictionary<PathGroupReference, int> PathPoints { get; private set; }
 
         void IReference.Initilize(Dictionary<string, TalentReference> directoryTalent, Dictionary<string, CompetencyReference> directoryCompetency, Dictionary<string, FeaturesReference> directoryFeatures, Dictionary<string, TagReference> directoryTags, Dictionary<string, GenusReference> directoryGenus, Dictionary<string, BeingReference> directoryBeing, Dictionary<string, PathGroupReference> directoryPath)
         {
             if (this.origin.Spielbar.PfadPunkteSpecified)
                 this.PathPoints = this.origin.Spielbar.PfadPunkte.ToImmutableDictionary(x => directoryPath[x.Pfade], x => x.Punkte);
             else
-                this.PathPoints = ImmutableDictionary.Create<PathGroupReference, string>();
+                this.PathPoints = ImmutableDictionary.Create<PathGroupReference, int>();
         }
     }
 }

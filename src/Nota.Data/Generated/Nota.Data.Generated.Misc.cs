@@ -245,11 +245,11 @@ namespace Nota.Data.Generated.Misc
         public string Sparche { get; set; }
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
-        private Geschlecht _geschlecht = Nota.Data.Generated.Misc.Geschlecht.Neutral;
+        private Geschlecht _geschlecht = Nota.Data.Generated.Misc.Geschlecht.Unspezifiziert;
         
         /// <summary>
         /// </summary>
-        [System.ComponentModel.DefaultValueAttribute(Nota.Data.Generated.Misc.Geschlecht.Neutral)]
+        [System.ComponentModel.DefaultValueAttribute(Nota.Data.Generated.Misc.Geschlecht.Unspezifiziert)]
         [System.Xml.Serialization.XmlAttributeAttribute("Geschlecht", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public Geschlecht Geschlecht
         {
@@ -283,6 +283,10 @@ namespace Nota.Data.Generated.Misc
         /// <summary>
         /// </summary>
         Weiblich,
+        
+        /// <summary>
+        /// </summary>
+        Unspezifiziert,
     }
     
     /// <summary>

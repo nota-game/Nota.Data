@@ -20,7 +20,6 @@ namespace Nota.Data
 
             this.Species = being.Art;
 
-            this.Attributes = new AttributeStore(being.Eigenschaften);
 
             this.Morphs = being.Morphe.Select(morph => new MorphReference(morph, data)).ToImmutableArray();
         }
@@ -32,7 +31,6 @@ namespace Nota.Data
         public LocalizedString Name { get; }
         public LocalizedString Description { get; }
         public LocalizedString Species { get; }
-        private AttributeStore Attributes { get; }
         public ImmutableArray<MorphReference> Morphs { get; }
         public ImmutableArray<FeaturesReference> Features { get; private set; }
         public GenusReference Gattung { get; private set; }
@@ -51,48 +49,5 @@ namespace Nota.Data
             this.DefaultPathes = this.origin.StandardPfade.Select(x => directoryPath[x.Id]).ToImmutableArray();
         }
 
-        public sealed class AttributeStore
-        {
-
-            public AttributeStore(OrganismenOrganismusEigenschaften eigenschaften)
-            {
-                this.Points = eigenschaften.Punkte;
-                this.Sympathy = new AttributeRange(eigenschaften.Sympathie);
-                this.Strength = new AttributeRange(eigenschaften.Stärke);
-                this.Courage = new AttributeRange(eigenschaften.Mut);
-                this.Constitution = new AttributeRange(eigenschaften.Konstitution);
-                this.Intelegence = new AttributeRange(eigenschaften.Klugheit);
-                this.Intuition = new AttributeRange(eigenschaften.Intuition);
-                this.Luck = new AttributeRange(eigenschaften.Glück);
-                this.Agility = new AttributeRange(eigenschaften.Gewandtheit);
-                this.Dexterety = new AttributeRange(eigenschaften.Feinmotorik);
-                this.Antipathy = new AttributeRange(eigenschaften.Antipathie);
-
-            }
-
-            public int Points { get; }
-            public AttributeRange Sympathy { get; }
-            public AttributeRange Strength { get; }
-            public AttributeRange Courage { get; }
-            public AttributeRange Constitution { get; }
-            public AttributeRange Intelegence { get; }
-            public AttributeRange Intuition { get; }
-            public AttributeRange Luck { get; }
-            public AttributeRange Agility { get; }
-            public AttributeRange Dexterety { get; }
-            public AttributeRange Antipathy { get; }
-
-            public sealed class AttributeRange
-            {
-
-                public int Min { get; }
-                public int Max { get; }
-                public AttributeRange(EigenschaftsWert sympathie)
-                {
-                    this.Min = sympathie.Minimum;
-                    this.Max = sympathie.Maximum;
-                }
-            }
-        }
-    }
+     }
 }
