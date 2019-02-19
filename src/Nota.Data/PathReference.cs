@@ -18,7 +18,7 @@ namespace Nota.Data
             this.Id = x.Id;
             this.Name = x.Name;
             this.Description = x.Beschreibung;
-            this.Levels = x.Levels.Select(y => new LevelReference(y, data)).ToImmutableArray();
+            this.Levels = x.Levels.Select(y => new LevelReference(y, data,this)).ToImmutableArray();
             //this.= x.NächstePfade;
         }
 

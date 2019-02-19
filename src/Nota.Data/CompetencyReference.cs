@@ -39,7 +39,7 @@ namespace Nota.Data
             if (this.origin.Ersetzt?.Fertigkeit != null)
                 this.Replaces = directoryCompetency[this.origin.Ersetzt?.Fertigkeit.Id];
 
-            this.Expression = Expresion.GetExpresion(directoryTalent, directoryCompetency, directoryFeatures, directoryTags, this.origin.Voraussetzung);
+            this.Expression = Expresion.GetExpresion(directoryTalent, directoryCompetency, directoryFeatures, directoryTags, directoryGenus, directoryBeing, directoryPath, this.origin.Voraussetzung);
             this.Tags = this.origin.Tags.Select(y => directoryTags[y.Id]).ToImmutableArray();
         }
 

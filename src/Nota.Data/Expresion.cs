@@ -126,12 +126,12 @@ namespace Nota.Data.Expressions
         protected virtual IEnumerable<CompetencyReference> CompetencyInvolvedInternal => Enumerable.Empty<CompetencyReference>();
         protected virtual IEnumerable<FeaturesReference> FeaturesInvolvedInternal => Enumerable.Empty<FeaturesReference>();
 
-        public static Expresion GetExpresion(Dictionary<string, TalentReference> talentLookup, Dictionary<string, CompetencyReference> directoryCompetency, Dictionary<string, FeaturesReference> directoryFeatures, Dictionary<string, TagReference> directoryTags, Generated.Misc.BedingungsAuswahl bedingung)
+        public static Expresion GetExpresion(Dictionary<string, TalentReference> directoryTalent, Dictionary<string, CompetencyReference> directoryCompetency, Dictionary<string, FeaturesReference> directoryFeatures, Dictionary<string, TagReference> directoryTags, Dictionary<string, GenusReference> directoryGenus, Dictionary<string, BeingReference> directoryBeing, Dictionary<string, PathGroupReference> directoryPath, Generated.Misc.BedingungsAuswahl bedingung)
         {
             if (bedingung == null)
                 return new TrueExpresion();
             if (bedingung.Talent != null)
-                return new TalentExpresion(talentLookup[bedingung.Talent.Id], bedingung.Talent.Level, bedingung.Talent.LevelTyp);
+                return new TalentExpresion(directoryTalent[bedingung.Talent.Id], bedingung.Talent.Level, bedingung.Talent.LevelTyp);
             if (bedingung.Besonderheit != null)
                 return new FeatureExpresion(directoryFeatures[bedingung.Besonderheit.Id]);
             if (bedingung.Fertigkeit != null)
@@ -139,22 +139,22 @@ namespace Nota.Data.Expressions
             if (bedingung.Tag != null)
                 return new TagExpresion(directoryTags[bedingung.Tag.Id]);
             if (bedingung.Not != null)
-                return new NotExpresion(GetExpresion(talentLookup, directoryCompetency, directoryFeatures, directoryTags, bedingung.Not));
+                return new NotExpresion(GetExpresion(directoryTalent, directoryCompetency, directoryFeatures, directoryTags, directoryGenus, directoryBeing, directoryPath, bedingung.Not));
             if (bedingung.And != null)
-                return new AndExpresion(GetExpresion(talentLookup, directoryCompetency, directoryFeatures, directoryTags, bedingung.And));
+                return new AndExpresion(GetExpresion(directoryTalent, directoryCompetency, directoryFeatures, directoryTags, directoryGenus, directoryBeing, directoryPath, bedingung.And));
             if (bedingung.Or != null)
-                return new OrExpresion(GetExpresion(talentLookup, directoryCompetency, directoryFeatures, directoryTags, bedingung.Or));
+                return new OrExpresion(GetExpresion(directoryTalent, directoryCompetency, directoryFeatures, directoryTags, directoryGenus, directoryBeing, directoryPath, bedingung.Or));
 
             throw new NotSupportedException();
         }
 
-        public static Expresion[] GetExpresion(Dictionary<string, TalentReference> talentLookup, Dictionary<string, CompetencyReference> directoryCompetency, Dictionary<string, FeaturesReference> directoryFeatures, Dictionary<string, TagReference> directoryTags, Generated.Misc.BedingungsAuswahlen bedingung)
+        public static Expresion[] GetExpresion(Dictionary<string, TalentReference> directoryTalent, Dictionary<string, CompetencyReference> directoryCompetency, Dictionary<string, FeaturesReference> directoryFeatures, Dictionary<string, TagReference> directoryTags, Dictionary<string, GenusReference> directoryGenus, Dictionary<string, BeingReference> directoryBeing, Dictionary<string, PathGroupReference> directoryPath, Generated.Misc.BedingungsAuswahlen bedingung)
         {
 
             if (bedingung == null)
                 return new[] { new TrueExpresion() };
             if (bedingung.TalentSpecified)
-                return bedingung.Talent.Select(x => new TalentExpresion(talentLookup[x.Id], x.Level, x.LevelTyp)).ToArray();
+                return bedingung.Talent.Select(x => new TalentExpresion(directoryTalent[x.Id], x.Level, x.LevelTyp)).ToArray();
             if (bedingung.BesonderheitSpecified)
                 return bedingung.Besonderheit.Select(x => new FeatureExpresion(directoryFeatures[x.Id])).ToArray();
             if (bedingung.FertigkeitSpecified)
@@ -162,11 +162,11 @@ namespace Nota.Data.Expressions
             if (bedingung.TagSpecified)
                 return bedingung.Tag.Select(x => new TagExpresion(directoryTags[x.Id])).ToArray();
             if (bedingung.NotSpecified)
-                return bedingung.Not.Select(x => new NotExpresion(GetExpresion(talentLookup, directoryCompetency, directoryFeatures, directoryTags, x))).ToArray();
+                return bedingung.Not.Select(x => new NotExpresion(GetExpresion(directoryTalent, directoryCompetency, directoryFeatures, directoryTags, directoryGenus, directoryBeing, directoryPath, x))).ToArray();
             if (bedingung.AndSpecified)
-                return bedingung.And.Select(x => new AndExpresion(GetExpresion(talentLookup, directoryCompetency, directoryFeatures, directoryTags, x))).ToArray();
+                return bedingung.And.Select(x => new AndExpresion(GetExpresion(directoryTalent, directoryCompetency, directoryFeatures, directoryTags, directoryGenus, directoryBeing, directoryPath, x))).ToArray();
             if (bedingung.OrSpecified)
-                return bedingung.Or.Select(x => new OrExpresion(GetExpresion(talentLookup, directoryCompetency, directoryFeatures, directoryTags, x))).ToArray();
+                return bedingung.Or.Select(x => new OrExpresion(GetExpresion(directoryTalent, directoryCompetency, directoryFeatures, directoryTags, directoryGenus, directoryBeing, directoryPath, x))).ToArray();
 
             throw new NotSupportedException();
         }
@@ -206,6 +206,41 @@ namespace Nota.Data.Expressions
 
             throw new NotSupportedException();
         }
+
+        internal static Expresion GetExpresion(Dictionary<string, TalentReference> directoryTalent, Dictionary<string, CompetencyReference> directoryCompetency, Dictionary<string, FeaturesReference> directoryFeatures, Dictionary<string, TagReference> directoryTags, Dictionary<string, GenusReference> directoryGenus, Dictionary<string, BeingReference> directoryBeing, Dictionary<string, PathGroupReference> directoryPath, ImmutableArray<LevelReference> levels, LevelAuswahl bedingung)
+        {
+            if (bedingung == null)
+                return new TrueExpresion();
+            if (bedingung.Level != null)
+                return new LevelExpresion(levels.First(x => x.Id == bedingung.Level.Id));
+            if (bedingung.Not != null)
+                return new NotExpresion(GetExpresion(directoryTalent, directoryCompetency, directoryFeatures, directoryTags, directoryGenus, directoryBeing, directoryPath, levels, bedingung.Not));
+            if (bedingung.And != null)
+                return new AndExpresion(GetExpresion(directoryTalent, directoryCompetency, directoryFeatures, directoryTags, directoryGenus, directoryBeing, directoryPath, levels, bedingung.And));
+            if (bedingung.Or != null)
+                return new OrExpresion(GetExpresion(directoryTalent, directoryCompetency, directoryFeatures, directoryTags, directoryGenus, directoryBeing, directoryPath, levels, bedingung.Or));
+
+            throw new NotSupportedException();
+        }
+
+        internal static Expresion[] GetExpresion(Dictionary<string, TalentReference> directoryTalent, Dictionary<string, CompetencyReference> directoryCompetency, Dictionary<string, FeaturesReference> directoryFeatures, Dictionary<string, TagReference> directoryTags, Dictionary<string, GenusReference> directoryGenus, Dictionary<string, BeingReference> directoryBeing, Dictionary<string, PathGroupReference> directoryPath, ImmutableArray<LevelReference> levels, LevelAuswahlen bedingung)
+        {
+            if (bedingung == null)
+                return new[] { new TrueExpresion() };
+
+
+            if (bedingung.LevelSpecified)
+                return bedingung.Level.Select(x => new TagExpresion(directoryTags[x.Id])).ToArray();
+            if (bedingung.NotSpecified)
+                return bedingung.Not.Select(x => new NotExpresion(GetExpresion(directoryTalent, directoryCompetency, directoryFeatures, directoryTags, directoryGenus, directoryBeing, directoryPath, levels, x))).ToArray();
+            if (bedingung.AndSpecified)
+                return bedingung.And.Select(x => new AndExpresion(GetExpresion(directoryTalent, directoryCompetency, directoryFeatures, directoryTags, directoryGenus, directoryBeing, directoryPath, levels, x))).ToArray();
+            if (bedingung.OrSpecified)
+                return bedingung.Or.Select(x => new OrExpresion(GetExpresion(directoryTalent, directoryCompetency, directoryFeatures, directoryTags, directoryGenus, directoryBeing, directoryPath, levels, x))).ToArray();
+
+            throw new NotSupportedException();
+        }
+
 
         private class TalentExpresion : Expresion
         {
@@ -405,6 +440,23 @@ namespace Nota.Data.Expressions
                     return new Result.Or(results.Where(x => x != Result.OK));
                 }
 
+            }
+        }
+
+        private class LevelExpresion : Expresion
+        {
+            private readonly LevelReference levelReference;
+
+            public LevelExpresion(LevelReference levelReference)
+            {
+                this.levelReference = levelReference;
+            }
+
+            protected override Result Evaluate(CharacterData character, bool negate)
+            {
+                if (negate ^ (character.Competency[this.competencyReference].IsAcquired))
+                    return Result.OK;
+                return new Result.MissingCompetency(this.competencyReference, negate);
             }
         }
     }
