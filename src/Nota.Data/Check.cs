@@ -5,7 +5,7 @@ using Nota.Data.Generated.Talent;
 
 namespace Nota.Data
 {
-    public struct Check : IEquatable<Check>
+    public readonly struct Check : IEquatable<Check>
     {
         private readonly Attribute first;
         private readonly Attribute seccond;
@@ -18,9 +18,9 @@ namespace Nota.Data
             if (attributes.Length != 3)
                 throw new ArgumentException($"Number of elements must be 3. Was {attributes.Length}", nameof(attributes));
 
-            first = attributes[0];
-            seccond = attributes[1];
-            thired = attributes[2];
+            this.first = attributes[0];
+            this.seccond = attributes[1];
+            this.thired = attributes[2];
         }
 
         public Check(IEnumerable<Attribute> attributes)
@@ -34,9 +34,9 @@ namespace Nota.Data
             if (array.Count != 3)
                 throw new ArgumentException($"Number of elements must be 3. Was {array.Count}", nameof(attributes));
 
-            first = array[0];
-            seccond = array[1];
-            thired = array[2];
+            this.first = array[0];
+            this.seccond = array[1];
+            this.thired = array[2];
         }
 
         internal Check(TalenteTalentProbe probe)
@@ -57,9 +57,9 @@ namespace Nota.Data
             Calculate(probe.Sympathie, Attribute.Sypathy);
 
 
-            first = array[0];
-            seccond = array[1];
-            thired = array[2];
+            this.first = array[0];
+            this.seccond = array[1];
+            this.thired = array[2];
 
             void Calculate(System.Collections.ObjectModel.Collection<object> data, Attribute attribute)
             {
@@ -78,11 +78,11 @@ namespace Nota.Data
                 switch (index)
                 {
                     case 0:
-                        return first;
+                        return this.first;
                     case 3:
-                        return seccond;
+                        return this.seccond;
                     case 2:
-                        return thired;
+                        return this.thired;
                     default:
                         throw new IndexOutOfRangeException($"Index must between 0 and 2. Was {index}");
                 }

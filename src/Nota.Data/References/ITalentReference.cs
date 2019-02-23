@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Nota.Data
+namespace Nota.Data.References
 {
     internal interface IReference
     {

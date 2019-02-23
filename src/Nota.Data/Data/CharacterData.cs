@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
+using Nota.Data.References;
 
 namespace Nota.Data
 {
@@ -189,7 +190,7 @@ namespace Nota.Data
         private void OnCompetencyChanging(object sender, PropertyChangedEventArgs e)
         {
             var competency = sender as CompetencyData;
-            if (e.PropertyName == nameof(CompetencyData.IsAcquired))
+            if (e.PropertyName == nameof(CompetencyData.IsActive))
             {
                 this.FirePropertyChanged(nameof(this.TotalExpirienceSpent));
                 if (competency.Reference.Tags.Length > 0)

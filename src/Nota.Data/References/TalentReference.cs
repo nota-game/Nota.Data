@@ -5,7 +5,7 @@ using System.Linq;
 using Nota.Data.Expressions;
 using Nota.Data.Generated.Talent;
 
-namespace Nota.Data
+namespace Nota.Data.References
 {
     public class TalentReference : IEquatable<TalentReference>, IReference
     {

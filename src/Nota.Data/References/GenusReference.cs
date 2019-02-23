@@ -1,28 +1,34 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+
 using Nota.Data.Generated.Misc;
 
-namespace Nota.Data
+namespace Nota.Data.References
 {
-    public class TagReference : IReference
+    public class GenusReference:IReference
     {
 
-        internal TagReference(Tag x, Data data)
+        public GenusReference(Generated.Lebewesen.OrganismenGattung x, Data data)
         {
+            this.Data = data;
+            this.origin = x;
+
             this.Id = x.Id;
             this.Name = x.Name;
             this.Description = x.Beschreibung;
-            this.Data = data;
+
         }
+
+        public Data Data { get; }
+
+        private readonly Generated.Lebewesen.OrganismenGattung origin;
 
         public string Id { get; }
         public LocalizedString Name { get; }
         public LocalizedString Description { get; }
-        public Data Data { get; }
 
         void IReference.Initilize(Dictionary<string, TalentReference> directoryTalent, Dictionary<string, CompetencyReference> directoryCompetency, Dictionary<string, FeaturesReference> directoryFeatures, Dictionary<string, TagReference> directoryTags, Dictionary<string, GenusReference> directoryGenus, Dictionary<string, BeingReference> directoryBeing, Dictionary<string, PathGroupReference> directoryPath)
         {
-
         }
     }
 }

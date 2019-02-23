@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using Nota.Data.References;
 
 namespace Nota.Data
 {
@@ -75,7 +76,7 @@ namespace Nota.Data
             foreach (var item in this.Reference.Expression.CompetencyInvolved)
                 this.Character.Competency[item].PropertyChanged += (sender, e) =>
                 {
-                    if (e.PropertyName == nameof(CompetencyData.IsAcquired))
+                    if (e.PropertyName == nameof(CompetencyData.IsActive))
                         this.FirePropertyChanged(nameof(this.AcquistionProblem));
                 };
 

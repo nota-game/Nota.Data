@@ -7,6 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Text;
 using Nota.Data.Expressions;
+using Nota.Data.References;
 
 namespace Nota.Data
 {
@@ -419,7 +420,7 @@ namespace Nota.Data
             foreach (var item in this.Reference.Expressions.SelectMany(x => x.Expresion.CompetencyInvolved))
                 this.Character.Competency[item].PropertyChanged += (sender, e) =>
                 {
-                    if (e.PropertyName == nameof(CompetencyData.IsAcquired))
+                    if (e.PropertyName == nameof(CompetencyData.IsActive))
                     {
                         this.Increase.FireCanExecuteChanged();
                         this.FirePropertyChanged(nameof(this.LevelProblem));
@@ -429,7 +430,7 @@ namespace Nota.Data
             foreach (var item in this.Reference.Expressions.SelectMany(x => x.Expresion.FeaturesInvolved))
                 this.Character.Features[item].PropertyChanged += (sender, e) =>
                 {
-                    if (e.PropertyName == nameof(CompetencyData.IsAcquired))
+                    if (e.PropertyName == nameof(FeaturesData.IsAcquired))
                     {
                         this.Increase.FireCanExecuteChanged();
                         this.FirePropertyChanged(nameof(this.LevelProblem));

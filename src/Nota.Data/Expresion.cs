@@ -5,6 +5,7 @@ using System.Linq;
 using Nota.Data.Generated.Besonderheit;
 using Nota.Data.Generated.Misc;
 using Nota.Data.Generated.Talent;
+using Nota.Data.References;
 
 namespace Nota.Data.Expressions
 {
@@ -317,7 +318,7 @@ namespace Nota.Data.Expressions
 
             protected override Result Evaluate(CharacterData character, bool negate)
             {
-                if (negate ^ (character.Competency[this.competencyReference].IsAcquired))
+                if (negate ^ (character.Competency[this.competencyReference].IsActive))
                     return Result.OK;
                 return new Result.MissingCompetency(this.competencyReference, negate);
             }
@@ -454,9 +455,9 @@ namespace Nota.Data.Expressions
 
             protected override Result Evaluate(CharacterData character, bool negate)
             {
-                if (negate ^ (character.Competency[this.competencyReference].IsAcquired))
+                if (negate ^ (character.Competency[this.levelReference].IsAcquired))
                     return Result.OK;
-                return new Result.MissingCompetency(this.competencyReference, negate);
+                return new Result.MissingCompetency(this.levelReference, negate);
             }
         }
     }

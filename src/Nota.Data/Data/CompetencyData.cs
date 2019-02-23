@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
+using Nota.Data.References;
 
 namespace Nota.Data
 {
@@ -27,6 +28,8 @@ namespace Nota.Data
         }
 
         public bool IsAcquired => this.NumberOfAcquisition > 0;
+
+        public bool IsActive => this.IsAcquired && this.AcquistionProblem;
 
         public bool IsReplaced => this.replacingCompetency.Any(x => x.IsAcquired);
 
@@ -131,6 +134,7 @@ namespace Nota.Data
                 case nameof(this.AcquistionProblem):
                     this.acquistionProblem = null;
                     _ = this.AcquistionProblem;
+                    this.FirePropertyChanged(nameof(this.IsActive));
                     break;
             }
 

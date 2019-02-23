@@ -6,6 +6,7 @@ using System.Runtime.Serialization;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using Nota.Data.Generated.Talent;
+using Nota.Data.References;
 
 namespace Nota.Data
 {

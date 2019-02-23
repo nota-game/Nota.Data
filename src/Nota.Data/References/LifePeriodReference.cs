@@ -5,7 +5,7 @@ using System.Linq;
 using Nota.Data.Generated.Lebewesen;
 using Nota.Data.Generated.Misc;
 
-namespace Nota.Data
+namespace Nota.Data.References
 {
     public class LifePeriodReference : IReference
     {

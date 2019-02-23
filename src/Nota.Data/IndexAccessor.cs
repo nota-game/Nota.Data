@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Nota.Data
 {
-    public struct IndexAccessor<TKey, TValue> : IEnumerable<TValue>
+    public readonly struct IndexAccessor<TKey, TValue> : IEnumerable<TValue>
     {
         private readonly IDictionary<TKey, TValue> dictionary;
 

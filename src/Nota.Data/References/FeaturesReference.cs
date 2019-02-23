@@ -5,7 +5,7 @@ using System.Collections.Immutable;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace Nota.Data
+namespace Nota.Data.References
 {
     public class FeaturesReference : IReference
     {
