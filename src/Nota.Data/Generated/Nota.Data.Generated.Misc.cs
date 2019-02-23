@@ -1049,13 +1049,13 @@ namespace Nota.Data.Generated.Misc
         }
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
-        private string _pfadKosten = "0";
+        private int _pfadKosten = 0;
         
         /// <summary>
         /// </summary>
-        [System.ComponentModel.DefaultValueAttribute("0")]
+        [System.ComponentModel.DefaultValueAttribute(0)]
         [System.Xml.Serialization.XmlAttributeAttribute("PfadKosten", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string PfadKosten
+        public int PfadKosten
         {
             get
             {
@@ -1064,6 +1064,25 @@ namespace Nota.Data.Generated.Misc
             set
             {
                 this._pfadKosten = value;
+            }
+        }
+        
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        private int _wiederhoteNutzung = 1;
+        
+        /// <summary>
+        /// </summary>
+        [System.ComponentModel.DefaultValueAttribute(1)]
+        [System.Xml.Serialization.XmlAttributeAttribute("WiederhoteNutzung", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public int WiederhoteNutzung
+        {
+            get
+            {
+                return this._wiederhoteNutzung;
+            }
+            set
+            {
+                this._wiederhoteNutzung = value;
             }
         }
         

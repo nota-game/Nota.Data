@@ -18,7 +18,7 @@ namespace Nota.Data.References
             this.GenerationCost = this.origin.Kosten;
             this.PathCost = this.origin.PfadKosten;
             this.Id = this.origin.Id;
-
+            this.Repeation = this.origin.WiederhoteNutzung;
 
             this.Name = this.origin.Name;
             this.Description = this.origin.Beschreibung;
@@ -31,15 +31,16 @@ namespace Nota.Data.References
         public Data Data { get; }
         public PathReference PathReference { get; }
         public int GenerationCost { get; }
-        public string PathCost { get; }
+        public int PathCost { get; }
         public string Id { get; }
+        public int Repeation { get; }
         public Collection<LokalisierungenLokalisirung> Name { get; }
         public Collection<LokalisierungenLokalisirung> Description { get; }
         public ImmutableArray<FeaturesReference> Features { get; private set; }
         public ImmutableArray<CompetencyReference> Competency { get; private set; }
         public ImmutableArray<TagReference> Tags { get; private set; }
         public ImmutableArray<TalentReference> Talents { get; private set; }
-        internal Expresion Expression { get; private set; }
+        internal Expresion<CharacterData> Expression { get; private set; }
 
         void IReference.Initilize(Dictionary<string, TalentReference> directoryTalent, Dictionary<string, CompetencyReference> directoryCompetency, Dictionary<string, FeaturesReference> directoryFeatures, Dictionary<string, TagReference> directoryTags, Dictionary<string, GenusReference> directoryGenus, Dictionary<string, BeingReference> directoryBeing, Dictionary<string, PathGroupReference> directoryPath)
         {

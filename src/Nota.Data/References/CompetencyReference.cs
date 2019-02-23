@@ -31,7 +31,7 @@ namespace Nota.Data.References
         public int Cost { get; }
         public CompetencyReference Replaces { get; private set; }
         public Data Data { get; }
-        internal Expresion Expression { get; private set; }
+        internal Expresion<CharacterData> Expression { get; private set; }
 
 
         void IReference.Initilize(Dictionary<string, TalentReference> directoryTalent, Dictionary<string, CompetencyReference> directoryCompetency, Dictionary<string, FeaturesReference> directoryFeatures, Dictionary<string, TagReference> directoryTags, Dictionary<string, GenusReference> directoryGenus, Dictionary<string, BeingReference> directoryBeing, Dictionary<string, PathGroupReference> directoryPath)

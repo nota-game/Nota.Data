@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -12,7 +13,18 @@ namespace Nota.Data
 {
     public class Data
     {
-        private Data(IReadOnlyList<TalentReference> talents, IReadOnlyList<CompetencyReference> competency, IReadOnlyList<TagReference> tags, IReadOnlyList<FeaturesReference> features, IReadOnlyList<BeingReference> beings, IReadOnlyList<GenusReference> genus, IReadOnlyList<PathGroupReference> path)
+        private Data()
+        {
+            //this.Talents = talents;
+            //this.Competency = competency;
+            //this.Tags = tags;
+            //this.Features = features;
+            //this.Beings = beings;
+            //this.Genus = genus;
+            //this.Path = path;
+        }
+
+        private void Initilize(ImmutableArray<TalentReference> talents, ImmutableArray<CompetencyReference> competency, ImmutableArray<TagReference> tags, ImmutableArray<FeaturesReference> features, ImmutableArray<BeingReference> beings, ImmutableArray<GenusReference> genus, ImmutableArray<PathGroupReference> path)
         {
             this.Talents = talents;
             this.Competency = competency;
@@ -23,9 +35,9 @@ namespace Nota.Data
             this.Path = path;
         }
 
-        public IReadOnlyList<BeingReference> Beings { get; }
-        public IReadOnlyList<GenusReference> Genus { get; }
-        public IReadOnlyList<PathGroupReference> Path { get; }
+        public ImmutableArray<BeingReference> Beings { get; private set; }
+        public ImmutableArray<GenusReference> Genus { get; private set; }
+        public ImmutableArray<PathGroupReference> Path { get; private set; }
 
         public static Task<Data> LoadAsync(System.IO.Stream stream)
         {
@@ -41,7 +53,7 @@ namespace Nota.Data
                 var pathList = new List<PathGroupReference>();
                 var featuresList = new List<FeaturesReference>();
 
-                var output = new Data(talentList.AsReadOnly(), competencyList.AsReadOnly(), tagList.AsReadOnly(), featuresList.AsReadOnly(), beingList.AsReadOnly(), genusList.AsReadOnly(), pathList.AsReadOnly());
+                var output = new Data();
 
                 var directoryBeing = new Dictionary<string, BeingReference>();
                 foreach (var item in data.Organismen.Organismus.Select(x => new BeingReference(x, output)))
@@ -63,9 +75,6 @@ namespace Nota.Data
                     pathList.Add(item);
                     directoryPath.Add(item.Id, item);
                 }
-
-
-
 
                 var directoryTalent = new Dictionary<string, TalentReference>();
                 foreach (var item in data.Talente.Select(x => new TalentReference(x, output)))
@@ -95,6 +104,7 @@ namespace Nota.Data
                     directoryTags.Add(item.Id, item);
                 }
 
+                output.Initilize(talentList.ToImmutableArray(), competencyList.ToImmutableArray(), tagList.ToImmutableArray(), featuresList.ToImmutableArray(), beingList.ToImmutableArray(), genusList.ToImmutableArray(), pathList.ToImmutableArray());
 
                 foreach (var item in output.Features
                     .Concat<IReference>(output.Competency)
@@ -105,22 +115,20 @@ namespace Nota.Data
                     .Concat(output.Path))
                     item.Initilize(directoryTalent, directoryCompetency, directoryFeatures, directoryTags, directoryGenus, directoryBeing, directoryPath);
 
-
-
-
-
-
-
-
                 return output;
             });
 
         }
 
-        public IReadOnlyList<TalentReference> Talents { get; }
-        public IReadOnlyList<CompetencyReference> Competency { get; }
-        public IReadOnlyList<TagReference> Tags { get; }
-        public IReadOnlyList<FeaturesReference> Features { get; }
+        public ImmutableArray<TalentReference> Talents { get; private set; }
+        public ImmutableArray<CompetencyReference> Competency { get; private set; }
+        public ImmutableArray<TagReference> Tags { get; private set; }
+        public ImmutableArray<FeaturesReference> Features { get; private set; }
+
+        public CharacterBuilder CreateCharacter()
+        {
+            return new CharacterBuilder(Guid.NewGuid(), this);
+        }
 
         public Task SaveCharacters(Stream stream, IEnumerable<CharacterData> characters)
         {
@@ -177,10 +185,7 @@ namespace Nota.Data
             public CharacterData.Serelizer[] Characters { get; set; }
         }
 
-        public CharacterData CreateCharacter()
-        {
-            return new CharacterData(Guid.NewGuid(), this);
-        }
+
 
     }
 }

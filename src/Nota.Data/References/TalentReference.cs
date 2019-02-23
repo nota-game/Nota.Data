@@ -152,7 +152,7 @@ namespace Nota.Data.References
 
         internal class LevelExpression
         {
-            public LevelExpression(int level, Expresion expresion)
+            public LevelExpression(int level, Expresion<CharacterData> expresion)
             {
                 this.Level = level;
                 this.Expresion = expresion;
@@ -160,7 +160,7 @@ namespace Nota.Data.References
 
 
             public int Level { get; }
-            internal Expresion Expresion { get; }
+            internal Expresion<CharacterData> Expresion { get; }
         }
 
         public override bool Equals(object obj)
