@@ -134,7 +134,7 @@ namespace Nota.Data
         {
 
 
-            public NextLevelCost(TalentData talent, int level, int cost, ImmutableArray<Expressions.Result> problem)
+            public NextLevelCost(TalentData talent, int level, int cost, ImmutableArray<Expressions.ResultProbleme> problem)
             {
                 this.Talent = talent ?? throw new ArgumentNullException(nameof(talent));
                 this.Level = level;
@@ -145,7 +145,7 @@ namespace Nota.Data
             public TalentData Talent { get; }
             public int Level { get; }
             public int Cost { get; }
-            public ImmutableArray<Expressions.Result> Problem { get; }
+            public ImmutableArray<Expressions.ResultProbleme> Problem { get; }
 
             public override bool Equals(object obj)
             {
@@ -247,7 +247,7 @@ namespace Nota.Data
                                 var currentBaseLevel = this.Character.Talent[derivation.Talent]?.BaseLevel ?? 0;
                                 var currentInvestment = this.Character.Talent[derivation.Talent]?.ExpirienceSpent ?? 0;
                                 var neededInvestment = TalentExperienceCost.CalculateTotalCostForLevel(derivation.Talent.Compexety, (targetPoints * derivation.Count));
-                                var currentProblems = this.Character.Talent[derivation.Talent]?.GetProblemsForLevel(targetPoints * derivation.Count).Select(x => x.Problem).ToImmutableArray() ?? ImmutableArray.Create<Result>();
+                                var currentProblems = this.Character.Talent[derivation.Talent]?.GetProblemsForLevel(targetPoints * derivation.Count).Select(x => x.Problem).ToImmutableArray() ?? ImmutableArray.Create<ResultProbleme>();
 
                                 return Enumerable.Repeat(new NextLevelCost(this.Character.Talent[derivation.Talent], targetPoints * derivation.Count, neededInvestment - currentBaseLevel, currentProblems), 1);
                             default:
@@ -325,13 +325,13 @@ namespace Nota.Data
 
         public readonly struct ProblemDetails
         {
-            public ProblemDetails(Result problem, int level)
+            public ProblemDetails(ResultProbleme problem, int level)
             {
                 this.Problem = problem ?? throw new ArgumentNullException(nameof(problem));
                 this.Level = level;
             }
 
-            public Expressions.Result Problem { get; }
+            public Expressions.ResultProbleme Problem { get; }
             public int Level { get; }
 
         }
@@ -345,7 +345,7 @@ namespace Nota.Data
                 {
                     this.levelProblem = this.Reference.Expressions
                         .Select(x => new ProblemDetails(x.Expresion.Evaluate(this.Character), x.Level))
-                        .Where(x => !x.Problem)
+                        .Where(x => x.Problem)
                         .ToImmutableArray();
                     this.FirePropertyChanged(nameof(this.NextProblem));
                     this.FirePropertyChanged(nameof(this.CurrentProblems));

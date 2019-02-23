@@ -30,8 +30,8 @@ namespace Nota.Data
             }
         }
 
-        private Expressions.Result acquistionProblem;
-        public Expressions.Result AcquistionProblem
+        private Expressions.ResultProbleme acquistionProblem;
+        public Expressions.ResultProbleme AcquistionProblem
         {
             get
             {

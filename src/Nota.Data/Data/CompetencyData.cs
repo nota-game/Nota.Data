@@ -29,7 +29,7 @@ namespace Nota.Data
 
         public bool IsAcquired => this.NumberOfAcquisition > 0;
 
-        public bool IsActive => this.IsAcquired && this.AcquistionProblem;
+        public bool IsActive => this.IsAcquired && !this.AcquistionProblem;
 
         public bool IsReplaced => this.replacingCompetency.Any(x => x.IsAcquired);
 
@@ -39,8 +39,8 @@ namespace Nota.Data
         public CompetencyReference Reference { get; }
         public CharacterData Character { get; }
 
-        private Expressions.Result acquistionProblem;
-        public Expressions.Result AcquistionProblem
+        private Expressions.ResultProbleme acquistionProblem;
+        public Expressions.ResultProbleme AcquistionProblem
         {
             get
             {
@@ -62,7 +62,7 @@ namespace Nota.Data
                 execute: c => this.NumberOfAcquisition++,
                 undoExecute: c => this.NumberOfAcquisition--,
                 description: c => $"Sonderfertigkeit {c.Reference.Name} erworben",
-                canExecute: c => !this.IsAcquired && c.Character.ExpirienceAvailable >= c.Reference.Cost && this.Reference.Expression.Evaluate(this.Character)
+                canExecute: c => !this.IsAcquired && c.Character.ExpirienceAvailable >= c.Reference.Cost && !this.Reference.Expression.Evaluate(this.Character)
             );
         }
 

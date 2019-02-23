@@ -10,15 +10,15 @@ using Nota.Data.References;
 namespace Nota.Data.Expressions
 {
 
-    public abstract class Result
+    public abstract class ResultProbleme
     {
-        private Result()
+        private ResultProbleme()
         {
 
         }
 
 
-        public sealed class MissingTalent : Result
+        public sealed class MissingTalent : ResultProbleme
         {
             public MissingTalent(TalentReference talentReference, int? level, bool negate)
             {
@@ -34,7 +34,7 @@ namespace Nota.Data.Expressions
             public int? Level { get; }
         }
 
-        public sealed class MissingFeature : Result
+        public sealed class MissingFeature : ResultProbleme
         {
             public MissingFeature(FeaturesReference featuresReference, bool negate)
             {
@@ -47,7 +47,7 @@ namespace Nota.Data.Expressions
             public FeaturesReference FeaturesReference { get; }
         }
 
-        public sealed class MissingCompetency : Result
+        public sealed class MissingCompetency : ResultProbleme
         {
             public MissingCompetency(CompetencyReference competencyReference, bool negate)
             {
@@ -60,7 +60,7 @@ namespace Nota.Data.Expressions
             public CompetencyReference CompetencyReference { get; }
         }
 
-        public sealed class MissingTag : Result
+        public sealed class MissingTag : ResultProbleme
         {
             public MissingTag(TagReference tagReference, bool negate)
             {
@@ -73,37 +73,37 @@ namespace Nota.Data.Expressions
             public TagReference TagReference { get; }
         }
 
-        public sealed class And : Result
+        public sealed class And : ResultProbleme
         {
-            public And(IEnumerable<Result> results)
+            public And(IEnumerable<ResultProbleme> results)
             {
                 this.Results = results.ToImmutableArray();
             }
 
-            public ImmutableArray<Result> Results { get; }
+            public ImmutableArray<ResultProbleme> Results { get; }
         }
 
-        public sealed class Or : Result
+        public sealed class Or : ResultProbleme
         {
-            public Or(IEnumerable<Result> enumerable)
+            public Or(IEnumerable<ResultProbleme> enumerable)
             {
                 this.Results = enumerable.ToImmutableArray();
             }
 
-            public ImmutableArray<Result> Results { get; }
+            public ImmutableArray<ResultProbleme> Results { get; }
         }
 
-        public sealed class Passed : Result
+        public sealed class Passed : ResultProbleme
         {
 
         }
 
-        public static readonly Passed OK = new Passed();
+        public static readonly Passed NONE = new Passed();
 
-        public static bool operator true(Result x) => x is Passed;
-        public static bool operator false(Result x) => !(x is Passed);
+        public static bool operator true(ResultProbleme x) => !(x is Passed);
+        public static bool operator false(ResultProbleme x) => x is Passed;
 
-        public static implicit operator bool(Result x) => x is Passed;
+        public static implicit operator bool(ResultProbleme x) => !(x is Passed);
 
 
     }
@@ -113,8 +113,8 @@ namespace Nota.Data.Expressions
     internal abstract class Expresion
     {
 
-        public Result Evaluate(CharacterData character) => this.Evaluate(character, false);
-        protected abstract Result Evaluate(CharacterData character, bool negate);
+        public ResultProbleme Evaluate(CharacterData character) => this.Evaluate(character, false);
+        protected abstract ResultProbleme Evaluate(CharacterData character, bool negate);
 
         public IEnumerable<TagReference> TagsInvolved => this.TagsInvolvedInternal.Distinct();
         public IEnumerable<TalentReference> TalentInvolved => this.TalentInvolvedInternal.Distinct();
@@ -258,33 +258,33 @@ namespace Nota.Data.Expressions
             }
 
 
-            protected override Result Evaluate(CharacterData character, bool negate)
+            protected override ResultProbleme Evaluate(CharacterData character, bool negate)
             {
                 switch (LevelKind)
                 {
                     case LevelBedingungsTyp.Basis:
                         if (negate ^ (character.Talent[this.talentReference].BaseLevel >= this.level))
-                            return Result.OK;
+                            return ResultProbleme.NONE;
                         break;
                     case LevelBedingungsTyp.Effektiv:
                         if (negate ^ (character.Talent[this.talentReference].Level >= this.level))
-                            return Result.OK;
+                            return ResultProbleme.NONE;
                         break;
                     case LevelBedingungsTyp.Unterstützung:
                         if (negate ^ (character.Talent[this.talentReference].SupportLevel >= this.level))
-                            return Result.OK;
+                            return ResultProbleme.NONE;
                         break;
                     default:
                         throw new NotSupportedException();
                 }
-                return new Result.MissingTalent(this.talentReference, this.level, negate);
+                return new ResultProbleme.MissingTalent(this.talentReference, this.level, negate);
             }
         }
         private class TrueExpresion : Expresion
         {
 
 
-            protected override Result Evaluate(CharacterData character, bool negate) => Result.OK;
+            protected override ResultProbleme Evaluate(CharacterData character, bool negate) => ResultProbleme.NONE;
         }
 
         private class FeatureExpresion : Expresion
@@ -297,11 +297,11 @@ namespace Nota.Data.Expressions
                 this.featuresReference = featuresReference;
             }
 
-            protected override Result Evaluate(CharacterData character, bool negate)
+            protected override ResultProbleme Evaluate(CharacterData character, bool negate)
             {
                 if (negate ^ (character.Features[this.featuresReference].IsAcquired))
-                    return Result.OK;
-                return new Result.MissingFeature(this.featuresReference, negate);
+                    return ResultProbleme.NONE;
+                return new ResultProbleme.MissingFeature(this.featuresReference, negate);
             }
         }
 
@@ -316,11 +316,11 @@ namespace Nota.Data.Expressions
                 this.competencyReference = competencyReference;
             }
 
-            protected override Result Evaluate(CharacterData character, bool negate)
+            protected override ResultProbleme Evaluate(CharacterData character, bool negate)
             {
                 if (negate ^ (character.Competency[this.competencyReference].IsActive))
-                    return Result.OK;
-                return new Result.MissingCompetency(this.competencyReference, negate);
+                    return ResultProbleme.NONE;
+                return new ResultProbleme.MissingCompetency(this.competencyReference, negate);
             }
         }
 
@@ -334,11 +334,11 @@ namespace Nota.Data.Expressions
                 this.tagReference = tagReference;
             }
 
-            protected override Result Evaluate(CharacterData character, bool negate)
+            protected override ResultProbleme Evaluate(CharacterData character, bool negate)
             {
                 if (negate ^ (character.Tags.Contains(this.tagReference)))
-                    return Result.OK;
-                return new Result.MissingTag(this.tagReference, negate);
+                    return ResultProbleme.NONE;
+                return new ResultProbleme.MissingTag(this.tagReference, negate);
             }
 
         }
@@ -357,7 +357,7 @@ namespace Nota.Data.Expressions
                 this.expresion = expresion;
             }
 
-            protected override Result Evaluate(CharacterData character, bool negate)
+            protected override ResultProbleme Evaluate(CharacterData character, bool negate)
             {
                 var result = this.expresion.Evaluate(character, !negate);
                 return result;
@@ -380,26 +380,26 @@ namespace Nota.Data.Expressions
                 this.expresion = expresion;
             }
 
-            protected override Result Evaluate(CharacterData character, bool negate)
+            protected override ResultProbleme Evaluate(CharacterData character, bool negate)
             {
                 if (negate)
                 {
                     var results = this.expresion.Select(x => x.Evaluate(character, true)).ToArray();
-                    if (results.Any(x => x == Result.OK))
-                        return Result.OK;
+                    if (results.Any(x => x == ResultProbleme.NONE))
+                        return ResultProbleme.NONE;
 
-                    return new Result.Or(results.Where(x => x != Result.OK));
+                    return new ResultProbleme.Or(results.Where(x => x != ResultProbleme.NONE));
 
                 }
                 else
                 {
-                    var results = this.expresion.Select(x => x.Evaluate(character, false)).Where(x => x != Result.OK).ToArray();
+                    var results = this.expresion.Select(x => x.Evaluate(character, false)).Where(x => x != ResultProbleme.NONE).ToArray();
                     if (results.Length == 0)
-                        return Result.OK;
+                        return ResultProbleme.NONE;
                     else if (results.Length == 1)
                         return results.First();
                     else
-                        return new Result.And(results);
+                        return new ResultProbleme.And(results);
                 }
             }
 
@@ -420,25 +420,25 @@ namespace Nota.Data.Expressions
             {
                 this.expresion = expresion;
             }
-            protected override Result Evaluate(CharacterData character, bool negate)
+            protected override ResultProbleme Evaluate(CharacterData character, bool negate)
             {
                 if (negate)
                 {
-                    var results = this.expresion.Select(x => x.Evaluate(character, true)).Where(x => x != Result.OK).ToArray();
+                    var results = this.expresion.Select(x => x.Evaluate(character, true)).Where(x => x != ResultProbleme.NONE).ToArray();
                     if (results.Length == 0)
-                        return Result.OK;
+                        return ResultProbleme.NONE;
                     else if (results.Length == 1)
                         return results.First();
                     else
-                        return new Result.And(results);
+                        return new ResultProbleme.And(results);
                 }
                 else
                 {
                     var results = this.expresion.Select(x => x.Evaluate(character, false)).ToArray();
-                    if (results.Any(x => x == Result.OK))
-                        return Result.OK;
+                    if (results.Any(x => x == ResultProbleme.NONE))
+                        return ResultProbleme.NONE;
 
-                    return new Result.Or(results.Where(x => x != Result.OK));
+                    return new ResultProbleme.Or(results.Where(x => x != ResultProbleme.NONE));
                 }
 
             }
@@ -453,11 +453,11 @@ namespace Nota.Data.Expressions
                 this.levelReference = levelReference;
             }
 
-            protected override Result Evaluate(CharacterData character, bool negate)
+            protected override ResultProbleme Evaluate(CharacterData character, bool negate)
             {
                 if (negate ^ (character.Competency[this.levelReference].IsAcquired))
-                    return Result.OK;
-                return new Result.MissingCompetency(this.levelReference, negate);
+                    return ResultProbleme.NONE;
+                return new ResultProbleme.MissingCompetency(this.levelReference, negate);
             }
         }
     }
