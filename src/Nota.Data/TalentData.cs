@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Text;
+using Nota.Data.Expressions;
 
 namespace Nota.Data
 {
@@ -47,7 +48,7 @@ namespace Nota.Data
             {
                 if (this.totalCostForNextLevel == null)
                 {
-                    this.totalCostForNextLevel = TalentExperienceCost.CalculateTotalCostForLevel(this.Reference.Compexety, Math.Min(this.BaseLevel + 1, this.IncreaseProblemLevel - 1));
+                    this.totalCostForNextLevel = TalentExperienceCost.CalculateTotalCostForLevel(this.Reference.Compexety, this.BaseLevel + 1);
                     this.FirePropertyChanged(nameof(this.ExpirienceToNextLevel));
                 }
                 return this.totalCostForNextLevel.Value;
@@ -68,22 +69,31 @@ namespace Nota.Data
 
         public int Level => this.SupportLevel + this.BaseLevel;
 
-        public int? baseLevel;
         public int BaseLevel
         {
             get
             {
-                if (this.baseLevel == null)
+                if (this.CurrentProblems.Any())
+                    return this.CurrentProblems.First().Level - 1;
+                return this.BaseLevelWithoutProblems;
+            }
+        }
+
+        public int? baseLevelWithoutProblems;
+        public int BaseLevelWithoutProblems
+        {
+            get
+            {
+                if (this.baseLevelWithoutProblems == null)
                 {
-                    this.baseLevel = TalentExperienceCost.CalculateLevelFromSpentExpirience(this.Reference.Compexety, this.ExpirienceSpent);
+                    this.baseLevelWithoutProblems = TalentExperienceCost.CalculateLevelFromSpentExpirience(this.Reference.Compexety, this.ExpirienceSpent);
 
-                    this.baseLevel = Math.Min(this.baseLevel.Value, this.IncreaseProblemLevel - 1);
-                    this.FirePropertyChanged(nameof(this.Level));
+                    this.FirePropertyChanged(nameof(this.BaseLevel));
                     this.FirePropertyChanged(nameof(this.TotalCostForNextLevel));
-
+                    this.FirePropertyChanged(nameof(this.Level));
 
                 }
-                return this.baseLevel.Value;
+                return this.baseLevelWithoutProblems.Value;
             }
         }
 
@@ -119,21 +129,22 @@ namespace Nota.Data
             }
         }
 
-        public struct NextLevelCost : IEquatable<NextLevelCost>
+        public readonly struct NextLevelCost : IEquatable<NextLevelCost>
         {
 
-            public NextLevelCost((TalentData talent, int level, int cost) value) : this(value.talent, value.level, value.cost) { }
 
-            public NextLevelCost(TalentData talent, int level, int cost)
+            public NextLevelCost(TalentData talent, int level, int cost, ImmutableArray<Expressions.Result> problem)
             {
                 this.Talent = talent ?? throw new ArgumentNullException(nameof(talent));
                 this.Level = level;
                 this.Cost = cost;
+                this.Problem = problem;
             }
 
             public TalentData Talent { get; }
             public int Level { get; }
             public int Cost { get; }
+            public ImmutableArray<Expressions.Result> Problem { get; }
 
             public override bool Equals(object obj)
             {
@@ -183,8 +194,11 @@ namespace Nota.Data
                 {
                     var target = GetCurrentIncrease(this.Reference.Derivation) + 1;
                     var nextSupportLevel = GetLavel(this.Reference.Derivation, target);
-
-                    return nextSupportLevel.Concat(Enumerable.Repeat(new NextLevelCost(this.Character.Talent[this.Reference], this.BaseLevel + 1, this.ExpirienceToNextLevel), 1)).OrderBy(x => x.Cost);
+                    var selfProbles = this.CurrentProblems;
+                    if (this.NextProblem?.Level == this.BaseLevel + 1) // if the level is less then it will already be included in `CurrentProblems`
+                        selfProbles = selfProbles.Add(this.NextProblem.Value);
+                    var selfIncrease = new NextLevelCost(this.Character.Talent[this.Reference], this.BaseLevel + 1, this.ExpirienceToNextLevel, selfProbles.Select(x => x.Problem).ToImmutableArray());
+                    return nextSupportLevel.Concat(Enumerable.Repeat(selfIncrease, 1)).OrderBy(x => x.Cost);
 
                     IEnumerable<NextLevelCost> GetLavel(AbstractDerivation derivations, int targetPoints)
                     {
@@ -232,8 +246,9 @@ namespace Nota.Data
                                 var currentBaseLevel = this.Character.Talent[derivation.Talent]?.BaseLevel ?? 0;
                                 var currentInvestment = this.Character.Talent[derivation.Talent]?.ExpirienceSpent ?? 0;
                                 var neededInvestment = TalentExperienceCost.CalculateTotalCostForLevel(derivation.Talent.Compexety, (targetPoints * derivation.Count));
+                                var currentProblems = this.Character.Talent[derivation.Talent]?.GetProblemsForLevel(targetPoints * derivation.Count).Select(x => x.Problem).ToImmutableArray() ?? ImmutableArray.Create<Result>();
 
-                                return Enumerable.Repeat(new NextLevelCost(this.Character.Talent[derivation.Talent], targetPoints * derivation.Count, neededInvestment - currentBaseLevel), 1);
+                                return Enumerable.Repeat(new NextLevelCost(this.Character.Talent[derivation.Talent], targetPoints * derivation.Count, neededInvestment - currentBaseLevel, currentProblems), 1);
                             default:
                                 throw new NotImplementedException($"The type {derivations?.GetType().FullName ?? "<null>"} is not implemented. :/");
                         }
@@ -262,25 +277,82 @@ namespace Nota.Data
             }
         }
 
-        public Expressions.Result IncreaseProblemResult => this.LevelProblem.result;
-        public int IncreaseProblemLevel => this.LevelProblem.level;
+        public ProblemDetails? NextProblem
+        {
+            get
+            {
+                if (this.LevelProblem.Length > 0)
+                    return this.LevelProblem[0];
+                return null;
+            }
+        }
 
-        private (int level, Expressions.Result result)? levelProblem;
-        internal (int level, Expressions.Result result) LevelProblem
+        private ImmutableArray<ProblemDetails>? currentProblems;
+        public ImmutableArray<ProblemDetails> CurrentProblems
+        {
+            get
+            {
+                if (this.currentProblems == null)
+                {
+
+                    this.currentProblems = this.GetProblemsForLevel(this.BaseLevelWithoutProblems);
+
+                    this.FirePropertyChanged(nameof(this.BaseLevel));
+                }
+                return this.currentProblems.Value;
+            }
+        }
+
+        public ImmutableArray<ProblemDetails> GetProblemsForLevel(int level)
+        {
+            ImmutableArray<ProblemDetails> problemsForLevel;
+            int? indexWithoutProblems = null;
+            for (int i = 0; i < this.LevelProblem.Length; i++)
+            {
+                if (this.LevelProblem.ItemRef(i).Level > level)
+                {
+                    indexWithoutProblems = i;
+                    break;
+                }
+            }
+            if (indexWithoutProblems.HasValue)
+                problemsForLevel = this.LevelProblem.RemoveRange(indexWithoutProblems.Value, this.LevelProblem.Length - indexWithoutProblems.Value);
+            else
+                problemsForLevel = this.LevelProblem;
+            return problemsForLevel;
+        }
+
+        public readonly struct ProblemDetails
+        {
+            public ProblemDetails(Result problem, int level)
+            {
+                this.Problem = problem ?? throw new ArgumentNullException(nameof(problem));
+                this.Level = level;
+            }
+
+            public Expressions.Result Problem { get; }
+            public int Level { get; }
+
+        }
+
+        private ImmutableArray<ProblemDetails>? levelProblem;
+        internal ImmutableArray<ProblemDetails> LevelProblem
         {
             get
             {
                 if (this.levelProblem == null)
                 {
                     this.levelProblem = this.Reference.Expressions
-                        .Select<TalentReference.LevelExpression, (int level, Expressions.Result result)?>(x => (level: x.Level, x.Expresion.Evaluate(this.Character)))
-                        .FirstOrDefault(x => !x.Value.result) ?? (int.MaxValue, Expressions.Result.OK);
-                    this.FirePropertyChanged(nameof(this.IncreaseProblemResult));
-                    this.FirePropertyChanged(nameof(this.IncreaseProblemLevel));
+                        .Select(x => new ProblemDetails(x.Expresion.Evaluate(this.Character), x.Level))
+                        .Where(x => !x.Problem)
+                        .ToImmutableArray();
+                    this.FirePropertyChanged(nameof(this.NextProblem));
+                    this.FirePropertyChanged(nameof(this.CurrentProblems));
                     this.FirePropertyChanged(nameof(this.BaseLevel));
                     this.FirePropertyChanged(nameof(this.BestNextLevel));
                     this.FirePropertyChanged(nameof(this.ExpirienceToNextLevel));
                     this.FirePropertyChanged(nameof(this.TotalCostForNextLevel));
+                    this.Increase.FireCanExecuteChanged();
                 }
                 return this.levelProblem.Value;
             }
@@ -316,7 +388,9 @@ namespace Nota.Data
                 },
                 (p, toIncrease) =>
                 {
-                    return toIncrease <= p.Character.ExpirienceAvailable;
+                    var newLevel = TalentExperienceCost.CalculateLevelFromSpentExpirience(this.Reference.Compexety, toIncrease + this.ExpirienceSpent);
+                    return toIncrease <= p.Character.ExpirienceAvailable
+                           && (this.NextProblem?.Level ?? int.MaxValue) > newLevel;
                 });
         }
 
@@ -424,22 +498,32 @@ namespace Nota.Data
                     this.totalCostForNextLevel = null;
                     _ = this.TotalCostForNextLevel;
                     break;
+
                 case nameof(this.BestNextLevel):
                     this.bestNextLevel = null;
                     _ = this.BestNextLevel;
                     break;
+
+                case nameof(this.CurrentProblems):
+                    this.currentProblems = null;
+                    _ = this.CurrentProblems;
+                    break;
+
                 case nameof(this.TotalCostForThisLevel):
                     this.totalCostForThisLevel = null;
                     _ = this.TotalCostForThisLevel;
                     break;
-                case nameof(this.BaseLevel):
-                    this.baseLevel = null;
-                    _ = this.BaseLevel;
+
+                case nameof(this.BaseLevelWithoutProblems):
+                    this.baseLevelWithoutProblems = null;
+                    _ = this.BaseLevelWithoutProblems;
                     break;
+
                 case nameof(this.SupportLevel):
                     this.supportLevel = null;
                     _ = this.SupportLevel;
                     break;
+
                 case nameof(this.LevelProblem):
                     this.levelProblem = null;
                     _ = this.LevelProblem;

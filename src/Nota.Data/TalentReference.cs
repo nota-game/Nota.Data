@@ -33,10 +33,6 @@ namespace Nota.Data
             this.Data = data;
             this.Name = item.Name;
             this.Id = item.Id;
-            if (item.BedingungenSpecified)
-            {
-                // Todo 
-            }
             switch (item.Kategorie)
             {
                 case Kategorie.Geist:
@@ -111,7 +107,8 @@ namespace Nota.Data
         void IReference.Initilize(Dictionary<string, TalentReference> directoryTalent, Dictionary<string, CompetencyReference> directoryCompetency, Dictionary<string, FeaturesReference> directoryFeatures, Dictionary<string, TagReference> directoryTags, Dictionary<string, GenusReference> directoryGenus, Dictionary<string, BeingReference> directoryBeing, Dictionary<string, PathGroupReference> directoryPath)
         {
             this.Derivation = GenerateDerivation(this.item.Ableitungen);
-            this.Expressions = ImmutableArray.Create(this.origin.Bedingungen.OrderBy(x => x.Wert).Select(x => new LevelExpression(level: x.Wert, expresion: Expresion.GetExpresion(directoryTalent, directoryCompetency, directoryFeatures, directoryTags, directoryGenus, directoryBeing, directoryPath, x))).ToArray());
+            
+            this.Expressions = ImmutableArray.Create(this.origin?.Bedingungen.OrderBy(x => x.Wert).Select(x => new LevelExpression(level: x.Wert, expresion: Expresion.GetExpresion(directoryTalent, directoryCompetency, directoryFeatures, directoryTags, directoryGenus, directoryBeing, directoryPath, x))).ToArray());
 
 
             DerivationCollection GenerateDerivation(AbleitungsAuswahl ableitungen)
@@ -126,8 +123,6 @@ namespace Nota.Data
                 if (ableitungen.MaxSpecified)
                     foreach (var item in ableitungen.Max)
                         collection.Derivations.Add(GenerateDerivationMax(item));
-
-
 
                 if (ableitungen.AbleitungSpecified)
                     foreach (var item in ableitungen.Ableitung)
