@@ -293,6 +293,83 @@ namespace Nota.Data.Generated.Misc
     /// </summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.0.206.0")]
     [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute("Verbreitung", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class Verbreitung
+    {
+        
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        private System.Collections.ObjectModel.Collection<VerbreitungPfad> _pfad;
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlElementAttribute("Pfad", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
+        public System.Collections.ObjectModel.Collection<VerbreitungPfad> Pfad
+        {
+            get
+            {
+                return this._pfad;
+            }
+            private set
+            {
+                this._pfad = value;
+            }
+        }
+        
+        /// <summary>
+        /// <para xml:lang="de">Ruft einen Wert ab, der angibt, ob die Pfad-Collection leer ist.</para>
+        /// <para xml:lang="en">Gets a value indicating whether the Pfad collection is empty.</para>
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool PfadSpecified
+        {
+            get
+            {
+                return (this.Pfad.Count != 0);
+            }
+        }
+        
+        /// <summary>
+        /// <para xml:lang="de">Initialisiert eine neue Instanz der <see cref="Verbreitung" /> Klasse.</para>
+        /// <para xml:lang="en">Initializes a new instance of the <see cref="Verbreitung" /> class.</para>
+        /// </summary>
+        public Verbreitung()
+        {
+            this._pfad = new System.Collections.ObjectModel.Collection<VerbreitungPfad>();
+        }
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlAttributeAttribute("Wert", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string Wert { get; set; }
+    }
+    
+    /// <summary>
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.0.206.0")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute("VerbreitungPfad", Namespace="http://nota-game.azurewebsites.net/schema/misc", AnonymousType=true)]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class VerbreitungPfad : INamedElement
+    {
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlAttributeAttribute("Id", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string Id { get; set; }
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlAttributeAttribute("Verbreitung", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string Verbreitung { get; set; }
+    }
+    
+    /// <summary>
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.0.206.0")]
+    [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute("LevelAuswahl", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]

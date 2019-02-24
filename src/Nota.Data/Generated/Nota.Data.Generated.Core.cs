@@ -30,8 +30,8 @@ namespace Nota.Data.Generated.Core
         
         /// <summary>
         /// </summary>
-        [System.Xml.Serialization.XmlElementAttribute("StandardDaten", Namespace="http://nota-game.azurewebsites.net/schema/nota")]
-        public DatenStandardDaten StandardDaten { get; set; }
+        [System.Xml.Serialization.XmlElementAttribute("GenerierungsDaten", Namespace="http://nota-game.azurewebsites.net/schema/nota")]
+        public DatenGenerierungsDaten GenerierungsDaten { get; set; }
         
         /// <summary>
         /// </summary>
@@ -167,10 +167,10 @@ namespace Nota.Data.Generated.Core
     /// </summary>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "2.0.206.0")]
     [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute("DatenStandardDaten", Namespace="http://nota-game.azurewebsites.net/schema/nota", AnonymousType=true)]
+    [System.Xml.Serialization.XmlTypeAttribute("DatenGenerierungsDaten", Namespace="http://nota-game.azurewebsites.net/schema/nota", AnonymousType=true)]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class DatenStandardDaten
+    public partial class DatenGenerierungsDaten
     {
         
         /// <summary>
@@ -178,5 +178,10 @@ namespace Nota.Data.Generated.Core
         /// </summary>
         [System.Xml.Serialization.XmlAttributeAttribute("GenerierungsPunkte", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public int GenerierungsPunkte { get; set; }
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlAttributeAttribute("MinimumVerbreitung", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public int MinimumVerbreitung { get; set; }
     }
 }

@@ -80,6 +80,60 @@ namespace Nota.Data.Generated.Fertigkeit
     {
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
+        private System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung> _name;
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlArrayAttribute("Name", Namespace="http://nota-game.azurewebsites.net/schema/fertigkeit")]
+        [System.Xml.Serialization.XmlArrayItemAttribute("Lokalisirung", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
+        public System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung> Name
+        {
+            get
+            {
+                return this._name;
+            }
+            private set
+            {
+                this._name = value;
+            }
+        }
+        
+        /// <summary>
+        /// <para xml:lang="de">Initialisiert eine neue Instanz der <see cref="FertigkeitenFertigkeit" /> Klasse.</para>
+        /// <para xml:lang="en">Initializes a new instance of the <see cref="FertigkeitenFertigkeit" /> class.</para>
+        /// </summary>
+        public FertigkeitenFertigkeit()
+        {
+            this._name = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung>();
+            this._beschreibung = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung>();
+            this._tags = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType>();
+        }
+        
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        private System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung> _beschreibung;
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlArrayAttribute("Beschreibung", Namespace="http://nota-game.azurewebsites.net/schema/fertigkeit")]
+        [System.Xml.Serialization.XmlArrayItemAttribute("Lokalisirung", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
+        public System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung> Beschreibung
+        {
+            get
+            {
+                return this._beschreibung;
+            }
+            private set
+            {
+                this._beschreibung = value;
+            }
+        }
+        
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlElementAttribute("Verbreitung", Namespace="http://nota-game.azurewebsites.net/schema/fertigkeit")]
+        public Nota.Data.Generated.Misc.Verbreitung Verbreitung { get; set; }
+        
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
         private System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType> _tags;
         
         /// <summary>
@@ -112,17 +166,6 @@ namespace Nota.Data.Generated.Fertigkeit
         }
         
         /// <summary>
-        /// <para xml:lang="de">Initialisiert eine neue Instanz der <see cref="FertigkeitenFertigkeit" /> Klasse.</para>
-        /// <para xml:lang="en">Initializes a new instance of the <see cref="FertigkeitenFertigkeit" /> class.</para>
-        /// </summary>
-        public FertigkeitenFertigkeit()
-        {
-            this._tags = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType>();
-            this._name = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung>();
-            this._beschreibung = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung>();
-        }
-        
-        /// <summary>
         /// </summary>
         [System.Xml.Serialization.XmlElementAttribute("Ersetzt", Namespace="http://nota-game.azurewebsites.net/schema/fertigkeit")]
         public FertigkeitenFertigkeitErsetzt Ersetzt { get; set; }
@@ -131,44 +174,6 @@ namespace Nota.Data.Generated.Fertigkeit
         /// </summary>
         [System.Xml.Serialization.XmlElementAttribute("Voraussetzung", Namespace="http://nota-game.azurewebsites.net/schema/fertigkeit")]
         public Nota.Data.Generated.Misc.BedingungsAuswahl Voraussetzung { get; set; }
-        
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        private System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung> _name;
-        
-        /// <summary>
-        /// </summary>
-        [System.Xml.Serialization.XmlArrayAttribute("Name", Namespace="http://nota-game.azurewebsites.net/schema/fertigkeit")]
-        [System.Xml.Serialization.XmlArrayItemAttribute("Lokalisirung", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
-        public System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung> Name
-        {
-            get
-            {
-                return this._name;
-            }
-            private set
-            {
-                this._name = value;
-            }
-        }
-        
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        private System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung> _beschreibung;
-        
-        /// <summary>
-        /// </summary>
-        [System.Xml.Serialization.XmlArrayAttribute("Beschreibung", Namespace="http://nota-game.azurewebsites.net/schema/fertigkeit")]
-        [System.Xml.Serialization.XmlArrayItemAttribute("Lokalisirung", Namespace="http://nota-game.azurewebsites.net/schema/misc")]
-        public System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung> Beschreibung
-        {
-            get
-            {
-                return this._beschreibung;
-            }
-            private set
-            {
-                this._beschreibung = value;
-            }
-        }
         
         /// <summary>
         /// </summary>

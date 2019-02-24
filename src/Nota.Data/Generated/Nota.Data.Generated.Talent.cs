@@ -451,6 +451,11 @@ namespace Nota.Data.Generated.Talent
             }
         }
         
+        /// <summary>
+        /// </summary>
+        [System.Xml.Serialization.XmlElementAttribute("Verbreitung", Namespace="http://nota-game.azurewebsites.net/schema/talent")]
+        public Nota.Data.Generated.Misc.Verbreitung Verbreitung { get; set; }
+        
         [System.Xml.Serialization.XmlIgnoreAttribute()]
         private System.Collections.ObjectModel.Collection<TalenteTalentBedingungenBedingung> _bedingungen;
         

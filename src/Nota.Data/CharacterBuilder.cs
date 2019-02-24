@@ -15,7 +15,7 @@ namespace Nota.Data
             new OrganismChooser(data.Beings, this);
 
             new PathChooser(data.Path.First());
-                //.Pathes.First().Levels.First().
+            //.Pathes.First().Levels.First().
         }
         internal CharacterData Character { get; }
 
@@ -33,15 +33,17 @@ namespace Nota.Data
                 reference.Pathes.Select(x => new Path(x));
             }
 
-            public readonly struct Path
+            public class Path
             {
-                private readonly PathReference reference;
+                public int Used { get; set; }
 
                 public Path(PathReference reference)
                 {
-                    this.reference = reference;
+                    this.Reference = reference;
 
                 }
+
+                public PathReference Reference { get; }
             }
 
         }
