@@ -11,7 +11,7 @@ using Nota.Data.References;
 
 namespace Nota.Data
 {
-    public class CharacterData : INotifyPropertyChanged
+    public class CharacterData : NotifyPropertyChangedBase
     {
         private readonly Data data;
         private readonly Dictionary<TalentReference, TalentData> talent;
@@ -198,22 +198,8 @@ namespace Nota.Data
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void OnTalentChanging(object sender, PropertyChangedEventArgs e)
+        private protected override void FirePropertyChanged([CallerMemberName] string proeprty = null)
         {
-            //if (e.PropertyName == nameof(TalentData.BaseLevel))
-            //    TalentChanging?.Invoke((TalentData)sender);
-            if (e.PropertyName == nameof(TalentData.ExpirienceSpent))
-                this.FirePropertyChanged(nameof(this.TotalExpirienceSpent));
-        }
-
-        public IndexAccessor<TalentReference, TalentData> Talent { get; }
-        public Guid Id { get; }
-
-        private void FirePropertyChanged([CallerMemberName]string proeprty = null)
-        {
-            // When a cached property changes, we want to get its new value to guarantee that other Property Changes will fireie that are triggerd on recalculating the cached values..
             switch (proeprty)
             {
                 case nameof(this.TotalExpirienceSpent):
@@ -234,8 +220,20 @@ namespace Nota.Data
                 default:
                     break;
             }
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(proeprty));
+            base.FirePropertyChanged(proeprty);
         }
+
+        private void OnTalentChanging(object sender, PropertyChangedEventArgs e)
+        {
+            //if (e.PropertyName == nameof(TalentData.BaseLevel))
+            //    TalentChanging?.Invoke((TalentData)sender);
+            if (e.PropertyName == nameof(TalentData.ExpirienceSpent))
+                this.FirePropertyChanged(nameof(this.TotalExpirienceSpent));
+        }
+
+        public IndexAccessor<TalentReference, TalentData> Talent { get; }
+        public Guid Id { get; }
+
 
         internal Serelizer GetSerelizer()
         {

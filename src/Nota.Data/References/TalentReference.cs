@@ -104,11 +104,11 @@ namespace Nota.Data.References
 
         }
 
-        void IReference.Initilize(Dictionary<string, TalentReference> directoryTalent, Dictionary<string, CompetencyReference> directoryCompetency, Dictionary<string, FeaturesReference> directoryFeatures, Dictionary<string, TagReference> directoryTags, Dictionary<string, GenusReference> directoryGenus, Dictionary<string, BeingReference> directoryBeing, Dictionary<string, PathGroupReference> directoryPath)
+        void IReference.Initilize(Dictionary<string, TalentReference> directoryTalent, Dictionary<string, CompetencyReference> directoryCompetency, Dictionary<string, FeaturesReference> directoryFeatures, Dictionary<string, TagReference> directoryTags, Dictionary<string, GenusReference> directoryGenus, Dictionary<string, OrganismReference> directoryBeing, Dictionary<string, PathGroupReference> directoryPathGroup, Dictionary<string, PathReference> directoryPath)
         {
             this.Derivation = GenerateDerivation(this.item.Ableitungen);
             
-            this.Expressions = ImmutableArray.Create(this.origin?.Bedingungen.OrderBy(x => x.Wert).Select(x => new LevelExpression(level: x.Wert, expresion: Expresion.GetExpresion(directoryTalent, directoryCompetency, directoryFeatures, directoryTags, directoryGenus, directoryBeing, directoryPath, x))).ToArray());
+            this.Expressions = ImmutableArray.Create(this.origin?.Bedingungen.OrderBy(x => x.Wert).Select(x => new LevelExpression(level: x.Wert, expresion: Expresion.GetExpresion(directoryTalent, directoryCompetency, directoryFeatures, directoryTags, directoryGenus, directoryBeing, directoryPathGroup, directoryPath, x))).ToArray());
 
 
             DerivationCollection GenerateDerivation(AbleitungsAuswahl ableitungen)

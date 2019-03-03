@@ -34,12 +34,12 @@ namespace Nota.Data.References
         internal Expresion<CharacterData> Expression { get; private set; }
 
 
-        void IReference.Initilize(Dictionary<string, TalentReference> directoryTalent, Dictionary<string, CompetencyReference> directoryCompetency, Dictionary<string, FeaturesReference> directoryFeatures, Dictionary<string, TagReference> directoryTags, Dictionary<string, GenusReference> directoryGenus, Dictionary<string, BeingReference> directoryBeing, Dictionary<string, PathGroupReference> directoryPath)
+        void IReference.Initilize(Dictionary<string, TalentReference> directoryTalent, Dictionary<string, CompetencyReference> directoryCompetency, Dictionary<string, FeaturesReference> directoryFeatures, Dictionary<string, TagReference> directoryTags, Dictionary<string, GenusReference> directoryGenus, Dictionary<string, OrganismReference> directoryBeing, Dictionary<string, PathGroupReference> directoryPathGroup, Dictionary<string, PathReference> directoryPath)
         {
             if (this.origin.Ersetzt?.Fertigkeit != null)
                 this.Replaces = directoryCompetency[this.origin.Ersetzt?.Fertigkeit.Id];
 
-            this.Expression = Expresion.GetExpresion(directoryTalent, directoryCompetency, directoryFeatures, directoryTags, directoryGenus, directoryBeing, directoryPath, this.origin.Voraussetzung);
+            this.Expression = Expresion.GetExpresion(directoryTalent, directoryCompetency, directoryFeatures, directoryTags, directoryGenus, directoryBeing, directoryPathGroup, directoryPath, this.origin.Voraussetzung);
             this.Tags = this.origin.Tags.Select(y => directoryTags[y.Id]).ToImmutableArray();
         }
 

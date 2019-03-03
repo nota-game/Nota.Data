@@ -11,11 +11,11 @@ namespace Nota.Data.References
     public class MorphReference : IReference
     {
 
-        internal MorphReference(Generated.Lebewesen.Morph morph, Data data)
+        internal MorphReference(Morph morph, Data data, OrganismReference beingReference)
         {
             this.origin = morph;
             this.Data = data;
-
+            this.OrganismReference = beingReference;
             switch (morph.Geschlecht)
             {
                 case Generated.Misc.Geschlecht.Neutral:
@@ -37,7 +37,7 @@ namespace Nota.Data.References
             this.Description = morph.Beschreibung;
             this.Id = morph.Id;
             this.Name = morph.Name;
-            this.LifePeriods = morph.Lebensabschnitte.Select(x => new LifePeriodReference(x, data)).ToImmutableArray();
+            this.LifePeriods = morph.Lebensabschnitte.Select(x => LifePeriodReference.Create(x, data,this)).ToImmutableArray();
             this.Attributes = new AttributeStore(morph.Eigenschaften);
 
 
@@ -46,6 +46,7 @@ namespace Nota.Data.References
         private readonly Generated.Lebewesen.Morph origin;
 
         public Data Data { get; }
+        public OrganismReference OrganismReference { get; }
         public Sex Sex { get; }
         public LocalizedString Description { get; }
         public string Id { get; }
@@ -53,19 +54,19 @@ namespace Nota.Data.References
         public ImmutableArray<LifePeriodReference> LifePeriods { get; }
         public AttributeStore Attributes { get; }
         internal ModificationReference Modification { get; }
-        public ImmutableArray<PathGroupReference> DefaultPathes { get; private set; }
+        public ImmutableHashSet<PathReference> DefaultPathes { get; private set; }
         public ImmutableArray<FeaturesReference> Features { get; private set; }
 
-        void IReference.Initilize(Dictionary<string, TalentReference> directoryTalent, Dictionary<string, CompetencyReference> directoryCompetency, Dictionary<string, FeaturesReference> directoryFeatures, Dictionary<string, TagReference> directoryTags, Dictionary<string, GenusReference> directoryGenus, Dictionary<string, BeingReference> directoryBeing, Dictionary<string, PathGroupReference> directoryPath)
+        void IReference.Initilize(Dictionary<string, TalentReference> directoryTalent, Dictionary<string, CompetencyReference> directoryCompetency, Dictionary<string, FeaturesReference> directoryFeatures, Dictionary<string, TagReference> directoryTags, Dictionary<string, GenusReference> directoryGenus, Dictionary<string, OrganismReference> directoryBeing, Dictionary<string, PathGroupReference> directoryPathGroup, Dictionary<string, PathReference> directoryPath)
         {
-            this.DefaultPathes = this.origin.StandardPfade.Select(x => directoryPath[x.Id]).ToImmutableArray();
+            this.DefaultPathes = this.origin.StandardPfade.Select(x => directoryPath[x.Id]).ToImmutableHashSet();
             this.Features = this.origin.BesonderheitenSpecified
               ? this.origin.Besonderheiten.Select(x => directoryFeatures[x.Id]).ToImmutableArray()
               : ImmutableArray.Create<FeaturesReference>();
 
-            ((IReference)this.Modification).Initilize(directoryTalent, directoryCompetency, directoryFeatures, directoryTags, directoryGenus, directoryBeing, directoryPath);
+            ((IReference)this.Modification)?.Initilize(directoryTalent, directoryCompetency, directoryFeatures, directoryTags, directoryGenus, directoryBeing, directoryPathGroup, directoryPath);
             foreach (IReference item in this.LifePeriods)
-                item.Initilize(directoryTalent, directoryCompetency, directoryFeatures, directoryTags, directoryGenus, directoryBeing, directoryPath);
+                item.Initilize(directoryTalent, directoryCompetency, directoryFeatures, directoryTags, directoryGenus, directoryBeing, directoryPathGroup, directoryPath);
         }
 
         public sealed class AttributeStore

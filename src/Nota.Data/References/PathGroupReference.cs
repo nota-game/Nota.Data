@@ -17,8 +17,9 @@ namespace Nota.Data.References
             this.Id = x.Id;
             this.Description = x.Beschreibung;
             this.Name = x.Name;
-            this.MultiSelect = x.Mehrfachauswahl;
-            this.Pathes = x.Pfad.Select(y => new PathReference(y, data,this)).ToImmutableArray();
+            this.MinimumSelection = x.WiderholungMinimum;
+            this.MaximumSelection = x.WiderholungMaximum;
+            this.Pathes = x.Pfad.Select(y => new PathReference(y, data, this)).ToImmutableArray();
 
         }
 
@@ -28,13 +29,14 @@ namespace Nota.Data.References
         public string Id { get; }
         public LocalizedString Description { get; }
         public LocalizedString Name { get; }
-        public bool MultiSelect { get; }
+        public int MinimumSelection { get; }
+        public int MaximumSelection { get; }
         internal ImmutableArray<PathReference> Pathes { get; }
 
-        void IReference.Initilize(Dictionary<string, TalentReference> directoryTalent, Dictionary<string, CompetencyReference> directoryCompetency, Dictionary<string, FeaturesReference> directoryFeatures, Dictionary<string, TagReference> directoryTags, Dictionary<string, GenusReference> directoryGenus, Dictionary<string, BeingReference> directoryBeing, Dictionary<string, PathGroupReference> directoryPath)
+        void IReference.Initilize(Dictionary<string, TalentReference> directoryTalent, Dictionary<string, CompetencyReference> directoryCompetency, Dictionary<string, FeaturesReference> directoryFeatures, Dictionary<string, TagReference> directoryTags, Dictionary<string, GenusReference> directoryGenus, Dictionary<string, OrganismReference> directoryBeing, Dictionary<string, PathGroupReference> directoryPathGroup, Dictionary<string, PathReference> directoryPath)
         {
             foreach (IReference item in this.Pathes)
-                item.Initilize(directoryTalent, directoryCompetency, directoryFeatures, directoryTags, directoryGenus, directoryBeing, directoryPath);
+                item.Initilize(directoryTalent, directoryCompetency, directoryFeatures, directoryTags, directoryGenus, directoryBeing, directoryPathGroup, directoryPath);
         }
 
     }

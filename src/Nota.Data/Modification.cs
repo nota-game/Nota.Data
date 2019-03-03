@@ -15,14 +15,14 @@ namespace Nota.Data
         internal ModificationReference(Mods mods)
         {
             this.origin = mods;
-            this.AttributeModification = new AttributeModification(this.origin.Eigenschaften);
+            this.AttributeModification = new AttributeModification(this.origin?.Eigenschaften);
         }
 
         public ImmutableArray<FeaturesReference> Features { get; private set; }
 
-        void IReference.Initilize(Dictionary<string, TalentReference> directoryTalent, Dictionary<string, CompetencyReference> directoryCompetency, Dictionary<string, FeaturesReference> directoryFeatures, Dictionary<string, TagReference> directoryTags, Dictionary<string, GenusReference> directoryGenus, Dictionary<string, BeingReference> directoryBeing, Dictionary<string, PathGroupReference> directoryPath)
+        void IReference.Initilize(Dictionary<string, TalentReference> directoryTalent, Dictionary<string, CompetencyReference> directoryCompetency, Dictionary<string, FeaturesReference> directoryFeatures, Dictionary<string, TagReference> directoryTags, Dictionary<string, GenusReference> directoryGenus, Dictionary<string, OrganismReference> directoryBeing, Dictionary<string, PathGroupReference> directoryPathGroup, Dictionary<string, PathReference> directoryPath)
         {
-            if (this.origin.BesonderheitenSpecified)
+            if (this.origin?.BesonderheitenSpecified ?? false)
                 this.Features = this.origin.Besonderheiten.Select(x => directoryFeatures[x.Id]).ToImmutableArray();
             else
                 this.Features = ImmutableArray.Create<FeaturesReference>();

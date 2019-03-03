@@ -139,21 +139,40 @@ namespace Nota.Data.Generated.Pfad
         public string Id { get; set; }
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
-        private bool _mehrfachauswahl = false;
+        private int _widerholungMinimum = 1;
         
         /// <summary>
         /// </summary>
-        [System.ComponentModel.DefaultValueAttribute(false)]
-        [System.Xml.Serialization.XmlAttributeAttribute("Mehrfachauswahl", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public bool Mehrfachauswahl
+        [System.ComponentModel.DefaultValueAttribute(1)]
+        [System.Xml.Serialization.XmlAttributeAttribute("WiderholungMinimum", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public int WiderholungMinimum
         {
             get
             {
-                return this._mehrfachauswahl;
+                return this._widerholungMinimum;
             }
             set
             {
-                this._mehrfachauswahl = value;
+                this._widerholungMinimum = value;
+            }
+        }
+        
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        private int _widerholungMaximum = 1;
+        
+        /// <summary>
+        /// </summary>
+        [System.ComponentModel.DefaultValueAttribute(1)]
+        [System.Xml.Serialization.XmlAttributeAttribute("WiderholungMaximum", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public int WiderholungMaximum
+        {
+            get
+            {
+                return this._widerholungMaximum;
+            }
+            set
+            {
+                this._widerholungMaximum = value;
             }
         }
     }
@@ -195,6 +214,7 @@ namespace Nota.Data.Generated.Pfad
         {
             this._name = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung>();
             this._beschreibung = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LokalisierungenLokalisirung>();
+            this._nächstePfade = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType>();
             this._levels = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LevelsLevel>();
         }
         
@@ -217,10 +237,37 @@ namespace Nota.Data.Generated.Pfad
             }
         }
         
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        private System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType> _nächstePfade;
+        
         /// <summary>
         /// </summary>
-        [System.Xml.Serialization.XmlElementAttribute("NächstePfade", Namespace="http://nota-game.azurewebsites.net/schema/pfad")]
-        public PfadGruppenPfadePfadNächstePfade NächstePfade { get; set; }
+        [System.Xml.Serialization.XmlArrayAttribute("NächstePfade", Namespace="http://nota-game.azurewebsites.net/schema/pfad")]
+        [System.Xml.Serialization.XmlArrayItemAttribute("Pfad", Namespace="http://nota-game.azurewebsites.net/schema/pfad")]
+        public System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType> NächstePfade
+        {
+            get
+            {
+                return this._nächstePfade;
+            }
+            private set
+            {
+                this._nächstePfade = value;
+            }
+        }
+        
+        /// <summary>
+        /// <para xml:lang="de">Ruft einen Wert ab, der angibt, ob die NächstePfade-Collection leer ist.</para>
+        /// <para xml:lang="en">Gets a value indicating whether the NächstePfade collection is empty.</para>
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool NächstePfadeSpecified
+        {
+            get
+            {
+                return (this.NächstePfade.Count != 0);
+            }
+        }
         
         [System.Xml.Serialization.XmlIgnoreAttribute()]
         private System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.LevelsLevel> _levels;
@@ -257,10 +304,32 @@ namespace Nota.Data.Generated.Pfad
     public partial class PfadGruppenPfadePfadNächstePfade
     {
         
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        private System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType> _pfad;
+        
         /// <summary>
         /// </summary>
         [System.Xml.Serialization.XmlElementAttribute("Pfad", Namespace="http://nota-game.azurewebsites.net/schema/pfad")]
-        public Nota.Data.Generated.Misc.NamedType Pfad { get; set; }
+        public System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType> Pfad
+        {
+            get
+            {
+                return this._pfad;
+            }
+            private set
+            {
+                this._pfad = value;
+            }
+        }
+        
+        /// <summary>
+        /// <para xml:lang="de">Initialisiert eine neue Instanz der <see cref="PfadGruppenPfadePfadNächstePfade" /> Klasse.</para>
+        /// <para xml:lang="en">Initializes a new instance of the <see cref="PfadGruppenPfadePfadNächstePfade" /> class.</para>
+        /// </summary>
+        public PfadGruppenPfadePfadNächstePfade()
+        {
+            this._pfad = new System.Collections.ObjectModel.Collection<Nota.Data.Generated.Misc.NamedType>();
+        }
     }
     
     /// <summary>

@@ -24,7 +24,7 @@ namespace Nota.Data
             //this.Path = path;
         }
 
-        private void Initilize(ImmutableArray<TalentReference> talents, ImmutableArray<CompetencyReference> competency, ImmutableArray<TagReference> tags, ImmutableArray<FeaturesReference> features, ImmutableArray<BeingReference> beings, ImmutableArray<GenusReference> genus, ImmutableArray<PathGroupReference> path)
+        private void Initilize(ImmutableArray<TalentReference> talents, ImmutableArray<CompetencyReference> competency, ImmutableArray<TagReference> tags, ImmutableArray<FeaturesReference> features, ImmutableArray<OrganismReference> beings, ImmutableArray<GenusReference> genus, ImmutableArray<PathGroupReference> path)
         {
             this.Talents = talents;
             this.Competency = competency;
@@ -35,7 +35,7 @@ namespace Nota.Data
             this.Path = path;
         }
 
-        public ImmutableArray<BeingReference> Beings { get; private set; }
+        public ImmutableArray<OrganismReference> Beings { get; private set; }
         public ImmutableArray<GenusReference> Genus { get; private set; }
         public ImmutableArray<PathGroupReference> Path { get; private set; }
 
@@ -46,7 +46,7 @@ namespace Nota.Data
                 var serializer = new XmlSerializer(typeof(Generated.Core.Daten));
                 var data = serializer.Deserialize(stream) as Generated.Core.Daten;
                 var talentList = new List<TalentReference>();
-                var beingList = new List<BeingReference>();
+                var beingList = new List<OrganismReference>();
                 var competencyList = new List<CompetencyReference>();
                 var tagList = new List<TagReference>();
                 var genusList = new List<GenusReference>();
@@ -55,8 +55,8 @@ namespace Nota.Data
 
                 var output = new Data();
 
-                var directoryBeing = new Dictionary<string, BeingReference>();
-                foreach (var item in data.Organismen.Organismus.Select(x => new BeingReference(x, output)))
+                var directoryBeing = new Dictionary<string, OrganismReference>();
+                foreach (var item in data.Organismen.Organismus.Select(x => new OrganismReference(x, output)))
                 {
                     beingList.Add(item);
                     directoryBeing.Add(item.Id, item);
@@ -69,11 +69,14 @@ namespace Nota.Data
                     directoryGenus.Add(item.Id, item);
                 }
 
-                var directoryPath = new Dictionary<string, PathGroupReference>();
+                var directoryPathGroup = new Dictionary<string, PathGroupReference>();
+                var directoryPath = new Dictionary<string, PathReference>();
                 foreach (var item in data.PfadGruppen.Select(x => new PathGroupReference(x, output)))
                 {
                     pathList.Add(item);
-                    directoryPath.Add(item.Id, item);
+                    directoryPathGroup.Add(item.Id, item);
+                    foreach (var p in item.Pathes)
+                        directoryPath.Add(p.Id, p);
                 }
 
                 var directoryTalent = new Dictionary<string, TalentReference>();
@@ -113,7 +116,7 @@ namespace Nota.Data
                     .Concat(output.Beings)
                     .Concat(output.Genus)
                     .Concat(output.Path))
-                    item.Initilize(directoryTalent, directoryCompetency, directoryFeatures, directoryTags, directoryGenus, directoryBeing, directoryPath);
+                    item.Initilize(directoryTalent, directoryCompetency, directoryFeatures, directoryTags, directoryGenus, directoryBeing, directoryPathGroup, directoryPath);
 
                 return output;
             });

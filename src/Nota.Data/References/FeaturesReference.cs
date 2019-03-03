@@ -39,12 +39,12 @@ namespace Nota.Data.References
         public FeaturesReference Replaces { get; private set; }
         internal Expressions.Expresion<CharacterData> Expression { get; private set; }
 
-        void IReference.Initilize(Dictionary<string, TalentReference> directoryTalent, Dictionary<string, CompetencyReference> directoryCompetency, Dictionary<string, FeaturesReference> directoryFeatures, Dictionary<string, TagReference> directoryTags, Dictionary<string, GenusReference> directoryGenus, Dictionary<string, BeingReference> directoryBeing, Dictionary<string, PathGroupReference> directoryPath)
+        void IReference.Initilize(Dictionary<string, TalentReference> directoryTalent, Dictionary<string, CompetencyReference> directoryCompetency, Dictionary<string, FeaturesReference> directoryFeatures, Dictionary<string, TagReference> directoryTags, Dictionary<string, GenusReference> directoryGenus, Dictionary<string, OrganismReference> directoryBeing, Dictionary<string, PathGroupReference> directoryPathGroup, Dictionary<string, PathReference> directoryPath)
         {
             if (this.origin.Ersetzt?.Besonderheit.Id != null)
                 this.Replaces = directoryFeatures[this.origin.Ersetzt?.Besonderheit.Id];
 
-            this.Expression = Expressions.Expresion.GetExpresion(directoryTalent, directoryCompetency, directoryFeatures, directoryTags, directoryGenus, directoryBeing, directoryPath, this.origin.Bedingung);
+            this.Expression = Expressions.Expresion.GetExpresion(directoryTalent, directoryCompetency, directoryFeatures, directoryTags, directoryGenus, directoryBeing, directoryPathGroup, directoryPath, this.origin.Bedingung);
             this.Tags = this.origin.Tags.Select(y => directoryTags[y.Id]).ToImmutableArray();
 
 

@@ -42,7 +42,7 @@ namespace Nota.Data.References
         public ImmutableArray<TalentReference> Talents { get; private set; }
         internal Expresion<CharacterData> Expression { get; private set; }
 
-        void IReference.Initilize(Dictionary<string, TalentReference> directoryTalent, Dictionary<string, CompetencyReference> directoryCompetency, Dictionary<string, FeaturesReference> directoryFeatures, Dictionary<string, TagReference> directoryTags, Dictionary<string, GenusReference> directoryGenus, Dictionary<string, BeingReference> directoryBeing, Dictionary<string, PathGroupReference> directoryPath)
+        void IReference.Initilize(Dictionary<string, TalentReference> directoryTalent, Dictionary<string, CompetencyReference> directoryCompetency, Dictionary<string, FeaturesReference> directoryFeatures, Dictionary<string, TagReference> directoryTags, Dictionary<string, GenusReference> directoryGenus, Dictionary<string, OrganismReference> directoryBeing, Dictionary<string, PathGroupReference> directoryPathGroup, Dictionary<string, PathReference> directoryPath)
         {
             this.Features = this.origin.BesonderheitSpecified
                ? this.origin.Besonderheit.Select(x => directoryFeatures[x.Id]).ToImmutableArray()
@@ -60,8 +60,8 @@ namespace Nota.Data.References
                 ? this.origin.Talent.Select(x => directoryTalent[x.Id]).ToImmutableArray()
                 : ImmutableArray.Create<TalentReference>();
 
-            this.Expression = Expressions.Expresion.GetExpresion(directoryTalent, directoryCompetency, directoryFeatures, directoryTags, directoryGenus, directoryBeing, directoryPath, this.origin.Bedingungen.Zusätzlich);
-            this.Expression = Expressions.Expresion.GetExpresion(directoryTalent, directoryCompetency, directoryFeatures, directoryTags, directoryGenus, directoryBeing, directoryPath, this.PathReference.Levels, this.origin.Bedingungen.LevelVoraussetzung);
+            this.Expression = Expressions.Expresion.GetExpresion(directoryTalent, directoryCompetency, directoryFeatures, directoryTags, directoryGenus, directoryBeing, directoryPathGroup, directoryPath, this.origin.Bedingungen?.Zusätzlich);
+            //this.Expression = Expressions.Expresion.GetExpresion(directoryTalent, directoryCompetency, directoryFeatures, directoryTags, directoryGenus, directoryBeing, directoryPath, this.PathReference.Levels, this.origin.Bedingungen.LevelVoraussetzung);
 
         }
     }

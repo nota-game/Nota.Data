@@ -7,10 +7,10 @@ using Nota.Data.Generated.Misc;
 
 namespace Nota.Data.References
 {
-    public class BeingReference : IReference
+    public class OrganismReference : IReference
     {
 
-        public BeingReference(Generated.Lebewesen.OrganismenOrganismus being, Data data)
+        public OrganismReference(Generated.Lebewesen.OrganismenOrganismus being, Data data)
         {
             this.origin = being;
             this.Data = data;
@@ -21,7 +21,7 @@ namespace Nota.Data.References
             this.Species = being.Art;
 
 
-            this.Morphs = being.Morphe.Select(morph => new MorphReference(morph, data)).ToImmutableArray();
+            this.Morphs = being.Morphe.Select(morph => new MorphReference(morph, data,this)).ToImmutableArray();
         }
 
         private readonly Generated.Lebewesen.OrganismenOrganismus origin;
@@ -34,16 +34,16 @@ namespace Nota.Data.References
         public ImmutableArray<MorphReference> Morphs { get; }
         public ImmutableArray<FeaturesReference> Features { get; private set; }
         public GenusReference Gattung { get; private set; }
-        public ImmutableArray<PathGroupReference> DefaultPathes { get; private set; }
+        public ImmutableArray<PathReference> DefaultPathes { get; private set; }
 
-        void IReference.Initilize(Dictionary<string, TalentReference> directoryTalent, Dictionary<string, CompetencyReference> directoryCompetency, Dictionary<string, FeaturesReference> directoryFeatures, Dictionary<string, TagReference> directoryTags, Dictionary<string, GenusReference> directoryGenus, Dictionary<string, BeingReference> directoryBeing, Dictionary<string, PathGroupReference> directoryPath)
+        void IReference.Initilize(Dictionary<string, TalentReference> directoryTalent, Dictionary<string, CompetencyReference> directoryCompetency, Dictionary<string, FeaturesReference> directoryFeatures, Dictionary<string, TagReference> directoryTags, Dictionary<string, GenusReference> directoryGenus, Dictionary<string, OrganismReference> directoryBeing, Dictionary<string, PathGroupReference> directoryPathGroup, Dictionary<string, PathReference> directoryPath)
         {
             this.Features = this.origin.BesonderheitenSpecified
                 ? this.origin.Besonderheiten.Select(x => directoryFeatures[x.Id]).ToImmutableArray()
                 : ImmutableArray.Create<FeaturesReference>();
 
             foreach (IReference item in this.Morphs)
-                item.Initilize(directoryTalent, directoryCompetency, directoryFeatures, directoryTags, directoryGenus, directoryBeing, directoryPath);
+                item.Initilize(directoryTalent, directoryCompetency, directoryFeatures, directoryTags, directoryGenus, directoryBeing, directoryPathGroup, directoryPath);
 
             this.Gattung = directoryGenus[this.origin.Gattung];
             this.DefaultPathes = this.origin.StandardPfade.Select(x => directoryPath[x.Id]).ToImmutableArray();

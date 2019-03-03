@@ -7,6 +7,8 @@ namespace Nota.Data
 
         internal AttributeModification(EigenschaftsMods eigenschaften)
         {
+            if (eigenschaften == null)
+                return;
             this.Sympathy = eigenschaften.Sympathie?.Mod;
             this.Strength = eigenschaften.Stärke?.Mod;
             this.Courage = eigenschaften.Mut?.Mod;
